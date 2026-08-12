@@ -14,6 +14,16 @@ Since the intention is to pair up the app with the *Tyto interface*, an approved
 # Streaming
 This is handled by the API and service [Stream](https://getstream.io/video/sdk/react/tutorial/video-calling/).
 
+*Npm* package is installed through
+```
+npm install @stream-io/video-react-sdk  
+```
+
+To get the videocall server running, on linux, install the *CLI* for `getstream`
+```
+curl -fsSL https://getstream.io/cli.sh | bash
+```
+
 
 # Backend
 
