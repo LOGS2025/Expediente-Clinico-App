@@ -1,10 +1,10 @@
 'use client'
 
-const Paraclinicos = ()=>{
+const HistClinica = ()=>{
     return (
         <>
         </>
     )
 }
 
-export default Paraclinicos;
+export default HistClinica;

@@ -1,13 +1,13 @@
 'use client';
 
+import { useSideBarItems } from "@/lib";
+import { Side } from "@/lib/utils";
 import Link from "next/link";
 
-/*
-    Move to a more general file
-*/
-export type Tab = "" | "" | "" ;
 
-const Sidebar = ({ selectedTab }: { selectedTab: Tab | null })=> {
+const Sidebar = ()=> {
+    const sidebarItems = useSideBarItems();
+
     return (
     <aside className="fixed left-0 top-[18%] bottom-[15%] w-[20%] flex flex-col p-4 z-40 bg-slate-100 dark:bg-slate-950 font-['Inter'] text-sm font-medium">
         <div className="mb-8 px-2">
@@ -17,24 +17,11 @@ const Sidebar = ({ selectedTab }: { selectedTab: Tab | null })=> {
             <nav className="flex flex-col gap-2">
                 {sidebarItems.map((item) => {
                     return (
-                    <li key={item.ref} className="">
-                        {item.name === selectedTab ? (
-                            <Link
-                            href={item.href}
-                            className=""
-                            >
-                            {item.icon}{" "}
-                            <span></span>
-                            </Link>
-                        ) : (
-                            <Link
-                            href={item.href}
-                            className=""
-                            >
-                            {item.icon}{" "}
-                            <span></span>
-                            </Link>
-                        )}
+                    <li key={item.name} className="">
+                            <div>
+                                {item.icon}{" "}
+                                <span></span>
+                            </div>
                     </li>
                     )
                 })}

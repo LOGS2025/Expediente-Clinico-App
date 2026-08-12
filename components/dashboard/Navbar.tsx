@@ -1,11 +1,16 @@
 'use client';
 
+import { useTopBarItems } from "@/lib";
+import { Top } from "@/lib/utils";
+
 // Imports necesarios 
 /*
     Informacion del paciente activo, si es que hay!
 */
 
-const Navbar = ()=>{
+const Navbar = ({ selectedTab }: { selectedTab: Top | null })=>{
+    const topbarItems = useTopBarItems();
+
     return (
         <section>
             <div className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 bg-slate-50/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-sm dark:shadow-none h-[18%]">
@@ -25,16 +30,23 @@ const Navbar = ()=>{
                     Se encuentran en guias.
                 */}
                 <nav className="hidden md:flex items-center gap-8 mt-8">
-                    <a className="text-slate-500 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors" href="#">
-                        PRONAM y<br/>Guías Clínicas</a>
-                    <a className="text-slate-500 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors" href="#">
-                        Guía de teleconsulta</a>
-                    <a className="text-slate-500 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors" href="#">
-                        Guía de prescripción</a>
-                    <a className="text-slate-500 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors" href="#">
-                        Guía de Actividades Profesionales a Confiar</a>
-                    <a className="text-slate-500 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors" href="#">
-                        Más recursos</a>
+                    {topbarItems.map((item) => {
+                        return (
+                        <li key={item.name} className="">
+                            {item.name === selectedTab ? (
+                                <div className="text-slate-500 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">
+                                    {item.icon}{" "}
+                                    <span>{item.name}</span>
+                                </div>
+                            ) : (
+                                <div className="text-amber-100 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">
+                                    {item.icon}{" "}
+                                    <span>{item.name}</span>
+                                </div>
+                            )}
+                        </li>
+                        )
+                    })}
                 </nav>
 
                 {/* 
