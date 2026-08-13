@@ -1,25 +1,47 @@
 //import dayjs from "dayjs";
 import type { BoundStateCreator } from "@/lib/hooks/useBoundStore";
 //import Cookies from 'js-cookie'
-import Router from "next/router";
 import { UserSlice } from "../slices/userSlice";
-import { createUser } from "../models/UserCreate";
-import router from "next/router";
+import { User } from "../models/User";
+import DoctorDashboardLayout from "@/components/dashboard/user/DoctorDashboard";
+import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDashboard";
+import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
+import { Role } from "../utils/types";
 
 /*
  *  The website should recognize the role by fetching it from the db? 
  *  Since you cant create accounts on the website?
  */
+const layoutMap = {
+    'doctor' : DoctorDashboardLayout,
+    'supervisor' : SupervisorDashboardLayout,
+    'patient' : PatientDashboardLayout,
+    'indefinido' : null
+} as const;
 
+interface UserData {
+    id_string: string;
+    name: string;
+    email: string;
+    phone?: string;
+    role: Role;
+}
 
 export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     user: null,
     error: null,
     loggedIn: false,
 
-    login: async (userData: any) => {
+    login: async (userData: UserData) => {
         try {
-            const user = createUser(userData);
+            const user: User = {
+                id_string: userData.id_string,
+                name: userData.name,
+                email: userData.email,
+                phone: userData.phone,
+
+                role: userData.role,
+            }
 
             set({
                 user, 
@@ -31,9 +53,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
         }
     },
 
-    logout() {
-            
-    },
+    logout() {},
 
     setUser: (user) => set({ user, loggedIn: true }),
     setError: (error) => set({ error }),
@@ -42,6 +62,12 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     isDoctor: () => get().user?.role === 'doctor',
     isPatient: () => get().user?.role === 'patient',
     isSupervisor: () => get().user?.role === 'supervisor',
+
+    getDashboard: ()=> {
+        const user = get().user;
+        if ( !user ) return null;
+        return layoutMap[user.role];
+    }
 })
 
 

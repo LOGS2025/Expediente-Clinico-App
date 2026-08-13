@@ -1,3 +1,4 @@
+import { ComponentType } from "react";
 import { User } from "../models/User";
 import { Role } from "../utils/types";
 
@@ -8,6 +9,10 @@ export type UserSlice = {
   user : User | null;
   error: string | null;
   loggedIn: boolean;
+
+//  in_video_call: boolean;
+
+//  cookieToken?: string | null;
   
   login: (userData : any) => Promise<void>;
   logout: () => void;
@@ -18,5 +23,6 @@ export type UserSlice = {
   isDoctor: () => boolean;
   isPatient: () => boolean;
   isSupervisor: () => boolean;
+  getDashboard: ()=> ComponentType | null;
   //joinedAt: dayjs.Dayjs;
 };
