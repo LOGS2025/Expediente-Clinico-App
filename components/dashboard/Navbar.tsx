@@ -1,7 +1,7 @@
 'use client';
 
-import { useTopBarItems } from "@/lib";
-import { Top } from "@/lib/utils";
+import { useTopBarItems } from "@/lib/utils/index";
+import { Top } from "@/lib/utils/barItems";
 
 // Imports necesarios 
 /*

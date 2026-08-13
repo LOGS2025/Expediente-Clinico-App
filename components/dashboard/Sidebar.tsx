@@ -1,7 +1,7 @@
 'use client';
 
-import { useSideBarItems } from "@/lib";
-import { Side } from "@/lib/utils";
+import { useSideBarItems } from "@/lib/utils/index";
+import { Side } from "@/lib/utils/barItems";
 import Link from "next/link";
 
 
