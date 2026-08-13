@@ -1,5 +1,5 @@
 
-export type Role = 'doctor' | 'patient' | 'supervisor';
+export type Role = 'doctor' | 'patient' | 'supervisor' | 'indefinido';
 
 
 

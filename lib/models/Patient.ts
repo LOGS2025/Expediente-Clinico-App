@@ -16,7 +16,7 @@ export class Patient extends User {
         loggedIn: boolean = false,
         inVideoCall: boolean = false
     ) {
-        super(id, email, fullName);
+        super(id, email, fullName, 'patient');
     };
     
     // getDashboardLayout(): React.ReactNode {

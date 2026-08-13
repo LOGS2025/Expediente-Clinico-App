@@ -13,7 +13,7 @@ export class Doctor extends User {
     loggedIn: boolean = false,
     inVideoCall: boolean = false
   ) {
-    super(id, email, fullName);
+    super(id, email, fullName, 'doctor');
   }
 
   // @param patient

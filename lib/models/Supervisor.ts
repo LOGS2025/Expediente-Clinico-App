@@ -14,7 +14,7 @@ export class Supervisor extends User {
     loggedIn: boolean = false,
     inVideoCall: boolean = false
   ) {
-    super(id, email, fullName);
+    super(id, email, fullName, 'supervisor');
   }
   /***********************************
    * On call methods

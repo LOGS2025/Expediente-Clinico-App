@@ -2,15 +2,46 @@
 import type { BoundStateCreator } from "@/lib/hooks/useBoundStore";
 //import Cookies from 'js-cookie'
 import Router from "next/router";
-import { useBoundStore } from "@/lib/hooks/useBoundStore";
-import { Role } from "../utils/types";
 import { UserSlice } from "../slices/userSlice";
+import { createUser } from "../models/UserCreate";
+import router from "next/router";
 
-export const createUserSlice: BoundStateCreator<UserSlice> = (set) => ({
-    id_string: "",
-    name: "",
+/*
+ *  The website should recognize the role by fetching it from the db? 
+ *  Since you cant create accounts on the website?
+ */
+
+
+export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
+    user: null,
+    error: null,
     loggedIn: false,
-    setName: (name: string) => set(() => ({ name })),
+
+    login: async (userData: any) => {
+        try {
+            const user = createUser(userData);
+
+            set({
+                user, 
+                loggedIn: true,
+                error: null
+            });
+        } catch(error) {
+            console.log(error);
+        }
+    },
+
+    logout() {
+            
+    },
+
+    setUser: (user) => set({ user, loggedIn: true }),
+    setError: (error) => set({ error }),
+
+    getRole: () => get().user?.role || null,
+    isDoctor: () => get().user?.role === 'doctor',
+    isPatient: () => get().user?.role === 'patient',
+    isSupervisor: () => get().user?.role === 'supervisor',
 })
 
 

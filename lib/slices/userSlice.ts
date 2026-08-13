@@ -1,10 +1,22 @@
+import { User } from "../models/User";
+import { Role } from "../utils/types";
 
 export type UserSlice = {
-  name: string;
-  id_string: string;
-  //joinedAt: dayjs.Dayjs;
+  // Role is extracted from Database and created the necessary class each login
+  // Name is extracted from either DataBase or GoogleAuth options
+  // ID is extracted from Database
+  user : User | null;
+  error: string | null;
   loggedIn: boolean;
-  setName: (name: string) => void;
-  //logIn: (authToken : string) => void;
-  //logOut: () => void;
+  
+  login: (userData : any) => Promise<void>;
+  logout: () => void;
+  setUser: (user: User) => void;
+  setError: (error: string | null) => void;  
+
+  getRole: () => Role | null;
+  isDoctor: () => boolean;
+  isPatient: () => boolean;
+  isSupervisor: () => boolean;
+  //joinedAt: dayjs.Dayjs;
 };
