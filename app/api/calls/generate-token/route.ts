@@ -9,7 +9,6 @@ export async function GET() {
 
         const client = new StreamClient(apiKey, secret, {timeout: 3000}); // Timeout added
 
-
         /**
          *      Creating a user
          *  Provide ID and role

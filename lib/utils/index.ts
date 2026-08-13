@@ -1,4 +1,4 @@
-import { Side, Top } from "@/lib/utils";
+import { Side, Top } from "@/lib/utils/barItems";
 import HistClinica from "@/components/medical/Histclinica";
 import Paraclinicos from "@/components/medical/Paraclinicos";
 import { ComponentType } from "react";

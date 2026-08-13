@@ -43,7 +43,10 @@ const client = new StreamClient(apiKey, appSecret, {
   agent: new Agent({ connections: 100 }),
 ```
 
-
+https://getstream.io/video/sdk/react/tutorial/video-calling/#path-b---build-it-manually
+https://getstream.io/video/docs/api/
+https://getstream.io/video/docs/api/call-types/builtin/
+https://getstream.io/docs/platform/users/
 
 
 # Backend
