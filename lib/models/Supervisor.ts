@@ -1,4 +1,6 @@
+import { ComponentType } from "react";
 import { User } from "./User";
+import DashboardLayout from "@/components/dashboard/SupervisorDashboard";
 
 
 export class Supervisor extends User {
@@ -21,4 +23,13 @@ export class Supervisor extends User {
    ***********************************/
   // Should create call?
   //createCall() {};
+
+  /**
+   * 
+   * @returns The layout to display as dashboard for out Doctor user
+   */
+  getDashboardLayout(): ComponentType {
+      return DashboardLayout;
+  }
+
 }

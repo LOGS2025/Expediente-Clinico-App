@@ -5,3 +5,13 @@
  *      - sidebar
  *      - Cuenta?
  */
+
+const SupervisorDashboardLayout = ()=> {
+        return (
+        <>
+        </>
+        )
+}
+
+
+export default SupervisorDashboardLayout;

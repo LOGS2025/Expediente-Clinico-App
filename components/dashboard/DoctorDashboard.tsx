@@ -1,5 +1,6 @@
 import Sidebar from "@/components/dashboard/Sidebar";
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
+import { Patient } from "@/lib/models/Patient";
 import { ComponentType, useState } from "react";
 
 /**
@@ -10,28 +11,44 @@ import { ComponentType, useState } from "react";
  *      - Cuenta
  */
 
-const DashboardLayout = ()=> {
-    const [ActiveItem, setItem] = useState<ComponentType | null >(null);
-        
-        const user = useBoundStore((state)=>state.user);
-        return (
-        <>
-        {/* Side bar  */}
-            <Sidebar 
-                ActiveItem={ActiveItem}
-                setItem={setItem}
-            />
-        {/* Side bar selected item */}
-        
-            {ActiveItem?  (
-                <ActiveItem/>
-            ) : (
-                <>
-                </>
-            )}
-        </>
-        )
+export interface Appointment {
+    Date: string,
+    Patient: Patient,
+    
 }
 
 
-export default DashboardLayout;
+const DoctorDashboardLayout = ()=> {
+    const [ActiveItem, setItem] = useState<ComponentType | null >(null);
+    const user = useBoundStore((state)=>state.user);
+
+    return (
+        <div className="flex ">
+            {/* Side bar  */}
+            <div className="flex-1">
+                <Sidebar 
+                    ActiveItem={ActiveItem}
+                    setItem={setItem}
+                />
+            </div>
+
+            <div className="flex-4">
+                {/* Side bar selected item */}
+                {ActiveItem?  (
+                    <ActiveItem/>
+                ) : (
+                    <>
+                    </>
+                )}
+                {/* On the same flex, place our db 
+                information panel for appointments */}
+
+            
+            </div>
+            
+        </div>
+    )
+}
+
+
+export default DoctorDashboardLayout;

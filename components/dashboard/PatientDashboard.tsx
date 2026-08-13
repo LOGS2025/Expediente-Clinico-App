@@ -5,3 +5,13 @@
  *      - sidebar
  *      - Cuenta
  */
+
+const PatientDashboardLayout = ()=> {
+        return (
+        <>
+        </>
+        )
+}
+
+
+export default PatientDashboardLayout;

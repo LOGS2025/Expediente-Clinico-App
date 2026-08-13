@@ -1,5 +1,7 @@
+import { ComponentType } from "react";
 import { Appointment } from "./Appointment";
 import { User } from "./User";
+import DashboardLayout from "@/components/dashboard/PatientDashboard";
 
 
 export class Patient extends User {
@@ -30,4 +32,12 @@ export class Patient extends User {
      * On call methods
     ***********************************/
     sendSensorData() {};
+
+    /**
+     * 
+     * @returns The layout to display as dashboard for out Patient user
+     */
+    getDashboardLayout(): ComponentType {
+        return DashboardLayout;
+    }
 }
