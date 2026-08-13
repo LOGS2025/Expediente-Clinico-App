@@ -27,21 +27,21 @@ const Navbar = ({ selectedTab }: { selectedTab: Top | null })=>{
                 </div>
 
                 {/* Apartados para diferentes paginas. 
-                    Se encuentran en guias.
+                    Se encuentran en guias. El argumento permite iluminar donde nos encontramos.
                 */}
                 <nav className="hidden md:flex items-center gap-8 mt-8">
                     {topbarItems.map((item) => {
                         return (
                         <li key={item.name} className="">
                             {item.name === selectedTab ? (
-                                <div className="text-slate-500 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">
+                                <div >
                                     {item.icon}{" "}
-                                    <span>{item.name}</span>
+                                    <span className="text-amber-50 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">{item.name}</span>
                                 </div>
                             ) : (
-                                <div className="text-amber-100 dark:text-slate-400 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">
+                                <div >
                                     {item.icon}{" "}
-                                    <span>{item.name}</span>
+                                    <span className="text-slate-500 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">{item.name}</span>
                                 </div>
                             )}
                         </li>

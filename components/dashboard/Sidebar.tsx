@@ -1,39 +1,45 @@
 'use client';
 
 import { useSideBarItems } from "@/lib/utils/index";
-import { Side } from "@/lib/utils/barItems";
-import Link from "next/link";
+import { ComponentType } from "react";
 
 
-const Sidebar = ()=> {
+const Sidebar = ({
+    ActiveItem, 
+    setItem
+} : {
+    ActiveItem: ComponentType | null;
+        setItem: React.Dispatch<any>;
+})=> {
     const sidebarItems = useSideBarItems();
-
     return (
     <aside className="fixed left-0 top-[18%] bottom-[15%] w-[20%] flex flex-col p-4 z-40 bg-slate-100 dark:bg-slate-950 font-['Inter'] text-sm font-medium">
         <div className="mb-8 px-2">
         <h2 className="font-['Manrope'] font-bold text-blue-900 dark:text-blue-100 text-lg" >Biblioteca</h2>
         <p className="text-xs text-slate-500" >Recursos de teleaprendizaje</p>
         </div>
-            <nav className="flex flex-col gap-2">
-                {sidebarItems.map((item) => {
-                    return (
+      
+        {/*  Loop for each sidebar item and its attributes */}
+        <nav className="flex flex-col gap-2">
+            {sidebarItems.map((item) => {
+                return (
                     <li key={item.name} className="">
-                            <div>
-                                {item.icon}{" "}
-                                <span></span>
-                            </div>
+                        <button 
+                        onClick={()=>{ setItem(() => item.component) } }
+                        className="w-full py-3 bg-primary text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
+          <span className="material-symbols-outlined text-sm">{item.name}</span>
+                        </button>
                     </li>
-                    )
-                })}
-            <a className="flex items-center gap-3 p-3 bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 rounded-l-xl font-bold shadow-sm transition-all" href="#" >Historia Clínica</a>
-            <a className="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-l-xl transition-all" href="#" >Paraclínicos</a>
-            <a className="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-l-xl transition-all" href="#" >Agenda</a>
+                )
+            })}
         </nav>
+
         <div className="mt-auto p-4">
             <button className="w-full py-3 bg-primary text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-2" >
             SOLICITAR APOYO
             </button>
         </div>
+
     </aside>
     )
 }

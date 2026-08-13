@@ -28,4 +28,6 @@ export class Doctor extends User {
   // Display where the sensor should be placed
   // once the call has started
   displayGraph() {};
+
+  
 }

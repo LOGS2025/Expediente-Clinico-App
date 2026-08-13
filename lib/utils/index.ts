@@ -1,10 +1,11 @@
 import { Side, Top } from "@/lib/utils/barItems";
 import HistClinica from "@/components/medical/Histclinica";
 import Paraclinicos from "@/components/medical/Paraclinicos";
+import Agenda from "@/components/dashboard/Agenda";
 import { ComponentType } from "react";
 
 
-type SIDEBAR_ITEM = {
+export type SIDEBAR_ITEM = {
   name: Side;
   component: ComponentType;
   icon: string;
@@ -55,6 +56,10 @@ export const useSideBarItems = () => {
     }, {
       name: "Paraclínicos",
       component: Paraclinicos,
+      icon: "",
+    }, {
+      name: "Agenda",
+      component: Agenda,
       icon: "",
     }
   ];
