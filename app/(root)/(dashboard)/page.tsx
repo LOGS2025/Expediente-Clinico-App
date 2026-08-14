@@ -3,26 +3,16 @@
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
 import { ComponentType, useEffect, useState } from "react";
 
-/*
-    Navbar deberia mostrar cuenta, accede a user?
-
-Dashboard 
-    funcion :
-        Iniciar videocall
-        Crear cita
-    componentes :
-        Calendario
-        Citas dashboard
-*/
-
 const Home = ()=> {
+    // Also use user to display the account
     const user = useBoundStore((state)=>state.user);
+    const getDashboard = useBoundStore((state)=>state.getDashboard)
     const [Dashboard, setDashboard] = useState<ComponentType | null >(null);
 
     useEffect(()=>{
         if ( user ) {
             console.log(user);
-            const Component = user.Dashboard;
+            const Component = getDashboard();
             setDashboard(() => Component);
         }
     }, [user]);
