@@ -8,21 +8,21 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const doctData : User =  {
-    id_string: '0110917152',
+    id_string: '0110917252',
     email: 'doc@gmail.com',
     name: 'pepe toro',
     phone: '0000000000',
     role: 'doctor',
 }
 const supData : User = {
-    id_string: '0110917152',
+    id_string: '01109117152',
     email: 'sup@gmail.com',
     name: 'juanito gonzalez',
     phone: '0000000000',
     role: 'supervisor',
 }
 const patientData : User= {
-    id_string: '0110917152',
+    id_string: '0110923417152',
     email: 'patient@gmail.com',
     name: 'diego mercante',
     phone: '0000000000',

@@ -21,8 +21,6 @@ export const VideoParticipants = (props: {
             participant={participant}
             key={participant.sessionId}
           />
-          <span>Participant role : {participant.roles}</span>
-          <span>Participan userId : {participant.userId}</span>
         </>
       ))}
 
