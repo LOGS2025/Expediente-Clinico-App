@@ -29,7 +29,7 @@ interface UserData {
 
 export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     user: null,
-    error: null,
+    error: 'None',
     loggedIn: false,
 
     login: async (userData: UserData) => {
@@ -46,7 +46,6 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             set({
                 user, 
                 loggedIn: true,
-                error: null
             });
         } catch(error) {
             console.log(error);
@@ -58,7 +57,10 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     setUser: (user) => set({ user, loggedIn: true }),
     setError: (error) => set({ error }),
 
-    getRole: () => get().user?.role || null,
+    getRole: () => get().user.role,
+    getID: ()=> get().user.id_string,
+    getName: ()=> get().user.name,
+
     isDoctor: () => get().user?.role === 'doctor',
     isPatient: () => get().user?.role === 'patient',
     isSupervisor: () => get().user?.role === 'supervisor',

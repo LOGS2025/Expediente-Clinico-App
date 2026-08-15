@@ -1,12 +1,13 @@
-import { CallingState, StreamTheme, useCallStateHooks } from "@stream-io/video-react-sdk";
-import { VideoParticipants } from "./participant/VideoParticipants";
-import { VideoLocalFloating } from "./participant/VideoLocalFloating";
+import { CallingState, StreamTheme, useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
+import { VideoParticipants } from "./VideoParticipants";
+import { VideoLocalFloating } from "./VideoLocalFloating";
 
 
 export const MyUILayout = () => {
+  
   const { useCallCallingState, useLocalParticipant, useRemoteParticipants } =
     useCallStateHooks();
-
+  
   const callingState = useCallCallingState();
   const localParticipant = useLocalParticipant();
   const remoteParticipants = useRemoteParticipants();

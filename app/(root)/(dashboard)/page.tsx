@@ -11,7 +11,6 @@ const Home = ()=> {
 
     useEffect(()=>{
         if ( user ) {
-            console.log(user);
             const Component = getDashboard();
             setDashboard(() => Component);
         }

@@ -7,19 +7,21 @@ export type UserSlice = {
   // Name is extracted from either DataBase or GoogleAuth options
   // ID is extracted from Database
   user : User | null;
-  error: string | null;
+  error: string;
   loggedIn: boolean;
 
 //  in_video_call: boolean;
-
 //  cookieToken?: string | null;
   
   login: (userData : any) => Promise<void>;
   logout: () => void;
   setUser: (user: User) => void;
-  setError: (error: string | null) => void;  
+  setError: (error: string) => void;  
 
-  getRole: () => Role | null;
+  getRole: () => Role;
+  getID: ()=> string,
+  getName: ()=> string,
+
   isDoctor: () => boolean;
   isPatient: () => boolean;
   isSupervisor: () => boolean;

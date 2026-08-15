@@ -1,8 +1,33 @@
 'use client'
 
+import { useBoundStore } from "@/lib/hooks/useBoundStore";
 import { User } from "@/lib/models/User";
+import { Role } from "@/lib/utils/types";
 import { Dayjs } from "dayjs";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+const doctData : User =  {
+    id_string: '0110917152',
+    email: 'doc@gmail.com',
+    name: 'pepe toro',
+    phone: '0000000000',
+    role: 'doctor',
+}
+const supData : User = {
+    id_string: '0110917152',
+    email: 'sup@gmail.com',
+    name: 'juanito gonzalez',
+    phone: '0000000000',
+    role: 'supervisor',
+}
+const patientData : User= {
+    id_string: '0110917152',
+    email: 'patient@gmail.com',
+    name: 'diego mercante',
+    phone: '0000000000',
+    role: 'patient',
+}
 
 export interface Appointment {
   id: string;
@@ -21,13 +46,12 @@ interface AppointmentsPanelProps {
   title?: string;
 }
 
-const AppointmentsPanel = ({
-  appointments = [],
-  onSelectAppointment,
-  onCancelAppointment,
-  title = 'Citas Programadas',
-}: AppointmentsPanelProps) => {
+const AppointmentsPanel = ({  appointments = [], onSelectAppointment,
+                              onCancelAppointment, title = 'Citas Programadas', }: 
+AppointmentsPanelProps) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const router = useRouter();
+  const login = useBoundStore((state)=>state.login);
 
   const handleSelect = (appointment: Appointment) => {
     setSelectedId(appointment.id);
@@ -36,10 +60,33 @@ const AppointmentsPanel = ({
     }
   };
 
+  const handleJoin = async (role : Role) => {
+    try {
+      switch (role) {
+        case 'doctor': await login(doctData)
+          router.push('/meeting/0110');
+          break;
+        case 'supervisor': await login(supData)
+          router.push('/meeting/0110');
+          break;
+        case 'patient': await login(patientData)
+          router.push('/meeting/0110');
+          break;
+        default: await login(patientData)
+          router.push('/meeting/0110');
+          break;
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <div className="flex flex-nowrap">
-        <button className="flex-1 border rounded-3xl p-4">Crear Cita</button>
+        <button 
+        className="flex-1 border rounded-3xl p-4">Crear Cita</button>
         <button className="flex-1 border rounded-3xl p-4">Configurar Agenda</button>
       </div>
 
@@ -75,10 +122,24 @@ const AppointmentsPanel = ({
                 <span>
                 {appointment.motif}</span>
               </div>
-              <button onClick={()=>{
 
-              }} className="border p-4">
-                Videocall</button>
+
+              <div>
+                <button onClick={()=>{
+                    handleJoin('patient');
+                }} className="border p-4">
+                  Join Videocall as Patient</button>
+                <button onClick={()=>{
+                    handleJoin('doctor');
+                }} className="border p-4">
+                  Join Videocall as Doctor</button>
+                <button onClick={()=>{
+                    handleJoin('supervisor');
+                }} className="border p-4">
+                  Join Videocall as Supervisor</button>
+              </div>
+
+
             </div>
             );
           })}

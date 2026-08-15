@@ -1,11 +1,34 @@
+import { Role } from "@/lib/utils/types";
 import { StreamClient, StreamVideoClient, UserRequest } from "@stream-io/node-sdk";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY!;
 const secret = process.env.STREAM_API_SECRET;
 
-export async function GET() {
+//id : string, name: string, role: Role
+export interface TokenJSON {
+    id: string,
+    name: string,
+    token: string,
+    role: Role
+}
+
+export async function POST(request : NextRequest) {
     try {
+        // Extract information from request body
+        const body = await request.json();
+        const { id, name, role } = body;
+
+        if ( !id || !name || !role ) {
+            console.error("Parameters missing");
+            console.log(body);
+            return NextResponse.json({
+                success: false,
+                error: 'Missing parameters'
+            }, { status: 500 });
+        }
+
+        console.log("Information received from POST: ", body);
 
         const client = new StreamClient(apiKey, secret, {timeout: 3000}); // Timeout added
 
@@ -13,60 +36,29 @@ export async function GET() {
          *      Creating a user
          *  Provide ID and role
          */
-        const userId = 'oliver';
         const newUser: UserRequest = {
-        id: userId,
+        id: id, // userID
         role: 'user',
-        custom: {
-            color: 'red',
-        },
-        name: 'oliver',
+        name: name, // name
         };
         await client.upsertUsers([newUser]);
 
         // validity is optional (by default the token is valid for an hour)
         const validity = 60 * 60;
-        const token = client.generateUserToken({ user_id: userId, validity_in_seconds: validity });
+        const token = client.generateUserToken({ user_id: id, validity_in_seconds: validity });
 
-        /**
- *      Creating a call
-        *  Calls can be used once or multiple times depending on your app. Unless you 
-        *  want to re-use the same call multiple times, the recommended way to pick a 
-        *  call ID is to use a uuid v4 so that each call gets a unique random ID.
-        */
-        const callType = 'development';
-        const callId = 'my-first-call';
-        const call = client.video.call(callType, callId);
-
-        call.create({ data: { created_by_id: 'oliver' } });
-
-        call.update()
-        /**
-         *  As members have to exits, assign in Agenda component and have it 
-         *  sent to the database.
-         */
-        // optionally provide additional data
-        call.create({
-        data: {
-            created_by_id: 'oliver',
-            // Call members need to be existing users
-            members: [{ user_id: 'oliver', role: 'admin' }],
-            custom: {
-            color: 'blue',
-            },
-        },
-        });
-
-        // Upsert behavior
-        //call.getOrCreate({data: /* */});
+        const tokenJson : TokenJSON = {
+            id: id,
+            name: name,
+            role: role,
+            token: token,
+        }
 
          return NextResponse.json({
             success: true,
-            callId,
-            userId,
-            token,
+            token: tokenJson,            
             message: 'Stream test successful!',
-        });
+        }, { status: 200});
 
 } catch (error) {
     console.error('Error:', error);
