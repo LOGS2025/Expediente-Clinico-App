@@ -1,27 +1,23 @@
 import { CallingState, StreamTheme, useCallStateHooks, useFilteredParticipants } from "@stream-io/video-react-sdk";
 import { VideoParticipants } from "./VideoParticipants";
-import { VideoLocalFloating } from "./VideoLocalFloating";
 
 export const VideoLayout = () => {
 
-  const { useCallCallingState, useLocalParticipant, useRemoteParticipants } =
+  const { useCallCallingState, useCallMembers, useParticipants } =
     useCallStateHooks();
-  
+  const members = useCallMembers();
   const callingState = useCallCallingState();
-  const localParticipant = useLocalParticipant();
-  const remoteParticipants = useRemoteParticipants();
-  const allParticipants = useFilteredParticipants({ excludeLocalParticipant: false })
+  const allParticipants = useParticipants();
 
   if (callingState !== CallingState.JOINED) {
     return <div>Loading...</div>;
   }
 
   return (
-    <>
+    <div className="">
       <StreamTheme>
         <VideoParticipants participants={allParticipants} />
-        {/* <VideoLocalFloating participant={localParticipant} /> */}
       </StreamTheme>
-    </>
+    </div>
   );
 };

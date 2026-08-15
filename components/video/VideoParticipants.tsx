@@ -10,11 +10,9 @@ export const VideoParticipants = (props: {
 }) => {
   const { participants } = props;
   console.log(participants);
-
   
   return (
-    <div className="grid grid-cols-2 grid-rows-2 gap-2">
-
+    <div className="grid grid-cols-2 grid-rows-2 gap-2 bg-blue-800">      
       {participants.map((participant) => (
         <>
           <ParticipantView
