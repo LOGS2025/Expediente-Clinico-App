@@ -2,11 +2,17 @@
 
 Project made to stream a fixed number of **3 participants** on a video call, given 3 different roles.
 
+The login is only allowed to already existing members of the community as **no option to create a new account is given**.
+
+This users are fetched from a database according to an appointment setup before. *This appointment gives this users the roles previously*, as the database they are fetched from may not include this attributes.
+
+Then, the new appointment instance stores their data to allow for the creation of a specific call. *Roles are pre-made as to privileges inside the calls*.
+
+#### Ringing
+#### React-Native
+
 # Auth 
-
-
-# Database
-
+If firebase can support only coded institution e-mails, then can be implemented into the project.
 
 # DexCare API
 Since the intention is to pair up the app with the *Tyto interface*, an approved API must be used to fetch and display the sensor data.
@@ -43,14 +49,17 @@ const client = new StreamClient(apiKey, appSecret, {
   agent: new Agent({ connections: 100 }),
 ```
 
-https://getstream.io/video/sdk/react/tutorial/video-calling/#path-b---build-it-manually
-https://getstream.io/video/docs/api/
-https://getstream.io/video/docs/api/call-types/builtin/
-https://getstream.io/docs/platform/users/
-
-
 # Backend
 
+## Supabase
+
+For now, supabase is used as development support. By managing the users and the appointments there to then create the calls, the member information to setup specific call contexts is enough.
+
+To install the npm package
+
+```
+npm install @supabase/supabase-js @supabase/ssr
+```
 
 # Usage
 
