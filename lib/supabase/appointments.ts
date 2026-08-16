@@ -44,7 +44,8 @@ export async function createAppointment( appointmentData : AppointmentToSupabase
         return null;
     }
     const res = await response.json();
-        if (res.ok) {
+    console.log(res);
+        if (res.success) {
             return res.data;
         } else {
             console.error("API returned error:", res.mensaje);

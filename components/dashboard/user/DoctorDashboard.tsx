@@ -42,7 +42,9 @@ const DoctorDashboardLayout = ()=> {
             /* On the same flex, place our db 
             information panel for appointments */
             if ( appointments) { return (
-                <AppointmentsPanel appointments={appointments}/>);
+                <div className="absolute top-[600px] left-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <AppointmentsPanel appointments={appointments}/>);
+                </div>)
             } else return (<></>);
         }
     }

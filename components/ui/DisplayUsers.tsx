@@ -15,7 +15,7 @@ const DisplayUsers = ({
   userList, 
   setUser, 
   selectedUserId,
-  label = 'Seleccionar Usuario'
+  label
 }: DisplayUsersProps) => {
   const [isOpen, setIsOpen] = useState(false);
 

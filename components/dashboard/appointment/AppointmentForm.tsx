@@ -99,11 +99,11 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
       {/* Space to see all users */}
       { userList ? (
         <div className='flex flex-col gap-8'>
-          <DisplayUsers userList={userList} setUser={setPacient} selectedUserId={selAsPacient?.user_id}/>
+          <DisplayUsers userList={userList} setUser={setPacient} selectedUserId={selAsPacient?.user_id} label='Selecciona un paciente'/>
           
-          <DisplayUsers userList={userList} setUser={setDoctor} selectedUserId={selAsDoctor?.user_id}/>
+          <DisplayUsers userList={userList} setUser={setDoctor} selectedUserId={selAsDoctor?.user_id} label='Selecciona un doctor'/>
           
-          <DisplayUsers userList={userList} setUser={setSupervisor} selectedUserId={selAsSupervisor?.user_id}/>
+          <DisplayUsers userList={userList} setUser={setSupervisor} selectedUserId={selAsSupervisor?.user_id} label='Selecciona un supervisor'/>
         </div>
       ) : (<>No users loaded</>) }
 
