@@ -2,17 +2,17 @@
 
 Project made to stream a fixed number of **3 participants** on a video call, given 3 different roles.
 
-The login is only allowed to already existing members of the community as **no option to create a new account is given**.
+The login is only allowed to already existing members of the community so **no option to create a new account is given**.
 
 This users are fetched from a database according to an appointment setup before. *This appointment gives this users the roles previously*, as the database they are fetched from may not include this attributes.
 
-Then, the new appointment instance stores their data to allow for the creation of a specific call. *Roles are pre-made as to privileges inside the calls*.
+Then, the new appointment instance stores their data to allow for the creation of a specific call. *Roles are pre-made, when referring to privileges inside the calls*.
 
 #### Ringing
 #### React-Native
 
 # Auth 
-If firebase can support only coded institution e-mails, then can be implemented into the project.
+If firebase can support only coded **institution e-mails**, then it can be implemented into the project.
 
 # DexCare API
 Since the intention is to pair up the app with the *Tyto interface*, an approved API must be used to fetch and display the sensor data.
