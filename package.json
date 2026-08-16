@@ -11,6 +11,8 @@
   "dependencies": {
     "@stream-io/node-sdk": "^0.7.63",
     "@stream-io/video-react-sdk": "^1.40.2",
+    "@supabase/ssr": "^0.12.4",
+    "@supabase/supabase-js": "^2.112.3",
     "dayjs": "^1.11.21",
     "next": "16.3.0",
     "react": "19.2.8",

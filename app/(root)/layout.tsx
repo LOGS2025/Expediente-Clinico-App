@@ -5,7 +5,7 @@ import Sidebar from '@/components/dashboard/Sidebar';
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   return (
-    <main className="relative">
+    <main className="relative bg-white">
       <div className="flex">
           <div className="w-full">{children}</div>
       </div>
