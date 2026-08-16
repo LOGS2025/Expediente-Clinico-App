@@ -1,5 +1,4 @@
-
-export interface AppointmentSlice {
+export interface Appointment {
     id: number;
     pending: boolean;
     creacion: string;
