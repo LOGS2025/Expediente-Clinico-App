@@ -1,11 +1,19 @@
-import { AppointmentSlice } from "@/lib/models/Appointment";
+import { AppointmentToSupabase } from "@/lib/models/Appointment";
 import { supabase } from "@/lib/supabase/client"
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request : NextRequest) {
   try {
-    const body : AppointmentSlice = await request.json();
+    const body : AppointmentToSupabase = await request.json();
     
+    if (!body.date || !body.motif || !body.doctor_uuid || !body.patient_uuid) {
+      console.error('Missing required fields:', body);
+      return NextResponse.json({
+        success: false,
+        error: 'Missing required fields: date, motif, doctor_uuid, patient_uuid'
+      }, { status: 400 });
+    }
+
     // Insert into Supabase
     const { data, error } = await supabase
       .from("citas")
@@ -14,8 +22,8 @@ export async function POST(request : NextRequest) {
         motif : body.motif,
         pendiente : true /*body.pending*/,
         fk_doctor : body.doctor_uuid,
-        fk_paciente : body.pacient_uuid,
-        fk_supervisor : body.supervisor_uuid
+        fk_paciente : body.patient_uuid,
+        fk_supervisor : body.supervisor_uuid || null
       })
       .select()
     

@@ -8,6 +8,8 @@ import { User } from '@/lib/models/User';
 import DisplayUsers from '@/components/ui/DisplayUsers';
 import Form from '@/components/ui/Form';
 import ErrorMessage from '@/components/ui/Error';
+import { createAppointment } from '@/lib/supabase/appointments';
+import { AppointmentToSupabase } from '@/lib/models/Appointment';
 
 interface AppointmentFormProps {
   onSuccess?: () => void;
@@ -50,17 +52,33 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
     }
   },[selAsDoctor, selAsPacient, selAsSupervisor]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    console.log("Entered body formation!!!");
+
     setLoading(true);
     setError(null);
 
     try {
       const fechaCompleta = new Date(`${formData.fecha}T${formData.hora}`);
 
-      // if (!response.ok) {
-      //   throw new Error('Error al crear la cita');
-      // }
+      if ( !selAsDoctor || !selAsPacient ) {
+        setError("Missing UUID for participants!");
+        throw new Error("Missing UUID for participants!");
+      }
+
+      const body : AppointmentToSupabase = {
+        date: fechaCompleta,
+        motif: formData.motif,
+        patient_uuid: selAsPacient.user_id,
+        doctor_uuid: selAsDoctor.user_id,
+        supervisor_uuid: selAsSupervisor ? selAsSupervisor.user_id : null
+      }
+
+      const response = await createAppointment(body);
+      if (!response.ok) {
+        setError('Error al crear la cita!');
+        throw new Error('Error al crear la cita');
+      }
 
       onSuccess?.();
       router.refresh();
@@ -73,7 +91,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
   };
 
   return (
-    <div className='flex flex-col text-gray-900 max-w-lg min-w-64 p-5 border border-blue-400 rounded-4xl'>
+    <div className='flex flex-col text-gray-900 max-w-lg min-w-64 p-5 border border-blue-400 rounded-4xl bg-white'>
       { error ? ( 
         <ErrorMessage message={error} />
     ) : ( <></> ) }
@@ -90,7 +108,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
       ) : (<>No users loaded</>) }
 
       <div className='pt-7'>
-        <Form setForm={setFormData}/>
+        <Form setForm={setFormData} onSuccess={handleSubmit}/>
       </div>
 
     </div>

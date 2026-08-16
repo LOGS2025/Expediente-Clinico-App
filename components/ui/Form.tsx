@@ -11,7 +11,7 @@ interface AppointmentFormData {
 
 interface AppointmentFormProps {
   setForm: (data: AppointmentFormData) => void;
-  onSuccess?: () => void;
+  onSuccess?: () => any;
   onCancel?: () => void;
   isLoading?: boolean;
 }
@@ -38,7 +38,8 @@ const Form = ({
     setForm(updated);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
+    console.log("Pressed send!!!");
     e.preventDefault();
     if (onSuccess) {
       onSuccess();

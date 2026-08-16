@@ -2,9 +2,6 @@
 
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
 import { AppointmentSlice } from "@/lib/models/Appointment";
-import { User } from "@/lib/models/User";
-import { Role } from "@/lib/utils/types";
-import { Dayjs } from "dayjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -19,9 +16,8 @@ interface AppointmentsPanelProps {
 const AppointmentsPanel = ({  appointments, onSelectAppointment,
                               onCancelAppointment, title = 'Citas Programadas', }: 
 AppointmentsPanelProps) => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
   const router = useRouter();
-  const login = useBoundStore((state)=>state.login);
 
   const handleSelect = (appointment: AppointmentSlice) => {
     setSelectedId(appointment.id);
@@ -30,7 +26,7 @@ AppointmentsPanelProps) => {
     }
   };
 
-  const handleJoin = async () => {
+  const handleJoin = async ( appointment : AppointmentSlice) => {
     try {
         router.push(`/meeting/${appointment.id}`);
     } catch (error) {
@@ -39,55 +35,41 @@ AppointmentsPanelProps) => {
   }
 
   return (
-    <div>
-      <div className="flex flex-nowrap">
-        <button className="flex-1 border rounded-3xl p-4">
-          Crear Cita</button>
-        <button className="flex-1 border rounded-3xl p-4">
-          Configurar Agenda</button>
-      </div>
+    <div className="bg-blue-50 min-h-[300px] text-gray-600">
+      <h2 className="text-lg font-semibold text-gray-700 mb-4 pt-5">{title}</h2>
 
-      <h2 className="text-lg font-semibold text-amber-100 mb-4 pt-5">{title}</h2>
-
-      {appointments.length === 0 ? (
+      {appointments.length < 1 ? (
         <div className="text-center py-8 text-gray-500">
           <p>No hay citas</p>
         </div>
       ) : (
-        <div className="space-y-3">
-          {appointments.map((appointment) => {
-            const isSelected = selectedId === appointment.id;
-            return (
-            <div>
-              <div
-                key={appointment.id}
-                onClick={() => handleSelect(appointment)}
-                className={`
-                  border rounded-lg p-4 cursor-pointer transition-all
-                  ${isSelected 
-                    ? 'border-blue-500 bg-blue-50 shadow-sm' 
-                    : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
-                  }
-                `}
-              >
-                <span>
-                {appointment.date.format('DD/MM/YYYY HH:mm')}</span>
-                <span>
-                {appointment.doctor_uuid}</span>
-                <span>
-                {appointment.supervisor_uuid}</span>
-                <span>
-                {appointment.motif}</span>
-              </div>
+    <div className="space-y-3">
+      {appointments.map((appointment) => {
+        const isSelected = selectedId === appointment.id;
+        return (
+      <div>
+        <div key={appointment.id}
+          onClick={() => handleSelect(appointment)}
+          className={`
+            flex flex-col border rounded-lg p-4 cursor-pointer transition-all
+            ${isSelected 
+              ? 'border-blue-500 bg-blue-50 shadow-sm' 
+              : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+            }
+          `}
+        >
+          <span>Fecha : {appointment.fecha}</span>
+          <span>UUID Doctor : {appointment.fk_doctor}</span>
+          <span>UUID Paciente : {appointment.fk_paciente}</span>
+          <span>UUID : Supervisor {appointment.fk_supervisor}</span>
+          <span>Motivo : {appointment.motif}</span>
+        </div>
 
-
-              <div>
-                <button onClick={()=>handleJoin()} className="border p-4">
-                  Join Videocall</button>
-              </div>
-
-
-            </div>
+        <div>
+          <button onClick={()=>handleJoin(appointment)} className="border p-4">
+            Join Videocall</button>
+        </div>
+      </div>
             );
           })}
         </div>
