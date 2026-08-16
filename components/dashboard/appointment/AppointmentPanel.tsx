@@ -2,6 +2,7 @@
 
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
 import { AppointmentSlice } from "@/lib/models/Appointment";
+import { User } from "@/lib/models/User";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -35,7 +36,7 @@ AppointmentsPanelProps) => {
   }
 
   return (
-    <div className="bg-blue-50 min-h-[300px] text-gray-600">
+    <div className="bg-blue-50 text-gray-600 h-[500] w-[500] overflow-y-auto">
       <h2 className="text-lg font-semibold text-gray-700 mb-4 pt-5">{title}</h2>
 
       {appointments.length < 1 ? (
@@ -47,8 +48,8 @@ AppointmentsPanelProps) => {
       {appointments.map((appointment) => {
         const isSelected = selectedId === appointment.id;
         return (
-      <div>
-        <div key={appointment.id}
+      <div key={appointment.id}>
+        <div
           onClick={() => handleSelect(appointment)}
           className={`
             flex flex-col border rounded-lg p-4 cursor-pointer transition-all
@@ -59,10 +60,19 @@ AppointmentsPanelProps) => {
           `}
         >
           <span>Fecha : {appointment.fecha}</span>
-          <span>UUID Doctor : {appointment.fk_doctor}</span>
-          <span>UUID Paciente : {appointment.fk_paciente}</span>
-          <span>UUID : Supervisor {appointment.fk_supervisor}</span>
+          <span>Fecha de creacion : {appointment.creacion}</span>
           <span>Motivo : {appointment.motif}</span>
+          <span>id : {appointment.id}</span>
+          <label htmlFor="text">Doctor :</label>
+          <ParticipantInfo participant={appointment.doctor}/>
+          <label htmlFor="text">Paciente :</label>
+          <ParticipantInfo participant={appointment.paciente}/>
+          { appointment.supervisor ? (
+            <>
+              <label htmlFor="text">Supervisor :</label>
+              <ParticipantInfo participant={appointment.supervisor}/>
+            </>
+          ) : (<></>)}
         </div>
 
         <div>
@@ -79,3 +89,13 @@ AppointmentsPanelProps) => {
 };
 
 export default AppointmentsPanel;
+
+
+const ParticipantInfo = ( {participant}:{participant : any} )=> {
+  return (
+    <>
+      <span>{participant.nombre} {participant.apellido_p} {participant.apellido_m}</span>
+      <span>{participant.user_id}</span>
+    </>
+  )
+}

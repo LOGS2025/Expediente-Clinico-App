@@ -5,9 +5,9 @@ export interface AppointmentSlice {
     creacion: string;
     fecha: string;
     motif: string;
-    fk_doctor: string;
-    fk_paciente: string;
-    fk_supervisor: string | null;
+    doctor: string;
+    paciente: string;
+    supervisor: string | null;
 };
 
 export interface AppointmentToSupabase {
