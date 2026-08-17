@@ -3,15 +3,7 @@ import { StreamClient, StreamVideoClient, UserRequest } from "@stream-io/node-sd
 import { NextRequest, NextResponse } from "next/server";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY!;
-const secret = process.env.STREAM_API_SECRET;
-
-//id : string, name: string, role: Role
-export interface TokenJSON {
-    id: string,
-    name: string,
-    token: string,
-    role: Role
-}
+const secret = process.env.STREAM_API_SECRET!;
 
 export async function POST(request : NextRequest) {
     try {
@@ -47,16 +39,11 @@ export async function POST(request : NextRequest) {
         const validity = 60 * 60;
         const token = client.generateUserToken({ user_id: id, validity_in_seconds: validity });
 
-        const tokenJson : TokenJSON = {
-            id: id,
-            name: name,
-            role: role,
-            token: token,
-        }
+        if ( !token ) throw new Error("No token was generated!!!");
 
          return NextResponse.json({
             success: true,
-            token: tokenJson,            
+            token: token,            
             message: 'Stream test successful!',
         }, { status: 200});
 

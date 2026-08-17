@@ -1,19 +1,21 @@
 'use client'
 
-import { useCall, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { useCall } from "@stream-io/video-react-sdk";
 import { useState } from "react";
+import Button from "../ui/ButtonUniv";
 
 const BottomBar = () => {
-    const call = useCall();
     const [audio, setAudio] = useState(true);
     const [camera, setCamera] = useState(true);
 
     return (
-        <div className="flex flex-row p-4 gap-6">
-            <EndCall></EndCall>
-            <ToggleAudio audio={audio} setAudio={setAudio}></ToggleAudio>
-            <ToggleVideo camera={camera} setCamera={setCamera}></ToggleVideo>
-            <LeaveCall></LeaveCall>
+        <div className="fixed bottom-0 w-full">
+            <div className="flex flex-row p-4 gap-6">
+                <EndCall></EndCall>
+                <ToggleAudio audio={audio} setAudio={setAudio}></ToggleAudio>
+                <ToggleVideo camera={camera} setCamera={setCamera}></ToggleVideo>
+                <LeaveCall></LeaveCall>
+            </div>
         </div>
     )
 }
@@ -23,17 +25,16 @@ export default BottomBar;
 const EndCall = ()=>{
     const call = useCall();    
     return (
-        <button onClick={()=> {call?.endCall().catch(() => console.error("Failed to leave the call"));}}>
-            <span>End Call</span>
-        </button>
-    )
+        <Button text="Terminar llamada" 
+            onClick={()=> {call?.endCall().catch(() => console.error("Failed to leave the call"));}}/>
+        )
 }
 const ToggleAudio = 
 ({audio, setAudio}:{audio : boolean, setAudio: React.Dispatch<React.SetStateAction<boolean>>})=>
     {
     const call = useCall();    
     return (
-        <button onClick={()=> {
+        <Button onClick={()=> {
             if ( audio ) {
                 call?.microphone.disable();
                 setAudio(!audio);
@@ -41,15 +42,13 @@ const ToggleAudio =
                 call?.microphone.enable();
                 setAudio(!audio);
             }
-            }}>
-            <span>Toggle Audio</span>
-        </button>
+            }} text="Audio"/>
     )
 }
 const ToggleVideo = ({camera, setCamera}:{camera : boolean, setCamera: React.Dispatch<React.SetStateAction<boolean>>})=>{
     const call = useCall();    
     return (
-        <button onClick={()=> {
+        <Button onClick={()=> {
             if ( camera ) {
                 call?.camera.disable();
                 setCamera(!camera);
@@ -57,16 +56,12 @@ const ToggleVideo = ({camera, setCamera}:{camera : boolean, setCamera: React.Dis
                 call?.camera.enable();
                 setCamera(!camera);
             }
-            }}>
-            <span>Toggle Video</span>
-        </button>
+            }} text="Video" />
     )
 }
 const LeaveCall = ()=>{
     const call = useCall();    
     return (
-        <button onClick={()=> {call?.leave().catch(() => console.error("Failed to leave the call"));}}>
-            <span>Leave Call</span>
-        </button>
+        <Button onClick={()=> {call?.leave().catch(() => console.error("Failed to leave the call"));}} text="Dejar la llamada" />
     )
 }

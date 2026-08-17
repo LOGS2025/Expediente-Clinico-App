@@ -13,18 +13,14 @@ export type UserSlice = {
 //  in_video_call: boolean;
 //  cookieToken?: string | null;
   
-  login: (userData : any) => Promise<void>;
+  login: (userData : User) => void;
   logout: () => void;
-  setUser: (user: User) => void;
   setError: (error: string) => void;  
 
-  getRole: () => Role;
-  getID: ()=> string,
-  getName: ()=> string,
+  getRole: () => Role | undefined;
+  getID: ()=> string | undefined,
+  getName: ()=> string | undefined,
 
-  isDoctor: () => boolean;
-  isPatient: () => boolean;
-  isSupervisor: () => boolean;
   getDashboard: ()=> ComponentType | null;
   //joinedAt: dayjs.Dayjs;
 };

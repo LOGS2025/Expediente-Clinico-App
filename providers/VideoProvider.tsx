@@ -1,9 +1,8 @@
 'use client'
 
-import { TokenJSON } from "@/app/api/calls/generate-token/route";
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
-import { createClientAndCall } from "@/lib/utils/client";
-import { StreamVideo, StreamVideoClient } from "@stream-io/video-react-sdk";
+import { createVideoClient } from "@/lib/utils/client";
+import { StreamVideo, StreamVideoClient, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { PropsWithChildren, useEffect, useState } from "react";
 
 const callId = 'demo-call-y276HhfW';
@@ -16,34 +15,34 @@ export default function VideoProvider({children }: PropsWithChildren) {
   const userData = useBoundStore((state)=>state);
   const [client, setClient] = useState<StreamVideoClient>();
 
+  /**
+   * Create a token, client and call
+   */
   useEffect( () => {
-    /**
-     *      Creating a call
-     *  Calls can be used once or multiple times depending on your app. Unless you 
-     *  want to re-use the same call multiple times, the recommended way to pick a 
-     *  call ID is to use a uuid v4 so that each call gets a unique random ID.
-     */
     async function getToken() {
+      const user_id = userData.getID();
+      const user_name = userData.getName();
       try {
+        if ( !user_id || !user_name ) throw new Error("No id found on store");
         const res = await fetch('/api/calls/generate-token', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            id: userData.getID(),
-            name: userData.getName(),
+            id: user_id,
+            name: user_name,
             role: userData.getRole(),
           }),
         });
         const data = await res.json();
-        const tokenJson : TokenJSON = data.token;
 
-        createClientAndCall(
-          tokenJson.token,
-          userData.getID(),
-          userData.getName(), callId, 
-          setClient
+        const token = data.token;
+
+        createVideoClient(
+          token,
+          user_id,
+          user_name, setClient
         )
 
         if (!data.success) 

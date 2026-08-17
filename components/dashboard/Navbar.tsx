@@ -8,7 +8,7 @@ import { Top } from "@/lib/utils/barItems";
     Informacion del paciente activo, si es que hay!
 */
 
-const Navbar = ({ selectedTab }: { selectedTab: Top | null })=>{
+const Navbar = ()=>{
     const topbarItems = useTopBarItems();
 
     return (
@@ -33,17 +33,10 @@ const Navbar = ({ selectedTab }: { selectedTab: Top | null })=>{
                     {topbarItems.map((item) => {
                         return (
                         <li key={item.name} className="">
-                            {item.name === selectedTab ? (
                                 <div >
                                     {item.icon}{" "}
                                     <span className="text-amber-50 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">{item.name}</span>
                                 </div>
-                            ) : (
-                                <div >
-                                    {item.icon}{" "}
-                                    <span className="text-slate-500 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">{item.name}</span>
-                                </div>
-                            )}
                         </li>
                         )
                     })}

@@ -3,61 +3,35 @@
 import { useState } from 'react';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 import { useRouter } from 'next/navigation';
+import { User } from '@/lib/models/User';
 
 /*
  *  Should only expect an email and a password assuing the account creation 
  *  is done manually for each user 
  */
 
-const doctData = {
-    id: '0110917152',
+const doctData : User = {
+    user_id: '1ab54245-687e-42ea-8f83-1130a8003229',
+    nombre: 'Pepe',
+    apellido_p: 'Gutierrez',
+    apellido_m: 'Vazquez',
     email: 'doc@gmail.com',
-    fullName: 'pepe toro',
     phone: '0000000000',
+
     role: 'doctor',
-    appointments: 0,
-    personalData: null,
-    cookieToken: null,
-    loggedIn: false,
-    inVideoCall: false,
-}
-const supData = {
-    id: '0110917152',
-    email: 'sup@gmail.com',
-    fullName: 'juanito gonzalez',
-    phone: '0000000000',
-    role: 'supervisor',
-    appointments: 0,
-    personalData: null,
-    cookieToken: null,
-    loggedIn: false,
-    inVideoCall: false,
-}
-const patientData = {
-    id: '0110917152',
-    email: 'patient@gmail.com',
-    fullName: 'diego mercante',
-    phone: '0000000000',
-    role: 'patient',
-    appointments: 0,
-    personalData: null,
-    cookieToken: null,
-    loggedIn: false,
-    inVideoCall: false,
 }
 
 
 export const SignInForm = () => {
   const router = useRouter();
   const login = useBoundStore((state) => state.login);
-  const user = useBoundStore((state)=>state.user);
   const error = useBoundStore((state) => state.error);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!email || !password) {
     return;
@@ -66,18 +40,9 @@ export const SignInForm = () => {
     try {
         // We fetch the data, but while there is no backend we compare
         if ( email == 'doc@gmail.com' && password == '123' ) {
-            await login(doctData);
+            login(doctData);
             router.push('/');
         } 
-        else if ( email == 'sup@gmail.com' && password == '123' ) {
-            await login(supData);
-            router.push('/');
-        } 
-        else if ( email == 'patient@gmail.com' && password == '123' ) {
-            await login(patientData);
-            router.push('/');
-        }
-        
     } catch (err) {
         // Error is handled in the store
     }

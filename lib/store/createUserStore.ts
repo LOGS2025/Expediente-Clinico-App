@@ -7,6 +7,7 @@ import DoctorDashboardLayout from "@/components/dashboard/user/DoctorDashboard";
 import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDashboard";
 import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
 import { Role } from "../utils/types";
+import { use } from "react";
 
 /*
  *  The website should recognize the role by fetching it from the db? 
@@ -19,29 +20,29 @@ const layoutMap = {
     'indefinido' : null
 } as const;
 
-interface UserData {
-    id_string: string;
-    name: string;
-    email: string;
-    phone?: string;
-    role: Role;
-}
 
 export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     user: null,
     error: 'None',
     loggedIn: false,
 
-    login: async (userData: UserData) => {
+    login: ({user_id, nombre, apellido_p, apellido_m, email, phone, role}:User) => {
+        if ( !user_id || !nombre || !role ) {
+            set({ error: 'No se pasaron los datos' });
+            return;
+        }
         try {
             const user: User = {
-                id_string: userData.id_string,
-                name: userData.name,
-                email: userData.email,
-                phone: userData.phone,
-
-                role: userData.role,
+                user_id: user_id,
+                nombre: nombre,
+                apellido_p: apellido_p,
+                apellido_m: apellido_m,
+                email: email,
+                phone: phone,
+                role: role,
             }
+
+            console.log(user);
 
             set({
                 user, 
@@ -54,16 +55,11 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
 
     logout() {},
 
-    setUser: (user) => set({ user, loggedIn: true }),
     setError: (error) => set({ error }),
 
-    getRole: () => get().user.role,
-    getID: ()=> get().user.id_string,
-    getName: ()=> get().user.name,
-
-    isDoctor: () => get().user?.role === 'doctor',
-    isPatient: () => get().user?.role === 'patient',
-    isSupervisor: () => get().user?.role === 'supervisor',
+    getRole: () => get().user?.role,
+    getID: ()=> get().user?.user_id,
+    getName: ()=> get().user?.nombre,
 
     getDashboard: ()=> {
         const user = get().user;
