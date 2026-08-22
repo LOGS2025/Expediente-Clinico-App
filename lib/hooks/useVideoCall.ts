@@ -1,21 +1,6 @@
 import { create } from 'zustand'
-import { User } from '../models/User';
+import { VideoCallSlice } from '../slices/videoCallSlice';
 
-interface VideoCallSlice {
-    callId: String; // Use this to create a call ID ?
-    /**
-     * Member information
-     */
-    telemedic_uuid: String; 
-    patient_uuid: String;
-    supervisor_uuid: String | null;    
-
-    setParticipants: ( telemedic_uuid: String, patient_uuid: String, supervisor_uuid: String )=> void;
-
-    setCallID: ( callId : String )=>void;
-
-    getParticipantsUUID: ()=>any;
-}
 
 export const useVideoCall = create<VideoCallSlice>((set, get) => ({
     callId: '', // Use this to create a call ID ?
@@ -41,5 +26,9 @@ export const useVideoCall = create<VideoCallSlice>((set, get) => ({
             pat_uuid: pat_uuid,
             sup_uuid: sup_uuid,
         }
+    },
+
+    getCallId: ()=>{
+        return get().callId;
     },
 }))

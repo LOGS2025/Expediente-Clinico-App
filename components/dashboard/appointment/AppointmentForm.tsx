@@ -94,14 +94,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
         // The supervisor data MUST come from the store
         supervisor_uuid: supTmp.user_id
       }
-
-      console.log(body);
-
       const response = await createAppointment(body);
-      if (!response.success) {
-        setError('Error al crear la cita!');
-        throw new Error('Error al crear la cita');
-      }
 
       onSuccess?.();
       router.refresh();

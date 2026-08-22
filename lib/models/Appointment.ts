@@ -1,13 +1,13 @@
-import { User } from "./User";
+import { Participant } from "./User";
 
 export interface Appointment {
-    id: Number;
+    id: number;
     callid: String;
     pending: boolean;
-    
-/* fk */    telemedic: User;
-/* fk */    paciente: User;
-/* fk */    supervisor: User;
+
+/* fk */    telemedico: Participant;
+/* fk */    paciente: Participant;
+/* fk */    supervisor: Participant;
 };
 
 export interface AppointmentToSupabase {

@@ -16,9 +16,7 @@ import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
 import HistoriaClinica from "@/components/medical/HistoriaClinica";
-
-
-const callId = 'demo-call-y276HhfW';
+import ErrorMessage from "@/components/ui/Error";
 
 const SupervisorDashboardLayout= ()=> {
     const router = useRouter();
@@ -27,8 +25,8 @@ const SupervisorDashboardLayout= ()=> {
     const [appointments, setAppointment] = useState<[Appointment] | null>(null);
     const [option, setOption] = useState<string>('');
     const [showForm, setShowForm] = useState<boolean>(false);
-    const setupVideoParticipantsUUID = useVideoCall((state)=>state.setParticipants);
-    const getVideoParticipantsUUID = useVideoCall((state)=>state.getParticipantsUUID);
+    const videoCallHandler = useVideoCall((state)=>state);
+    const [error, setError] = useState<string | null>(null);
 
     // Get the appointments from supabase
     useEffect(()=>{
@@ -43,17 +41,31 @@ const SupervisorDashboardLayout= ()=> {
 
 
     function setAppointmentStore(appointment: Appointment) {
-        const telemedic = appointment.telemedic;
+        const telemedic = appointment.telemedico;
         const patient = appointment.paciente;
         const supervisor = appointment.supervisor;
+        const callId = appointment.callid;
 
-        setupVideoParticipantsUUID(telemedic.user_id, patient.user_id, supervisor.user_id);
+        if ( !telemedic || !patient || !supervisor ) {
+            setError("Missing a participant data");
+            return;
+        }
+
+        videoCallHandler.setParticipants(telemedic.usuario.user_id, patient.usuario.user_id, supervisor.usuario.user_id);
+
+        if ( !callId ) {
+            setError("Missing call id!!!");
+        }
+
+        videoCallHandler.setCallID(callId);
+
+        console.log(videoCallHandler.getParticipantsUUID());
+        console.log(videoCallHandler.getCallId());
     }
    
     const handleJoin = () => {
         try {
-            const data = getVideoParticipantsUUID();
-            // We create a call ID
+            const callId = videoCallHandler.getCallId()
             router.push(`/meeting/${callId}`);
 
         } catch (error) {
@@ -81,8 +93,8 @@ const SupervisorDashboardLayout= ()=> {
             information panel for appointments */
             if ( appointments) { return (
                 <div className="absolute top-[600px] left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    {/* <AppointmentsPanel appointments={appointments} 
-                    onSelectAppointment={setAppointmentStore}/>; */}
+                    <AppointmentsPanel appointments={appointments} 
+                    onSelectAppointment={setAppointmentStore}/>;
                 </div>)
             } else return (<></>);
 
@@ -90,7 +102,17 @@ const SupervisorDashboardLayout= ()=> {
     }
 
     return (
+        
         <div className="flex flex-row">
+            { error ? ( 
+                <div>
+                    <ErrorMessage message={error}/>                
+                </div>
+                ) : (
+                   <></> 
+                )
+            }
+
             {/* Side bar  */}
             <div className="flex-1">
                 <Sidebar 
