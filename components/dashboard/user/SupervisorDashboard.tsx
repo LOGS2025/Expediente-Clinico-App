@@ -33,7 +33,6 @@ const SupervisorDashboardLayout= ()=> {
         (async () => {
         const appointmentlist = await getAppointmentList();
         if ( appointmentlist ) {
-                console.log(appointmentlist)
             setAppointment(appointmentlist);
         }
         })();
@@ -41,26 +40,26 @@ const SupervisorDashboardLayout= ()=> {
 
 
     function setAppointmentStore(appointment: Appointment) {
-        const telemedic = appointment.telemedico;
-        const patient = appointment.paciente;
-        const supervisor = appointment.supervisor;
+        const telemedic_uuid = appointment.telemedico.usuario.uuid;
+        const patient_uuid = appointment.paciente.usuario.uuid;
+        const supervisor_uuid = appointment.supervisor.usuario.uuid;
         const callId = appointment.callid;
 
-        if ( !telemedic || !patient || !supervisor ) {
+        if ( !telemedic_uuid || !patient_uuid || !supervisor_uuid ) {
             setError("Missing a participant data");
             return;
         }
 
-        videoCallHandler.setParticipants(telemedic.usuario.uuid, patient.usuario.uuid, supervisor.usuario.uuid);
+        videoCallHandler.setParticipants(
+            telemedic_uuid, 
+            patient_uuid, 
+            supervisor_uuid);
 
         if ( !callId ) {
             setError("Missing call id!!!");
         }
 
         videoCallHandler.setCallID(callId);
-
-        console.log(videoCallHandler.getParticipantsUUID());
-        console.log(videoCallHandler.getCallId());
     }
    
     const handleJoin = () => {

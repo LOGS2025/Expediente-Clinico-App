@@ -12,8 +12,9 @@ import Button from '@/components/ui/ButtonUniv';
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 
-// TODO -> Create tokens
-const callId = 'demo-call-y276HhfW';
+interface Participants {
+
+}
 
 export default function Call() {
   const callInformation = useVideoCall((state)=>state);
@@ -28,13 +29,13 @@ export default function Call() {
   // Get instance of call if it exists  
   let call = useCall();
   if (!call ) 
-    call = client?.call('default', callId, { reuseInstance: true});
+    call = client?.call('default', callInformation.getCallId(), { reuseInstance: true});
 
   useEffect(()=>{
     try {
       const ourId = userInformation.getID();
       if (!ourId) throw new Error("No id provided");
-      if ( ourId == participants.doctor_uuid || ourId == participants.pat_uuid || (ourId == participants.sup_uuid && ourId!=null)  ) {
+      if ( ourId == participants.telemedic_uuid || ourId == participants.patient_uuid || ourId == participants.supervisor_uuid  ) {
         setValidity(true);
       } 
     } catch (error) {
@@ -44,25 +45,15 @@ export default function Call() {
   },[participants])
 
   async function joinCall() {
-    if ( participants.sup_uuid != null ) {
-      await call?.getOrCreate({
-        data: {
-          members: [{ user_id: participants.doctor_uuid , role: 'admin',}, 
-            { user_id: participants.pat_uuid}, 
-            { user_id: participants.sup_uuid}],
-          //starts_at: 
-        }
-      })
-    } else {
-      await call?.getOrCreate({
-        data: {
-          members: [{ user_id: participants.doctor_uuid , role: 'admin',}, 
-            { user_id: participants.pat_uuid}]
-          //starts_at: 
-        }
-      })
-    }
-
+    await call?.getOrCreate({
+      data: {
+        members: [
+          { user_id: participants.supervisor_uuid , role: 'admin',}, 
+        //  { user_id: participants.patient_uuid}, 
+        //  { user_id: participants.telemedic_uuid}
+        ]
+      }
+    })
     call?.join();
   }
 

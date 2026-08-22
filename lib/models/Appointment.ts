@@ -2,7 +2,7 @@ import { Participant } from "./User";
 
 export interface Appointment {
     id: number;
-    callid: String;
+    callid: string;
     pending: boolean;
 
 /* fk */    telemedico: Participant;
@@ -11,9 +11,9 @@ export interface Appointment {
 };
 
 export interface AppointmentToSupabase {
-    callid: String;
+    callid: string;
 
-/* fk */    telemedic_uuid: String;
-/* fk */    patient_uuid: String;
-/* fk */    supervisor_uuid: String;
+/* fk */    telemedic_uuid: string;
+/* fk */    patient_uuid: string;
+/* fk */    supervisor_uuid: string;
 };

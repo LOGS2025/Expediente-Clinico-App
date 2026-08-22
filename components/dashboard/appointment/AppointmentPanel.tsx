@@ -86,7 +86,7 @@ const AppointmentsPanel = ({
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
                             <span className="material-symbols-outlined text-white text-sm">
-                              medical_services
+                              M
                             </span>
                           </div>
                           <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">
@@ -101,7 +101,7 @@ const AppointmentsPanel = ({
                         <div className="flex items-center gap-2 mb-2">
                           <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
                             <span className="material-symbols-outlined text-white text-sm">
-                              person
+                              P
                             </span>
                           </div>
                           <span className="text-sm font-semibold text-green-700 uppercase tracking-wide">
@@ -116,7 +116,6 @@ const AppointmentsPanel = ({
                     {appointment.supervisor && (
                       <div className="mt-3 pt-3 border-t border-gray-200">
                         <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <span className="material-symbols-outlined text-sm">supervisor_account</span>
                           <span className="font-medium">Supervisor:</span>
                           <span>
                             {appointment.supervisor.usuario.nombre} {appointment.supervisor.usuario.apellido_p}
@@ -124,29 +123,6 @@ const AppointmentsPanel = ({
                         </div>
                       </div>
                     )}
-
-                    {/* Actions */}
-                    <div className="mt-4 flex gap-2">
-                      <button
-                        onClick={() => {
-                          // Join call logic
-                          console.log('Joining call:', appointment.callid);
-                        }}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm flex items-center gap-1"
-                      >
-                        <span className="material-symbols-outlined text-sm">videocam</span>
-                        Unirse
-                      </button>
-                      {appointment.pending && onCancelAppointment && (
-                        <button
-                          onClick={() => onCancelAppointment(appointment.id)}
-                          className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm flex items-center gap-1"
-                        >
-                          <span className="material-symbols-outlined text-sm">close</span>
-                          Cancelar
-                        </button>
-                      )}
-                    </div>
                   </div>
                 </div>
               </div>

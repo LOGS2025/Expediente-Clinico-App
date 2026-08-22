@@ -1,17 +1,23 @@
+export interface Participants {
+    telemedic_uuid: string;
+    patient_uuid: string;
+    supervisor_uuid: string;
+}
+
 export interface VideoCallSlice {
-    callId: String; // Use this to create a call ID ?
+    callId: string; // Use this to create a call ID ?
     /**
      * Member information
      */
-    telemedic_uuid: String; 
-    patient_uuid: String;
-    supervisor_uuid: String | null;    
+    telemedic_uuid: string; 
+    patient_uuid: string;
+    supervisor_uuid: string;    
 
-    setParticipants: ( telemedic_uuid: String, patient_uuid: String, supervisor_uuid: String )=> void;
+    setParticipants: ( telemedic_uuid: string, patient_uuid: string, supervisor_uuid: string )=> void;
 
-    setCallID: ( callId : String )=>void;
+    setCallID: ( callId : string )=>void;
 
-    getParticipantsUUID: ()=>any;
+    getParticipantsUUID: ()=>Participants;
     
-    getCallId: ()=>String;
+    getCallId: ()=>string;
 }
