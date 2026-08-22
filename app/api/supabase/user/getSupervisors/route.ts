@@ -9,12 +9,12 @@ export async function GET(){
       id,
       creacion,
       fk_user_id,
-      usuario:usuarios!fk_user_id (
+      usuario:usuarios!fk_supervisor_user_id (
         id,
         nombre,
         apellido_p,
         apellido_m,
-        user_id,
+        uuid,
         creacion
       )
     `);

@@ -5,7 +5,6 @@ import { useBoundStore } from '@/lib/hooks/useBoundStore';
 import { useRouter } from 'next/navigation';
 import { User } from '@/lib/models/User';
 import { getUserWithID } from '@/lib/supabase/users';
-import Link from 'next/link';
 import { CloseSvg } from "@/components/ui/Svgs"
 import { handleGoogleSignIn } from '@/lib/firebase/user';
 import { auth } from '@/lib/firebase/firebase';
@@ -18,40 +17,14 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const googleProvider = new GoogleAuthProvider();
 
 export const SignInForm = () => {
-  const router = useRouter();
   const login = useBoundStore((state) => state.login);
   const error = useBoundStore((state) => state.error);
-  const [tmpUserFetch, setTmpUserFetch] = useState<User | null>(null);
-
-  async function iniciarSesion(user_id : string) {
-    try {
-      const data = await getUserWithID(user_id);
-  
-      if ( !data ) throw new Error("No data received from supabase");
-  
-      const userBuild : User = {
-        nombre: data.nombre,
-        apellido_p: data.apellido_p,
-        apellido_m: data.apellido_m,
-        user_id: data.user_id,
-        role: data.supervisor!=null ? 'supervisor' : 
-          data.telemedico!=null ? 'doctor' : 
-          data.paciente!=null ? 'patient' : 
-          'indefinido'
-      }
-      setTmpUserFetch(userBuild);
-      console.log(userBuild);
-      login(userBuild);
-
-    } catch(err) {
-      console.error(err);
-    }
-  }
 
   async function googleSignIn() {
     handleGoogleSignIn({
       auth: auth, 
-      googleProvider: googleProvider
+      googleProvider: googleProvider,
+      login
     })
   }
 

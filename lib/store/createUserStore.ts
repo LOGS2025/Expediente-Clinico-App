@@ -2,12 +2,11 @@
 import type { BoundStateCreator } from "@/lib/hooks/useBoundStore";
 //import Cookies from 'js-cookie'
 import { UserSlice } from "../slices/userSlice";
-import { User } from "../models/User";
 import DoctorDashboardLayout from "@/components/dashboard/user/DoctorDashboard";
 import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDashboard";
 import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
-import { Role } from "../utils/types";
-import { use } from "react";
+import { FirebaseLogin } from "../models/FirebaseLogin";
+import { getUserWithID } from "../supabase/users";
 
 /*
  *  The website should recognize the role by fetching it from the db? 
@@ -25,44 +24,46 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     user: null,
     error: 'None',
     loggedIn: false,
+    cookieToken: null,
+    role: 'indefinido',
 
-    login: ({user_id, nombre, apellido_p, apellido_m, role}:User) => {
-        if ( !user_id || !nombre || !role ) {
-            set({ error: 'No se pasaron los datos' });
-            return;
-        }
-        try {
-            const user: User = {
-                user_id: user_id,
-                nombre: nombre,
-                apellido_p: apellido_p,
-                apellido_m: apellido_m,
-                role: role,
-            }
+    displayName: '',
+    photoURL: '',
+    uid: '',
+    token: '',
+    email: '',
 
-            console.log(user);
 
-            set({
-                user, 
-                loggedIn: true,
-            });
-        } catch(error) {
-            console.log(error);
-        }
+    login: async ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => {
+        // Save out firebase info
+        set({
+            email: email || '',
+            displayName: displayName || '',
+            photoURL: photoURL || '',
+            token: token,
+            uid: uid
+        });
+
+        // fetch user data from db with the uid we received
+        const data = await getUserWithID(uid);
+        console.log(data);
     },
 
     logout() {},
 
+    setCookie: ( cookie: string ) => {
+        set({cookieToken: cookie});
+    },
+
     setError: (error) => set({ error }),
 
-    getRole: () => get().user?.role,
-    getID: ()=> get().user?.user_id,
+    getRole: () => get().role,
+    getID: ()=> get().uid,
     getName: ()=> get().user?.nombre,
 
     getDashboard: ()=> {
-        const user = get().user;
-        if ( !user ) return null;
-        return layoutMap[user.role];
+        const role = get().role;
+        return layoutMap[role];
     }
 })
 

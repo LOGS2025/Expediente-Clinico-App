@@ -1,12 +1,8 @@
-import { signInWithPopup} from 'firebase/auth'
-import { 
-  collection, 
-  addDoc, 
-  serverTimestamp,
-} from "firebase/firestore";
-import { 
-  getFirestore, 
-} from "firebase/firestore";
+import { Auth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { FirebaseLogin } from '../models/FirebaseLogin';
+
 
 export const sendLogIntoFirebaseDB = async ({
   auth,
@@ -32,9 +28,11 @@ export const sendLogIntoFirebaseDB = async ({
 export const handleGoogleSignIn = async ({
   auth,
   googleProvider,
+  login,
 } : {
-    auth : any;
-    googleProvider : any;
+    auth : Auth;
+    googleProvider : GoogleAuthProvider;
+    login : ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => void;
   }) => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
@@ -47,8 +45,12 @@ export const handleGoogleSignIn = async ({
     // Store UID in a simple cookie for middleware
     document.cookie = `uid=${user.uid}; path=/; max-age=604800; SameSite=Lax`;
 
-    // Update your Zustand store
-    console.log(idToken, user);
+    login({ email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            token: idToken,
+            uid: user.uid })
+
     //logIn({idToken , user});
     sendLogIntoFirebaseDB({auth, firestore})
 

@@ -5,7 +5,6 @@ export interface User {
     nombre: string;
     apellido_p : string;
     apellido_m : string;
-    role?: Role;
 }
 
 export interface Participant {
