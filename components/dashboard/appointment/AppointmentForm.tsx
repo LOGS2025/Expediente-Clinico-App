@@ -1,39 +1,28 @@
 // components/appointments/AppointmentForm.tsx
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getPatientList, getSupervisorList, getTelemedicList, getUserList } from '@/lib/supabase/users';
-import { Participant, User } from '@/lib/models/User';
+import { getPatientList, getTelemedicList } from '@/lib/supabase/users';
+import { Participant } from '@/lib/models/User';
 import DisplayUsers from '@/components/ui/DisplayUsers';
 import Form from '@/components/ui/Form';
 import ErrorMessage from '@/components/ui/Error';
 import { createAppointment } from '@/lib/supabase/appointments';
 import { AppointmentToSupabase } from '@/lib/models/Appointment';
+import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
 interface AppointmentFormProps {
   onSuccess?: () => void;
   onCancel?: () => void;
 }
-//   body: JSON.stringify({
-//     fk_paciente: patientId,
-//     fk_doctor: doctorId,
-//     fk_supervisor: supervisorId || null,
-//     pendiente: true,
-//   }),
 
-const supTmp : User = {
-  user_id: "80b41055-4cc6-4712-84d2-2686227fd46a",
-  nombre: "Ana",
-  apellido_p: "Torres",
-  apellido_m: "Sánchez",
-  role: 'supervisor'
-}
 
 export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const userState = useBoundStore((state)=>state);
 
   const [patientList, setPatientList] = useState< Participant[] | null >(null);
   const [telemedicList, setTelemedicList] = useState< Participant[] | null >(null);
@@ -45,6 +34,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
     (async () => {
       const patientList = await getPatientList();
       if ( patientList ) {
+        console.log(patientList);
         setPatientList(patientList);
       }
       else {
@@ -52,6 +42,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
       }
       const telemedicList = await getTelemedicList();
       if ( telemedicList ) {
+        console.log(telemedicList);
         setTelemedicList(telemedicList);
       }
       else {
@@ -64,7 +55,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
       if ( !selAsDoctor || !selAsPacient ) {
         setError("Missing UUID for participants!");
       }
-      else if ( (selAsPacient?.usuario.user_id == selAsDoctor?.usuario.user_id) ) {
+      else if ( (selAsPacient?.usuario.uuid == selAsDoctor?.usuario.uuid) ) {
         setError("Can't set the same participant as different roles!");
       } else {
         setError(null);
@@ -80,19 +71,25 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
         setError("Missing UUID for participants!");
         throw new Error("Missing UUID for participants!");
       }
-      else if ( (selAsPacient?.usuario.user_id == selAsDoctor?.usuario.user_id) ) {
+      else if ( (selAsPacient?.usuario.uuid == selAsDoctor?.usuario.uuid) ) {
         setError("Can't set the same participant as different roles!");
         throw new Error("Same UUID for participants!");
       } else {
         setError(null);
       }
+      
+      const ourUUID = userState.getID();
+      if ( !ourUUID ) {
+        userState.logout();
+        throw new Error("We don't have an ID!");
+      }
 
       const body : AppointmentToSupabase = {
         callid: crypto.randomUUID(),
-        patient_uuid: selAsPacient.usuario.user_id,
-        telemedic_uuid: selAsDoctor.usuario.user_id,
+        patient_uuid: selAsPacient.usuario.uuid,
+        telemedic_uuid: selAsDoctor.usuario.uuid,
         // The supervisor data MUST come from the store
-        supervisor_uuid: supTmp.user_id
+        supervisor_uuid: ourUUID
       }
       const response = await createAppointment(body);
 
@@ -100,7 +97,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
       router.refresh();
       
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Error al crear la cita');
+      setError(error instanceof Error ? error.message : 'Error al crear la consulta');
     } finally {
       setLoading(false);
     }
@@ -119,11 +116,11 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
       {/* Space to see all users */}
         <div className='flex flex-col gap-8'>
           { patientList ? (
-            <DisplayUsers userList={patientList} setUser={setPacient} selectedUserId={selAsPacient?.usuario.user_id} label='Selecciona un paciente'/>
+            <DisplayUsers userList={patientList} setUser={setPacient} selectedUserId={selAsPacient?.usuario.uuid} label='Selecciona un paciente'/>
           ) : (<></>)
             }
           { telemedicList ? (
-            <DisplayUsers userList={telemedicList} setUser={setDoctor} selectedUserId={selAsDoctor?.usuario.user_id} label='Selecciona un telemedico'/>
+            <DisplayUsers userList={telemedicList} setUser={setDoctor} selectedUserId={selAsDoctor?.usuario.uuid} label='Selecciona un telemedico'/>
           ) : (<></>)
             }
         </div>

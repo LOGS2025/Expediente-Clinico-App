@@ -8,7 +8,7 @@ export async function GET(){
     .select(`
       id,
       creacion,
-      fk_user_id,
+      fk_telemedic_user_id,
       usuario:usuarios!fk_telemedic_user_id (
         id,
         nombre,

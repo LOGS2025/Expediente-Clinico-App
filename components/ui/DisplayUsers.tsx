@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Participant, User } from '@/lib/models/User';
+import { Participant } from '@/lib/models/User';
 
 interface DisplayUsersProps {
   userList: Participant[];
@@ -24,7 +24,7 @@ const DisplayUsers = ({
     setIsOpen(false);
   };
 
-  const selectedUser = userList.find(u => u.usuario.user_id === selectedUserId);
+  const selectedUser = userList.find(u => u.usuario.uuid === selectedUserId);
 
   return (
     <div className="relative">
@@ -61,10 +61,10 @@ const DisplayUsers = ({
             ) : (
               userList.map((participant) => (
                 <button
-                  key={participant.usuario.user_id}
+                  key={participant.usuario.uuid}
                   onClick={() => handleSelect(participant)}
                   className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 transition-colors ${
-                    selectedUserId === participant.usuario.user_id ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
+                    selectedUserId === participant.usuario.uuid ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
                   }`}
                 >
                   <div className="flex flex-col">
@@ -72,7 +72,7 @@ const DisplayUsers = ({
                       {participant.usuario.nombre} {participant.usuario.apellido_p} {participant.usuario.apellido_m}
                     </span>
                     <span className="text-xs text-gray-500">
-                      ID: {participant.usuario.user_id} {participant.usuario.role && `• ${participant.usuario.role}`}
+                      ID: {participant.usuario.uuid}
                     </span>
                   </div>
                 </button>

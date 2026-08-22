@@ -10,40 +10,40 @@ export async function GET(){
         callid,
         pendiente,
         creacion,
-        telemedico:telemedicos!fk_telemedico (
+        telemedico:telemedicos!fk_consulta_telemedico (
           id,
-          fk_user_id,
+          fk_telemedic_user_id,
           creacion,
-          usuario:usuarios!fk_user_id (
+          usuario:usuarios!fk_telemedic_user_id (
             id,
             nombre,
             apellido_p,
             apellido_m,
-            user_id
+            uuid
           )
         ),
-        paciente:pacientes!fk_paciente (
+        paciente:pacientes!fk_consulta_paciente (
           id,
-          fk_user_id,
+          fk_patient_user_id,
           creacion,
-          usuario:usuarios!fk_user_id (
+          usuario:usuarios!fk_patient_user_id (
             id,
             nombre,
             apellido_p,
             apellido_m,
-            user_id
+            uuid
           )
         ),
-        supervisor:supervisores!fk_supervisor (
+        supervisor:supervisores!fk_consulta_supervisor (
           id,
-          fk_user_id,
+          fk_supervisor_user_id,
           creacion,
-          usuario:usuarios!fk_user_id (
+          usuario:usuarios!fk_supervisor_user_id (
             id,
             nombre,
             apellido_p,
             apellido_m,
-            user_id
+            uuid
           )
         )
       `);

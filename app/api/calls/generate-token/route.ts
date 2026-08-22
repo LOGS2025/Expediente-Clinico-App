@@ -1,5 +1,4 @@
-import { Role } from "@/lib/utils/types";
-import { StreamClient, StreamVideoClient, UserRequest } from "@stream-io/node-sdk";
+import { StreamClient, UserRequest } from "@stream-io/node-sdk";
 import { NextRequest, NextResponse } from "next/server";
 
 const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY!;

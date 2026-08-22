@@ -16,7 +16,7 @@ const AppointmentsPanel = ({
   appointments,
   onSelectAppointment,
   onCancelAppointment,
-  title = 'Citas Programadas',
+  title = 'Consultas',
 }: AppointmentsPanelProps) => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
@@ -35,7 +35,7 @@ const AppointmentsPanel = ({
 
       {appointments.length < 1 ? (
         <div className="text-center py-8 text-gray-500">
-          <p>No hay citas</p>
+          <p>No hay consultas</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -172,7 +172,7 @@ const ParticipantInfo = ({
     return <span className="text-gray-400 text-sm">No disponible</span>;
   }
 
-  const { nombre, apellido_p, apellido_m, user_id } = participant.usuario;
+  const { nombre, apellido_p, apellido_m, uuid } = participant.usuario;
 
   // Color scheme based on role
   const colors = {
@@ -200,7 +200,7 @@ const ParticipantInfo = ({
         <p className="font-medium text-gray-800">
           {nombre} {apellido_p} {apellido_m}
         </p>
-        <p className="text-xs text-gray-400">ID: {user_id?.substring(0, 8)}...</p>
+        <p className="text-xs text-gray-400">ID: {uuid?.substring(0, 8)}...</p>
       </div>
     </div>
   );

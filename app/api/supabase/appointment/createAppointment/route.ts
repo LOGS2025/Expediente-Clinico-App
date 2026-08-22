@@ -18,9 +18,9 @@ export async function POST(request : NextRequest) {
       .from("consultas")
       .insert({
         callid : body.callid,
-        fk_paciente : body.patient_uuid,
-        fk_telemedico : body.telemedic_uuid,
-        fk_supervisor : body.supervisor_uuid
+        fk_consulta_paciente : body.patient_uuid,
+        fk_consulta_telemedico : body.telemedic_uuid,
+        fk_consulta_supervisor : body.supervisor_uuid
       })
       .select()
     if (error) {

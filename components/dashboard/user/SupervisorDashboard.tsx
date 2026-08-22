@@ -51,7 +51,7 @@ const SupervisorDashboardLayout= ()=> {
             return;
         }
 
-        videoCallHandler.setParticipants(telemedic.usuario.user_id, patient.usuario.user_id, supervisor.usuario.user_id);
+        videoCallHandler.setParticipants(telemedic.usuario.uuid, patient.usuario.uuid, supervisor.usuario.uuid);
 
         if ( !callId ) {
             setError("Missing call id!!!");

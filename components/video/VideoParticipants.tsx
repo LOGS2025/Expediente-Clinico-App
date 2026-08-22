@@ -1,32 +1,3 @@
-// import { ParticipantView, StreamVideoParticipant } from "@stream-io/video-react-sdk";
-
-// /*
-//  *  Use userId as the key to position and name
-//  *  each user Video image! 
-//  */
-
-// export const VideoParticipants = (props: {
-//   participants: StreamVideoParticipant[];
-// }) => {
-//   const { participants } = props;
-//   console.log(participants);
-  
-//   return (
-//     <div className="flex flex-row bg-blue-800">      
-//       {participants.map((participant) => (
-//         <>
-//           <ParticipantView
-//             participant={participant}
-//             key={participant.sessionId}
-//           />
-//         </>
-//       ))}
-
-//     </div>
-//   );
-// };
-
-// components/video/VideoParticipants.tsx
 import { ParticipantView, StreamVideoParticipant } from "@stream-io/video-react-sdk";
 
 interface VideoParticipantsProps {
