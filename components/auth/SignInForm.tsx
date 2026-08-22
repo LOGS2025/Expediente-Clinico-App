@@ -1,10 +1,8 @@
 'use client';
 
-import { ComponentProps, useEffect, useState } from 'react';
+import { ComponentProps } from 'react';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 import { useRouter } from 'next/navigation';
-import { User } from '@/lib/models/User';
-import { getUserWithID } from '@/lib/supabase/users';
 import { CloseSvg } from "@/components/ui/Svgs"
 import { handleGoogleSignIn } from '@/lib/firebase/user';
 import { auth } from '@/lib/firebase/firebase';
@@ -17,8 +15,10 @@ import { GoogleAuthProvider } from 'firebase/auth';
 const googleProvider = new GoogleAuthProvider();
 
 export const SignInForm = () => {
+  const router = useRouter();
   const login = useBoundStore((state) => state.login);
   const error = useBoundStore((state) => state.error);
+  const userState = useBoundStore((state)=>state);
 
   async function googleSignIn() {
     handleGoogleSignIn({
@@ -26,6 +26,26 @@ export const SignInForm = () => {
       googleProvider: googleProvider,
       login
     })
+  }
+
+  function btn_log_in() {
+    if ( userState.loggedIn && userState.getID() ) {
+      return (
+      <button
+        className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition hover:bg-gray-50 hover:brightness-90"
+        onClick={()=>router.push('/')}>
+          Entra al sitio
+        </button>
+      )
+    } else {
+      return (
+      <button
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition hover:bg-gray-50 hover:brightness-90"
+          onClick={googleSignIn}>
+          <GoogleLogoSvg className="h-5 w-5" /> Google
+        </button>
+      )
+    }
   }
 
   return (
@@ -44,12 +64,7 @@ export const SignInForm = () => {
             Inicia sesion
           </h2>
           <div className="flex gap-5">
-            <button
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition hover:bg-gray-50 hover:brightness-90"
-              onClick={googleSignIn}
-            >
-              <GoogleLogoSvg className="h-5 w-5" /> Google
-            </button>
+            { btn_log_in() }
           </div>
         </div>
       </div>

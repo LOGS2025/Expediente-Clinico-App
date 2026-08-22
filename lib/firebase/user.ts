@@ -51,7 +51,6 @@ export const handleGoogleSignIn = async ({
             token: idToken,
             uid: user.uid })
 
-    //logIn({idToken , user});
     sendLogIntoFirebaseDB({auth, firestore})
 
   } catch (error) {

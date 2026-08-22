@@ -7,6 +7,7 @@ import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDas
 import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
 import { FirebaseLogin } from "../models/FirebaseLogin";
 import { getUserWithID } from "../supabase/users";
+import { User } from "../models/User";
 
 /*
  *  The website should recognize the role by fetching it from the db? 
@@ -19,6 +20,19 @@ const layoutMap = {
     'indefinido' : null
 } as const;
 
+interface UserFromSupabase {
+    uuid: string;
+    nombre: string;
+    apellido_p : string;
+    apellido_m : string;
+
+    id: number;
+    creacion: string;
+
+    paciente: User | null;
+    telemedico: User | null;
+    supervisor: User | null;
+}
 
 export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     user: null,
@@ -35,21 +49,43 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
 
 
     login: async ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => {
-        // Save out firebase info
-        set({
-            email: email || '',
-            displayName: displayName || '',
-            photoURL: photoURL || '',
-            token: token,
-            uid: uid
-        });
+        try {// Save out firebase info
+            set({
+                email: email || '',
+                displayName: displayName || '',
+                photoURL: photoURL || '',
+                token: token,
+                uid: uid
+            });
 
-        // fetch user data from db with the uid we received
-        const data = await getUserWithID(uid);
-        console.log(data);
+            // fetch user data from db with the uid we received
+            const data : UserFromSupabase = await getUserWithID(uid);
+
+            if ( data ) {
+                const user_build : User = {
+                    nombre: data.nombre,
+                    apellido_p: data.apellido_p,
+                    apellido_m: data.apellido_m,
+                    uuid: data.uuid
+                }
+
+                if ( data.paciente )
+                    set({ role: 'patient' })
+                if ( data.supervisor )
+                    set({ role: 'supervisor' })
+                if ( data.telemedico )
+                    set({ role: 'doctor' })
+
+                set({   loggedIn: true,
+                        user: user_build
+                    });
+            }
+        } catch ( err ) {
+            console.error(err);
+        }
     },
 
-    logout() {},
+    logout() { set({loggedIn: false}) },
 
     setCookie: ( cookie: string ) => {
         set({cookieToken: cookie});
