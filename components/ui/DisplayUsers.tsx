@@ -2,11 +2,11 @@
 'use client';
 
 import { useState } from 'react';
-import { User } from '@/lib/models/User';
+import { Participant, User } from '@/lib/models/User';
 
 interface DisplayUsersProps {
-  userList: User[];
-  setUser: (user: User) => void;
+  userList: Participant[];
+  setUser: (user: Participant) => void;
   selectedUserId?: string;
   label?: string;
 }
@@ -19,12 +19,12 @@ const DisplayUsers = ({
 }: DisplayUsersProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelect = (user: User) => {
+  const handleSelect = (user: Participant) => {
     setUser(user);
     setIsOpen(false);
   };
 
-  const selectedUser = userList.find(u => u.user_id === selectedUserId);
+  const selectedUser = userList.find(u => u.usuario.user_id === selectedUserId);
 
   return (
     <div className="relative">
@@ -36,7 +36,7 @@ const DisplayUsers = ({
       >
         <span className={selectedUser ? 'text-gray-900' : 'text-gray-500'}>
           {selectedUser 
-            ? `${selectedUser.nombre} ${selectedUser.apellido_p} ${selectedUser.apellido_m}`
+            ? `${selectedUser.usuario.nombre} ${selectedUser.usuario.apellido_p} ${selectedUser.usuario.apellido_m}`
             : label
           }
         </span>
@@ -59,20 +59,20 @@ const DisplayUsers = ({
                 No hay usuarios disponibles
               </div>
             ) : (
-              userList.map((user) => (
+              userList.map((participant) => (
                 <button
-                  key={user.user_id}
-                  onClick={() => handleSelect(user)}
+                  key={participant.usuario.user_id}
+                  onClick={() => handleSelect(participant)}
                   className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 transition-colors ${
-                    selectedUserId === user.user_id ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
+                    selectedUserId === participant.usuario.user_id ? 'bg-blue-50 text-blue-700' : 'text-gray-900'
                   }`}
                 >
                   <div className="flex flex-col">
                     <span className="font-medium">
-                      {user.nombre} {user.apellido_p} {user.apellido_m}
+                      {participant.usuario.nombre} {participant.usuario.apellido_p} {participant.usuario.apellido_m}
                     </span>
                     <span className="text-xs text-gray-500">
-                      ID: {user.user_id} {user.role && `• ${user.role}`}
+                      ID: {participant.usuario.user_id} {participant.usuario.role && `• ${participant.usuario.role}`}
                     </span>
                   </div>
                 </button>

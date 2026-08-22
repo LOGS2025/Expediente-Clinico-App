@@ -1,5 +1,6 @@
-import SignInForm from "@/components/auth/SignInForm"
+'use client'
 
+import SignInForm from "@/components/auth/SignInForm"
 
 const SignIn = ()=> {
     return (
@@ -8,6 +9,5 @@ const SignIn = ()=> {
         </>
     )
 }
-
 
 export default SignIn;

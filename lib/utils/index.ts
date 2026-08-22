@@ -1,8 +1,8 @@
 import { Side, Top } from "@/lib/utils/barItems";
-import HistClinica from "@/components/medical/Histclinica";
 import Paraclinicos from "@/components/medical/Paraclinicos";
 import Agenda from "@/components/dashboard/Agenda";
 import { ComponentType } from "react";
+import HistoriaClinica from "@/components/medical/HistoriaClinica";
 
 
 export type SIDEBAR_ITEM = {
@@ -22,23 +22,23 @@ export const useTopBarItems = () => {
   const sidebarItems: NAVBAR_ITEM[] = [
     {
       name: "PROUNAM y Guías Clínicas",
-      href: "/guides/clinica",
+      href: "https://www.google.com/?hl=es",
       icon: "",
     }, {
       name: "Guía de teleconsulta",
-      href: "/guides/teleconsulta",
+      href: "https://www.google.com/?hl=es",
       icon: "",
     }, {
       name: "Guía de prescripción",
-      href: "/guides/prescripcion",
+      href: "https://www.google.com/?hl=es",
       icon: "",
     }, {
       name: "Guía de Actividades Profesionales a Confiar",
-      href: "/guides/actividades",
+      href: "https://www.google.com/?hl=es",
       icon: "",
     }, {
       name: "Más Recursos",
-      href: "/guides/more-sources",
+      href: "https://www.google.com/?hl=es",
       icon: "",
     }
   ];
@@ -51,7 +51,7 @@ export const useSideBarItems = () => {
   const sidebarItems: SIDEBAR_ITEM[] = [
     {
       name: "Historia Clínica",
-      component: HistClinica, 
+      component: HistoriaClinica, 
       icon: "",
     }, {
       name: "Paraclínicos",

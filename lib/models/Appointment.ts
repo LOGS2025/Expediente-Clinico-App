@@ -1,18 +1,19 @@
+import { User } from "./User";
+
 export interface Appointment {
-    id: number;
+    id: Number;
+    callid: String;
     pending: boolean;
-    creacion: string;
-    fecha: string;
-    motif: string;
-    doctor: string;
-    paciente: string;
-    supervisor: string | null;
+    
+/* fk */    telemedic: User;
+/* fk */    paciente: User;
+/* fk */    supervisor: User;
 };
 
 export interface AppointmentToSupabase {
-    date: Date;
-    motif: string;
-    doctor_uuid: string;
-    patient_uuid: string;
-    supervisor_uuid: string | null;
+    callid: String;
+
+/* fk */    telemedic_uuid: String;
+/* fk */    patient_uuid: String;
+/* fk */    supervisor_uuid: String;
 };

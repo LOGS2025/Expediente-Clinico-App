@@ -1,7 +1,7 @@
 'use client'
 
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
-import { createVideoClient } from "@/lib/utils/client";
+import { createVideoClient } from "@/lib/stream/client";
 import { StreamVideo, StreamVideoClient, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { PropsWithChildren, useEffect, useState } from "react";
 

@@ -1,48 +1,67 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 import { useRouter } from 'next/navigation';
 import { User } from '@/lib/models/User';
+import { getUserWithID } from '@/lib/supabase/users';
 
 /*
  *  Should only expect an email and a password assuing the account creation 
  *  is done manually for each user 
  */
 
-const doctData : User = {
-    user_id: '1ab54245-687e-42ea-8f83-1130a8003229',
-    nombre: 'Pepe',
-    apellido_p: 'Gutierrez',
-    apellido_m: 'Vazquez',
-    email: 'doc@gmail.com',
-    phone: '0000000000',
-
-    role: 'doctor',
-}
-
-
 export const SignInForm = () => {
   const router = useRouter();
   const login = useBoundStore((state) => state.login);
   const error = useBoundStore((state) => state.error);
+  const [tmpUserFetch, setTmpUserFetch] = useState<User | null>(null);
 
-  const [email, setEmail] = useState('');
+  const [userid, setUserid] = useState<string>('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
+  async function iniciarSesion(user_id : string) {
+    try {
+      const data = await getUserWithID(user_id);
+  
+      if ( !data ) throw new Error("No data received from supabase");
+  
+      const userBuild : User = {
+        nombre: data.nombre,
+        apellido_p: data.apellido_p,
+        apellido_m: data.apellido_m,
+        user_id: data.user_id,
+        role: data.supervisor!=null ? 'supervisor' : 
+          data.telemedico!=null ? 'doctor' : 
+          data.paciente!=null ? 'patient' : 
+          'indefinido'
+      }
+      setTmpUserFetch(userBuild);
+      console.log(userBuild);
+      login(userBuild);
+
+    } catch(err) {
+      console.error(err);
+    }
+  }
+
+  useEffect(()=>{
+    if ( tmpUserFetch ) {
+      login(tmpUserFetch);
+    }
+  },[tmpUserFetch])
+
+
   const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
-    if (!email || !password) {
+    if (!userid || !password) {
     return;
     }
     
     try {
-        // We fetch the data, but while there is no backend we compare
-        if ( email == 'doc@gmail.com' && password == '123' ) {
-            login(doctData);
-            router.push('/');
-        } 
+          iniciarSesion(userid);
+          router.push('/');
     } catch (err) {
         // Error is handled in the store
     }
@@ -76,10 +95,10 @@ export const SignInForm = () => {
             </span>
             <input
               id="email"
-              type="email"
-              value={email}
+              type="text" // Change later
+              value={userid}
               onChange={(e) => {
-                setEmail(e.target.value);
+                setUserid(e.target.value);
               }}
               placeholder="ejemplo@facmed.unam.mx"
               className="w-full pl-10 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"

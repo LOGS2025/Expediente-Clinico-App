@@ -7,6 +7,7 @@ import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
+import HistoriaClinica from "@/components/medical/HistoriaClinica";
 
 /*
 Dashboard 
@@ -17,12 +18,15 @@ Dashboard
         Calendario
         Citas dashboard
 */
+const callId = 'demo-call-y276HhfW';
+
 const DoctorDashboardLayout = ()=> {
     const router = useRouter();
 
     const [ActiveItem, setItem] = useState<ComponentType | null >(null);
     const [appointments, setAppointment] = useState<[Appointment] | null>(null);
     const [option, setOption] = useState<string>('');
+    const [showForm, setShowForm] = useState<boolean>(false);
     const setupVideoParticipantsUUID = useVideoCall((state)=>state.setParticipants);
     const getVideoParticipantsUUID = useVideoCall((state)=>state.getParticipantsUUID);
 
@@ -32,10 +36,10 @@ const DoctorDashboardLayout = ()=> {
         const appointmentlist = await getAppointmentList();
         if ( appointmentlist ) {
             setAppointment(appointmentlist);
-            console.log(appointmentlist)
         }
         })();
     },[])
+
 
     function setAppointmentStore(appointment: Appointment) {
         const doctor = appointment.doctor;
@@ -47,18 +51,15 @@ const DoctorDashboardLayout = ()=> {
     }
    
     const handleJoin = () => {
-    try {
-        console.log("Pressed")
-        const data = getVideoParticipantsUUID();
-        console.log(data);
-        // We create a call ID
-        const callID = '001'
-        router.push(`/meeting/${callID}`);
+        try {
+            const data = getVideoParticipantsUUID();
+            // We create a call ID
+            router.push(`/meeting/${callId}`);
 
-    } catch (error) {
-      console.log(error);
+        } catch (error) {
+        console.log(error);
+        }
     }
-  }
 
     function optionDisplay() {
         switch (option) {
@@ -66,6 +67,13 @@ const DoctorDashboardLayout = ()=> {
             <div className="absolute top-[600px] left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <AppointmentForm/>
             </div>);
+
+            // case 'hist':
+            //     return (
+            // <div className="absolute top-[600px] left-1/2 -translate-x-1/2 -translate-y-1/2">
+            //     <HistoriaClinica/>
+            // </div>
+            // )
 
             case 'config':
             default:
@@ -77,6 +85,7 @@ const DoctorDashboardLayout = ()=> {
                     onSelectAppointment={setAppointmentStore}/>;
                 </div>)
             } else return (<></>);
+
         }
     }
 
@@ -87,15 +96,18 @@ const DoctorDashboardLayout = ()=> {
                 <Sidebar 
                     ActiveItem={ActiveItem}
                     setItem={setItem}
+                    displayHistClin={showForm}
+                    setDisplayHistClin={setShowForm}
                 />
             </div>
 
             {/* Adjust to the size of out Navbar */}
             <div className="flex-4 mt-[100px]">
                 <div className="flex flex-rowgap-6">
-                    <Button onClick={()=>setOption('create')} text="Crear cita"/>
-                    <Button onClick={()=>setOption('config')} text="Configurar cita"/>
-                    <Button onClick={()=>handleJoin()} text="Iniciar cita"/>
+                    <Button onClick={()=>setOption('create')} text="Crear consulta"/>
+                    <Button onClick={()=>setOption('config')} text="Configurar consulta"/>
+                    <Button onClick={()=>handleJoin()} text="Iniciar consulta"/>
+                    <Button onClick={()=>setOption('hist')} text="Historia clinica"/>
                 </div>
 
                 {/* Side bar selected item */}

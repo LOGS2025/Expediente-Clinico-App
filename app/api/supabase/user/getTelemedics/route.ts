@@ -3,9 +3,21 @@ import { NextResponse } from "next/server";
 
 export async function GET(){
   try {
-    const { data, error } = await supabase 
-      .from('usuarios')
-      .select('*')
+    const { data, error } = await supabase
+    .from('telemedicos')
+    .select(`
+      id,
+      creacion,
+      fk_user_id,
+      usuario:usuarios!fk_user_id (
+        id,
+        nombre,
+        apellido_p,
+        apellido_m,
+        user_id,
+        creacion
+      )
+    `);
     if (data) {
       return NextResponse.json({
         ok: true,

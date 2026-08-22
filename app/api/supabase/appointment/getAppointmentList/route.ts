@@ -4,33 +4,47 @@ import { NextResponse } from "next/server";
 export async function GET(){
   try {
     const { data, error } = await supabase
-      .from('citas')
+      .from('consultas')
       .select(`
         id,
+        callid,
         pendiente,
-        fecha,
         creacion,
-        motif,
-        paciente:usuarios!fk_paciente (
+        telemedico:telemedicos!fk_telemedico (
           id,
-          nombre,
-          apellido_p,
-          apellido_m,
-          user_id
+          fk_user_id,
+          creacion,
+          usuario:usuarios!fk_user_id (
+            id,
+            nombre,
+            apellido_p,
+            apellido_m,
+            user_id
+          )
         ),
-        doctor:usuarios!fk_doctor (
+        paciente:pacientes!fk_paciente (
           id,
-          nombre,
-          apellido_p,
-          apellido_m,
-          user_id
+          fk_user_id,
+          creacion,
+          usuario:usuarios!fk_user_id (
+            id,
+            nombre,
+            apellido_p,
+            apellido_m,
+            user_id
+          )
         ),
-        supervisor:usuarios!fk_supervisor (
+        supervisor:supervisores!fk_supervisor (
           id,
-          nombre,
-          apellido_p,
-          apellido_m,
-          user_id
+          fk_user_id,
+          creacion,
+          usuario:usuarios!fk_user_id (
+            id,
+            nombre,
+            apellido_p,
+            apellido_m,
+            user_id
+          )
         )
       `);
     if (data) {

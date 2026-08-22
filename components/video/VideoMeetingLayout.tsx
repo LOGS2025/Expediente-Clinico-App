@@ -1,5 +1,6 @@
-import { CallingState, StreamTheme, useCallStateHooks, useFilteredParticipants } from "@stream-io/video-react-sdk";
+import { CallingState, StreamTheme, useCallStateHooks } from "@stream-io/video-react-sdk";
 import { VideoParticipants } from "./VideoParticipants";
+import LoadingScreen from "../ui/LoadingScreen";
 
 export const VideoLayout = () => {
 
@@ -10,11 +11,11 @@ export const VideoLayout = () => {
   const allParticipants = useParticipants();
 
   if (callingState !== CallingState.JOINED) {
-    return <div>Loading...</div>;
+    return <LoadingScreen/>;
   }
 
   return (
-    <div className="">
+    <div className="h-full w-full">
       <StreamTheme>
         <VideoParticipants participants={allParticipants} />
       </StreamTheme>

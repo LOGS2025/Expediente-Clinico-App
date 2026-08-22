@@ -1,17 +1,23 @@
 'use client';
 
 import { useSideBarItems } from "@/lib/utils/index";
-import { ComponentType } from "react";
+import { ComponentType, useState } from "react";
 
 
 const Sidebar = ({
     ActiveItem, 
-    setItem
+    setItem,
+    displayHistClin,
+    setDisplayHistClin,
 } : {
     ActiveItem: ComponentType | null;
         setItem: React.Dispatch<any>;
+        displayHistClin: boolean;
+        setDisplayHistClin: React.Dispatch<any>;
 })=> {
     const sidebarItems = useSideBarItems();
+    const [display, setDisplay] = useState<boolean>(false);
+
     return (
     <aside className="fixed left-0 top-[18%] bottom-[15%] w-[20%] flex flex-col p-4 z-40 bg-slate-100 dark:bg-slate-950 font-['Inter'] text-sm font-medium">
         <div className="mb-8 px-2">
@@ -32,6 +38,20 @@ const Sidebar = ({
                     </li>
                 )
             })}
+            <button 
+                onClick={()=>{ setDisplay(!display) } }
+                className="flex flex-col w-full py-3 bg-primary text-white rounded-xl font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
+                    <span className="material-symbols-outlined text-sm">Expediente clinico</span>
+            </button>
+            {   display ? (
+                <div className="flex flex-col">
+                    <button onClick={()=>{ setDisplayHistClin(!displayHistClin) }}>Historia Clinica</button>
+                    <button>Nota SOAP</button>
+                </div>
+            ) : (
+                <></>
+            )}
+
         </nav>
 
         <div className="mt-auto p-4">

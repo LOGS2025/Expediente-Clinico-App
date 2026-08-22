@@ -6,29 +6,24 @@ export async function POST(request : NextRequest) {
   try {
     const body : AppointmentToSupabase = await request.json();
     
-    if (!body.date || !body.motif || !body.doctor_uuid || !body.patient_uuid) {
-      console.error('Missing required fields:', body);
+    if (!body.supervisor_uuid || !body.telemedic_uuid || !body.patient_uuid) {
       return NextResponse.json({
         success: false,
-        error: 'Missing required fields: date, motif, doctor_uuid, patient_uuid'
+        error: 'Missing required fields: telemedic_uuid, doctor_uuid, patient_uuid'
       }, { status: 400 });
     }
 
     // Insert into Supabase
     const { data, error } = await supabase
-      .from("citas")
+      .from("consultas")
       .insert({
-        fecha : body.date,
-        motif : body.motif,
-        pendiente : true /*body.pending*/,
-        fk_doctor : body.doctor_uuid,
+        callid : body.callid,
         fk_paciente : body.patient_uuid,
-        fk_supervisor : body.supervisor_uuid || null
+        fk_telemedico : body.telemedic_uuid,
+        fk_supervisor : body.supervisor_uuid
       })
       .select()
-    
     if (error) {
-      console.error("Supabase error:", error);
       return Response.json({ 
         success: false, 
         error: error.message 
@@ -41,7 +36,6 @@ export async function POST(request : NextRequest) {
     })
     
   } catch(error) {
-    console.error("API error:", error);
     return Response.json({ 
       success: false, 
       error: error.message 

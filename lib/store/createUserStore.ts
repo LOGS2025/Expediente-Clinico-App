@@ -26,7 +26,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     error: 'None',
     loggedIn: false,
 
-    login: ({user_id, nombre, apellido_p, apellido_m, email, phone, role}:User) => {
+    login: ({user_id, nombre, apellido_p, apellido_m, role}:User) => {
         if ( !user_id || !nombre || !role ) {
             set({ error: 'No se pasaron los datos' });
             return;
@@ -37,8 +37,6 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                 nombre: nombre,
                 apellido_p: apellido_p,
                 apellido_m: apellido_m,
-                email: email,
-                phone: phone,
                 role: role,
             }
 

@@ -1,8 +1,7 @@
 'use client'
 
-import { role, StreamCall, useCall, useStreamVideoClient} from '@stream-io/video-react-sdk';
+import { StreamCall, useCall, useStreamVideoClient} from '@stream-io/video-react-sdk';
 import { VideoLayout } from '@/components/video/VideoMeetingLayout';
-import "@stream-io/video-react-sdk/dist/css/styles.css";
 import { useEffect, useState } from 'react';
 import BottomBar from '@/components/dashboard/Bottombar';
 import { useVideoCall } from '@/lib/hooks/useVideoCall';
@@ -10,6 +9,8 @@ import Lobby from '@/components/video/VideoLobby';
 import ErrorMessage from '@/components/ui/Error';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 import Button from '@/components/ui/ButtonUniv';
+
+import "@stream-io/video-react-sdk/dist/css/styles.css";
 
 // TODO -> Create tokens
 const callId = 'demo-call-y276HhfW';
@@ -26,8 +27,8 @@ export default function Call() {
   
   // Get instance of call if it exists  
   let call = useCall();
-  if ( !call )   
-  call = client?.call('default', callId, { reuseInstance: true });
+  if (!call ) 
+    call = client?.call('default', callId, { reuseInstance: true});
 
   useEffect(()=>{
     try {
@@ -43,26 +44,27 @@ export default function Call() {
   },[participants])
 
   async function joinCall() {
-    await call?.getOrCreate({
-      data: {
-        members: [{ user_id: participants.doctor_uuid , role: 'admin',}, 
-          { user_id: participants.pat_uuid}, 
-          { user_id: participants.sup_uuid}],
-        //starts_at: 
-      }
-    })
+    if ( participants.sup_uuid != null ) {
+      await call?.getOrCreate({
+        data: {
+          members: [{ user_id: participants.doctor_uuid , role: 'admin',}, 
+            { user_id: participants.pat_uuid}, 
+            { user_id: participants.sup_uuid}],
+          //starts_at: 
+        }
+      })
+    } else {
+      await call?.getOrCreate({
+        data: {
+          members: [{ user_id: participants.doctor_uuid , role: 'admin',}, 
+            { user_id: participants.pat_uuid}]
+          //starts_at: 
+        }
+      })
+    }
 
     call?.join();
-    console.log();
   }
-
-
-  useEffect(()=>{
-    
-
-    if ( call )
-      call.join({ create: true }); 
-  },[call, client]);
 
   if ( !call ) {
     return (
@@ -73,20 +75,28 @@ export default function Call() {
   if ( call ) {
     return (
       <div>
-        <div className='flex flex-col text-zinc-900'>
+        <div className='flex flex-col text-zinc-900 w-full h-full'>
           <StreamCall call={call}>
             { wantIn ? 
+            <div>
               <VideoLayout/> 
-            : <Lobby/>
+            </div>
+            : 
+            <div>
+              <Lobby/>
+              { validity ? 
+                (
+                  <Button onClick={ async ()=>{ 
+                    joinCall();
+                    setWantIn(true); 
+                  }} text='Unirse a la llamada'/>
+                ) 
+                : (<></>)
+              }
+            </div>
             }
             <BottomBar/>
           </StreamCall>
-            { validity ? 
-              (
-                <Button onClick={()=>{}} text='Unirse a la llamada'/>
-              ) 
-              : (<></>)
-            }
         </div>
 
         { error ? (
