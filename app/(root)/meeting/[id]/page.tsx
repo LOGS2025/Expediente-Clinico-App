@@ -28,8 +28,10 @@ export default function Call() {
   
   // Get instance of call if it exists  
   let call = useCall();
-  if (!call ) 
+  if (!call ) {
     call = client?.call('default', callInformation.getCallId(), { reuseInstance: true});
+    call?.join();
+  }
 
   useEffect(()=>{
     try {
@@ -45,6 +47,53 @@ export default function Call() {
   },[participants])
 
   async function joinCall() {
+    await client.createRole({ name: "telemedic" });
+    await client.createRole({ name: "patient" });
+    await client.createRole({ name: "supervisor" });
+
+    await client.video.createCallType("appointment", {
+      grants: {
+        supervisor: [
+          VideoOwnCapability.JOIN_CALL,
+          VideoOwnCapability.SEND_AUDIO,
+          VideoOwnCapability.SEND_VIDEO,
+        ],
+        specialist: [
+          VideoOwnCapability.JOIN_CALL,
+          VideoOwnCapability.SEND_AUDIO,
+          VideoOwnCapability.SEND_VIDEO,
+          // These capabilities are required to change session duration:
+        ],
+        patient: [
+          VideoOwnCapability.JOIN_CALL,
+          VideoOwnCapability.SEND_AUDIO,
+          VideoOwnCapability.SEND_VIDEO,
+        ],
+      },
+      settings: {
+        limits: {
+          // 3600 seconds = 1 hour
+          max_duration_seconds: 3600,
+        },
+      },
+    });
+    // 3. Two test users:
+    await client.upsertUsers({
+      users: {
+        "dr-lecter": {
+          id: "dr-lecter",
+          name: "Dr. Hannibal Lecter",
+          role: "specialist",
+        },
+        bill: {
+          id: "bill",
+          name: "Buffalo Bill",
+          role: "patient",
+        },
+      },
+    });
+
+
     await call?.getOrCreate({
       data: {
         members: [
@@ -86,7 +135,6 @@ export default function Call() {
               }
             </div>
             }
-            <BottomBar/>
           </StreamCall>
         </div>
 
