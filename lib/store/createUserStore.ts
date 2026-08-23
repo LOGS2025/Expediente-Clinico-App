@@ -6,7 +6,7 @@ import DoctorDashboardLayout from "@/components/dashboard/user/DoctorDashboard";
 import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDashboard";
 import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
 import { FirebaseLogin } from "../models/FirebaseLogin";
-import { getUserWithID } from "../supabase/users";
+import { createUser, getUserWithID } from "../supabase/users";
 import { User } from "../models/User";
 
 /*
@@ -60,6 +60,13 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
 
             // fetch user data from db with the uid we received
             const data : UserFromSupabase = await getUserWithID(uid);
+
+            if ( !data ) {
+                const name = displayName?.split(' ');
+                console.log(name);
+                throw new Error("User does not exist on database");
+                // const res = await createUser({ nombre: name[0] })
+            }
 
             if ( data ) {
                 const user_build : User = {
