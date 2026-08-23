@@ -25,27 +25,27 @@ import {
 import { useRouter } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
-
-export const FloatingParticipant = (props: {
-  participant?: StreamVideoParticipant;
+export const CenteredOneView = (props: {
+  participant : StreamVideoParticipant;
 }) => {
   const { participant } = props;
   const call = useCall();
   const router = useRouter();
-  return (
-    <div
-    className=''
-    style={{
-      position: 'absolute',
-      top: '15px',
-      left: '215px',
-      width: '300px',
-      height: '300px',
-      borderRadius: '12px',
-    }}>
-      {participant && <ParticipantView muteAudio participant={participant} />}
 
-      <CustomCallControls>
+  return (
+    <div>
+      { participant &&  
+        <ParticipantView
+          participant={participant}
+          trackType={
+            hasScreenShare(participant)
+              ? 'screenShareTrack'
+              : 'videoTrack'
+          }
+          ParticipantViewUI={DefaultParticipantViewUI}
+        />
+      }
+            <CustomCallControls>
         <ScreenShareButton />
         <SpeakingWhileMutedNotification>
           <ToggleAudioPublishingButton />
@@ -61,7 +61,7 @@ export const FloatingParticipant = (props: {
         )}
       </CustomCallControls>
     </div>
-  )
+  );
 }
 
 const CustomCallControls = ({ children }: PropsWithChildren<{}>) => {

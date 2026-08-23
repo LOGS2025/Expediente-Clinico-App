@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* app/globals.css */
+@import "@stream-io/video-react-sdk/dist/css/styles.css";
+
+/* Ensure Stream components have proper display */
+.str-video__call-controls {
+  display: flex !important;
+  gap: 0.5rem !important;
+  align-items: center !important;
+}
+
+.str-video__button {
+  min-width: 44px !important;
+  min-height: 44px !important;
+}

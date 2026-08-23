@@ -10,11 +10,11 @@ const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   const client = useStreamVideoClient();
 
   useEffect(()=>{
-    if ( !client ) { router.push('/sign-in')};
+    if ( !client ) router.push('/sign-in');
   },[])
 
   return (
-    <div className='w-dvw h-dvh'>
+    <div className='w-dvw h-dvh bg-gray-900'>
       {/* <Navbar/> */}
         <div className="flex flex-col">
           <div className="w-full">{children}</div>

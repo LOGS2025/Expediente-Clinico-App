@@ -56,7 +56,7 @@ export const SpeakerView = () => {
       )}
 
       <div className="spotlight">
-        {call && participantInSpotlight && (
+        {call && (
           <ParticipantView
             participant={participantInSpotlight}
             trackType={
@@ -78,8 +78,8 @@ export const SpeakerView = () => {
         {call && (
           <CancelCallButton
             onLeave={() => {
-              router.push('/');
               call.leave();
+              router.push('/');
             }}
           />
         )}

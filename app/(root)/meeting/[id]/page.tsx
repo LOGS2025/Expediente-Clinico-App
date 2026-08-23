@@ -1,15 +1,15 @@
 // app/meeting/[callId]/page.tsx
 'use client';
 
-import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { useBoundStore } from "@/lib/hooks/useBoundStore";
+import { ComponentType, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
-import { StreamCall, useCall, useStreamVideoClient } from "@stream-io/video-react-sdk";
-import { VideoLayout } from "@/components/video/VideoMeetingLayout";
+import { CallControls, StreamCall, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { UIVideoLayout } from "@/components/video/VideoMeetingLayout";
 import Lobby from "@/components/video/VideoLobby";
 import LoadingScreen from "@/components/ui/LoadingScreen";
-import { StreamVideoClient } from "@stream-io/node-sdk";
+import "@stream-io/video-react-sdk/dist/css/styles.css";
+import Sidebar from "@/components/dashboard/Sidebar";
 
 export default function MeetingPage() {
   const router = useRouter();
@@ -24,6 +24,9 @@ export default function MeetingPage() {
   const [joining, setJoining] = useState(false);
   // Get participants from store (set when appointment is selected)
   const participants = callStore.getParticipantsUUID();
+
+  const [Item, setItem] = useState<ComponentType | null >(null);
+
 
   useEffect(()=>{
     const callid = callStore.getCallId();
@@ -61,13 +64,13 @@ export default function MeetingPage() {
   }, [client, callid]);
 
   const joinCall = async () => {
-    if (!call) return;
+    if (!call) router.push('/');
 
     try {
       setJoining(true);
-      await call.join({ create: false });
-      await call.camera.enable();
-      await call.microphone.enable();
+        await call.join({ create: false });
+        await call.camera.enable();
+        await call.microphone.enable();
       setJoined(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Join failed");
@@ -85,22 +88,28 @@ export default function MeetingPage() {
   }
 
   return (
-    <StreamCall call={call}>
-      {joined ? (
-        <VideoLayout />
-      ) : (
-        <div>
-          <Lobby />
-          <button
-            onClick={joinCall}
-            disabled={joining}
-            className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg"
-          >
-            {joining ? "Joining..." : "Join Call"}
-          </button>
-          {error && <div className="text-red-500 mt-2">{error}</div>}
-        </div>
-      )}
-    </StreamCall>
+    <div>
+      <Sidebar ActiveItem={Item} setItem={setItem} setDisplayHistClin={()=>{}} displayHistClin={false} />
+      
+      <div className="ml-[220px]">
+        <StreamCall call={call}>
+          {joined ? (
+            <UIVideoLayout />
+          ) : (
+            <div className="flex flex-col">
+              <Lobby/>
+              <button
+                onClick={joinCall}
+                disabled={joining}
+                className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg"
+              >
+                {joining ? "Joining..." : "Join Call"}
+              </button>
+              {error && <div className="text-red-500 mt-2">{error}</div>}
+            </div>
+          )}
+        </StreamCall>
+      </div>
+    </div>
   );
 }
