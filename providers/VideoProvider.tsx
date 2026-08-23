@@ -1,69 +1,83 @@
-'use client'
+// lib/providers/VideoProvider.tsx
+'use client';
 
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
-import { createVideoClient } from "@/lib/stream/client";
-import { StreamVideo, StreamVideoClient, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { StreamVideo, StreamVideoClient, User } from "@stream-io/video-react-sdk";
 import { PropsWithChildren, useEffect, useState } from "react";
 
-const callId = 'demo-call-y276HhfW';
+const apiKey = process.env.NEXT_PUBLIC_STREAM_API_KEY!;
 
-export default function VideoProvider({children }: PropsWithChildren) {
-   /**
-   *    Once we receive the userData from our store, we setup a call we this data.
-   *    And only if the user wants to join, we let him though a button.
-   */
-  const userData = useBoundStore((state)=>state);
-  const [client, setClient] = useState<StreamVideoClient>();
+export default function VideoProvider({ children }: PropsWithChildren) {
+  const userData = useBoundStore((state) => state);
+  const [client, setClient] = useState<StreamVideoClient | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  /**
-   * Create a token, client and call
-   */
-  useEffect( () => {
-    async function getToken() {
-      const user_id = userData.getID();
-      const user_name = userData.getName();
+  useEffect(() => {
+    let isMounted = true;
+    const initClient = async () => {
       try {
-        if ( !user_id || !user_name ) throw new Error("No id found on store");
-        const res = await fetch('/api/calls/generate-token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        const userId = userData.getID();
+        const userName = userData.getName();
+        if (!userId || !userName) {
+          setLoading(false);
+          return;
+        }
+
+        // Fetch token
+        const res = await fetch("/api/calls/generate-token", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            id: user_id,
-            name: user_name,
+            id: userId,
+            name: userName,
             role: userData.getRole(),
           }),
         });
         const data = await res.json();
+        if (!data.success) throw new Error(data.error);
 
-        const token = data.token;
+        // Create StreamVideoClient (React SDK)
+        const user: User = {
+          id: userId,
+          name: userName,
+          type: "authenticated",
+          image: userData.photoURL || undefined,
+        };
 
-        createVideoClient(
-          token,
-          user_id,
-          user_name, setClient
-        )
+        const videoClient = new StreamVideoClient({
+          apiKey: apiKey,
+          user: user,
+          token: data.token,
+        });
 
-        if (!data.success) 
-          throw new Error(data.error);
-        /**
-         *  After getting the token we instantiate a client
-         */
-      } catch (error){
-        console.error("No data returned", error);
+        if (isMounted) {
+          setClient(videoClient);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("VideoProvider init error:", error);
+        if (isMounted) setLoading(false);
       }
-    }
-    getToken();
+    };
+
+    initClient();
+
+    return () => {
+      isMounted = false;
+      // Cleanup: disconnect client if exists
+      if (client) {
+        client.disconnectUser().catch(console.error);
+      }
+    };
   }, [userData]);
 
-  if (!client) {
-    return (
-        <div>
-            Circle loading thing
-        </div>
-    )
+  if (loading) {
+    return <div>Loading video client...</div>;
   }
 
-  return <StreamVideo client={client} >{children}</StreamVideo>
+  if (!client) {
+    return <div>Video client not available</div>;
+  }
+
+  return <StreamVideo client={client}>{children}</StreamVideo>;
 }

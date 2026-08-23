@@ -26,9 +26,9 @@ export type UserSlice = {
   setError: (error: string) => void;  
   setCookie: ( cookie: string ) => void;
 
-  getRole: () => Role | undefined;
-  getID: ()=> string | undefined,
-  getName: ()=> string | undefined,
+  getRole: () => Role;
+  getID: ()=> string,
+  getName: ()=> string,
 
   getDashboard: ()=> ComponentType | null;
   //joinedAt: dayjs.Dayjs;

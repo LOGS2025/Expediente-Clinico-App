@@ -94,8 +94,8 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     setError: (error) => set({ error }),
 
     getRole: () => get().role,
-    getID: ()=> get().uid,
-    getName: ()=> get().user?.nombre,
+    getID: ()=> get().user.uuid,
+    getName: ()=> get().user.nombre,
 
     getDashboard: ()=> {
         const role = get().role;

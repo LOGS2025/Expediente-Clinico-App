@@ -1,151 +1,106 @@
-'use client'
+// app/meeting/[callId]/page.tsx
+'use client';
 
-import { StreamCall, useCall, useStreamVideoClient} from '@stream-io/video-react-sdk';
-import { VideoLayout } from '@/components/video/VideoMeetingLayout';
-import { useEffect, useState } from 'react';
-import BottomBar from '@/components/dashboard/Bottombar';
-import { useVideoCall } from '@/lib/hooks/useVideoCall';
-import Lobby from '@/components/video/VideoLobby';
-import ErrorMessage from '@/components/ui/Error';
-import { useBoundStore } from '@/lib/hooks/useBoundStore';
-import Button from '@/components/ui/ButtonUniv';
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { useBoundStore } from "@/lib/hooks/useBoundStore";
+import { useVideoCall } from "@/lib/hooks/useVideoCall";
+import { StreamCall, useCall, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { VideoLayout } from "@/components/video/VideoMeetingLayout";
+import Lobby from "@/components/video/VideoLobby";
+import LoadingScreen from "@/components/ui/LoadingScreen";
+import { StreamVideoClient } from "@stream-io/node-sdk";
 
-import "@stream-io/video-react-sdk/dist/css/styles.css";
+export default function MeetingPage() {
+  const router = useRouter();
 
-interface Participants {
-
-}
-
-export default function Call() {
-  const callInformation = useVideoCall((state)=>state);
-  const userInformation = useBoundStore((state)=>state);
-  const [wantIn, setWantIn] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [validity, setValidity] = useState<boolean>(false);
-  
   const client = useStreamVideoClient();
-  const participants = callInformation.getParticipantsUUID();
-  
-  // Get instance of call if it exists  
-  let call = useCall();
-  if (!call ) {
-    call = client?.call('default', callInformation.getCallId(), { reuseInstance: true});
-    call?.join();
-  }
+
+  const callStore = useVideoCall();
+  const [call, setCall] = useState<any>(null);
+  const [callid, setCallid] = useState<any>(null);
+  const [joined, setJoined] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [joining, setJoining] = useState(false);
+  // Get participants from store (set when appointment is selected)
+  const participants = callStore.getParticipantsUUID();
 
   useEffect(()=>{
-    try {
-      const ourId = userInformation.getID();
-      if (!ourId) throw new Error("No id provided");
-      if ( ourId == participants.telemedic_uuid || ourId == participants.patient_uuid || ourId == participants.supervisor_uuid  ) {
-        setValidity(true);
-      } 
-    } catch (error) {
-      console.error("Error while checking member privilege on call : ", error);
-      setError("No permission to join the videocall");
-    }
-  },[participants])
+    const callid = callStore.getCallId();
+    setCallid(callid);
+    console.log(callid);
+    // console.log(client?.state);
+  },[client]);
 
-  async function joinCall() {
-    await client.createRole({ name: "telemedic" });
-    await client.createRole({ name: "patient" });
-    await client.createRole({ name: "supervisor" });
+  useEffect(() => {
+    if (!client || !callid || joined && !call) return;
 
-    await client.video.createCallType("appointment", {
-      grants: {
-        supervisor: [
-          VideoOwnCapability.JOIN_CALL,
-          VideoOwnCapability.SEND_AUDIO,
-          VideoOwnCapability.SEND_VIDEO,
-        ],
-        specialist: [
-          VideoOwnCapability.JOIN_CALL,
-          VideoOwnCapability.SEND_AUDIO,
-          VideoOwnCapability.SEND_VIDEO,
-          // These capabilities are required to change session duration:
-        ],
-        patient: [
-          VideoOwnCapability.JOIN_CALL,
-          VideoOwnCapability.SEND_AUDIO,
-          VideoOwnCapability.SEND_VIDEO,
-        ],
-      },
-      settings: {
-        limits: {
-          // 3600 seconds = 1 hour
-          max_duration_seconds: 3600,
-        },
-      },
-    });
-    // 3. Two test users:
-    await client.upsertUsers({
-      users: {
-        "dr-lecter": {
-          id: "dr-lecter",
-          name: "Dr. Hannibal Lecter",
-          role: "specialist",
-        },
-        bill: {
-          id: "bill",
-          name: "Buffalo Bill",
-          role: "patient",
-        },
-      },
-    });
-
-
-    await call?.getOrCreate({
-      data: {
-        members: [
-          { user_id: participants.supervisor_uuid , role: 'admin',}, 
-        //  { user_id: participants.patient_uuid}, 
-        //  { user_id: participants.telemedic_uuid}
-        ]
+    const initCall = async () => {
+      try {
+        const streamCall = client.call("default", callid);
+        // Check if call exists, create if not with members
+        await streamCall.getOrCreate({
+          data: {
+            members: [
+              { user_id: participants.supervisor_uuid, role: "admin" },
+//              { user_id: participants.telemedic_uuid, role: "user" },
+//              { user_id: participants.patient_uuid, role: "user" },
+            ],
+            custom: {
+              appointment_duration: 7200,
+            },
+          },
+        });
+        setCall(streamCall);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to get call");
       }
-    })
-    call?.join();
-  }
+    };
 
-  if ( !call ) {
-    return (
-      <ErrorMessage message={"No call"}/>
-    )
-  }
-  
-  if ( call ) {
-    return (
-      <div>
-        <div className='flex flex-col text-zinc-900 w-full h-full'>
-          <StreamCall call={call}>
-            { wantIn ? 
-            <div>
-              <VideoLayout/> 
-            </div>
-            : 
-            <div>
-              <Lobby/>
-              { validity ? 
-                (
-                  <Button onClick={ async ()=>{ 
-                    joinCall();
-                    setWantIn(true); 
-                  }} text='Unirse a la llamada'/>
-                ) 
-                : (<></>)
-              }
-            </div>
-            }
-          </StreamCall>
-        </div>
+    initCall();
+  }, [client, callid]);
 
-        { error ? (
-          <ErrorMessage message={error}/>
-        ):(
-          !validity ? (
-            <ErrorMessage message={"No permission to join the call. Reload the page or try another call."}/>
-          ) : ( <></> ) 
-        )}
+  const joinCall = async () => {
+    if (!call) return;
+
+    try {
+      setJoining(true);
+      await call.join({ create: false });
+      await call.camera.enable();
+      await call.microphone.enable();
+      setJoined(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Join failed");
+      setJoining(false);
+    }
+  };
+
+  // If client not ready or call not initialized, show loading
+  if (!client || !call) {
+    return (
+      <div className="text-center text-black align-middle">
+        <span>{ !client ? "No Client" : "No Call"}</span><br />
       </div>
-    )
+  );
   }
+
+  return (
+    <StreamCall call={call}>
+      {joined ? (
+        <VideoLayout />
+      ) : (
+        <div>
+          <Lobby />
+          <button
+            onClick={joinCall}
+            disabled={joining}
+            className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-lg"
+          >
+            {joining ? "Joining..." : "Join Call"}
+          </button>
+          {error && <div className="text-red-500 mt-2">{error}</div>}
+        </div>
+      )}
+    </StreamCall>
+  );
 }

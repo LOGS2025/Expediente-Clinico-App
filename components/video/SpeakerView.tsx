@@ -23,11 +23,14 @@ import {
   useCallStateHooks,
   VisibilityState,
 } from '@stream-io/video-react-sdk';
+import { useRouter } from 'next/navigation';
+
 
 export const SpeakerView = () => {
   const call = useCall();
   const { useParticipants } = useCallStateHooks();
   const [participantInSpotlight, ...otherParticipants] = useParticipants();
+  const router = useRouter();
 
   // determine whether the call is a 1:1 call
   const isOneToOneCall = otherParticipants.length === 1;
@@ -75,7 +78,8 @@ export const SpeakerView = () => {
         {call && (
           <CancelCallButton
             onLeave={() => {
-              console.log('onLeave callback called');
+              router.push('/');
+              call.leave();
             }}
           />
         )}
