@@ -1,62 +1,118 @@
+// components/layout/Navbar.tsx
 'use client';
 
-import { useTopBarItems } from "@/lib/utils/index";
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTopBarItems } from "@/lib/utils";
 import { Top } from "@/lib/utils/barItems";
 
-// Imports necesarios 
-/*
-    Informacion del paciente activo, si es que hay!
-*/
-
-const Navbar = ()=>{
-    const topbarItems = useTopBarItems();
-
-    return (
-        <section>
-            <div className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 bg-slate-50/70 dark:bg-slate-900/70 backdrop-blur-xl shadow-sm dark:shadow-none h-[18%]">
-                <div className="flex items-center gap-6">
-                  {/* Logo 
-                    de la UNAM
-                  */}
-                  <div className="flex flex-col gap-1">
-                    <img className="h-10 w-auto object-contain self-start" src="https://lh3.googleusercontent.com/aida/ADBb0ujH04yHt5EiXWt9ILbIGIH31MUHQujKRuY0mQixa_f8BuxQhZagwz9XWk6VeKfDmL7Y0cJz3Tb2fRoDOfIYNe3edO2BJeBSINbCo6FIM1rlV5vhpbhnp9rYTiWy43hQe3-Pv-ajAd_s9ZEcKoYUZaxo64flnVNme8M83WJAW6I_y1bDJ8uKBRL2DqqiGgRhDyRSroFOUCYKhT7vLWRCnaJcLqcd2hdtQTwXmYx3vrwc7yQ_gpH7TFKRc_pJ6D66y5c0MAuWzbEh7ug" alt="" />
-                    <span className="text-lg font-black text-blue-800 dark:text-blue-300 tracking-tight font-['Manrope']" >
-                        Sistema ECE Didáctico<br/>para Teleconsulta<br/>FacMed UNAM
-                        </span>
-                    </div>
-                </div>
-
-                {/* Apartados para diferentes paginas. 
-                    Se encuentran en guias. El argumento permite iluminar donde nos encontramos.
-                */}
-                <nav className="hidden md:flex items-center gap-8 mt-8">
-                    {topbarItems.map((item) => {
-                        return (
-                        <li key={item.name} className="">
-                                <div >
-                                    {item.icon}{" "}
-                                    <span className="text-amber-50 font-['Manrope'] font-bold text-lg hover:text-blue-600 dark:hover:text-blue-300 transition-colors">{item.name}</span>
-                                </div>
-                        </li>
-                        )
-                    })}
-                </nav>
-
-                {/* 
-                    Informacion del paciente 
-                        TODO -> Obtener de db
-                    ##############################
-                    Ideal mover al display de al videollamada para no mezclar deberes.
-                */}
-                <div className="h-12 w-px bg-outline-variant/30 mt-8"></div>
-                <div className="flex flex-col mt-8">
-                    <span className="text-xs font-bold text-secondary uppercase tracking-widest">Paciente activo {}</span>
-                    <span className="font-headline font-bold text-base text-primary">ID: EClin-26</span>
-                </div>
-
-            </div>
-        </section>
-    )
+interface NavbarProps {
+  selectedTab?: Top | null;
 }
+
+const Navbar = ({ selectedTab = null }: NavbarProps) => {
+  const topbarItems = useTopBarItems();
+  const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-[120px]">
+          {/* Logo Section */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <img 
+              className=" fixed w-[100px] h-auto object-contain left-0" 
+              src="/logoUnam.png" 
+              alt="Logo UNAM" 
+            />
+            <div className="hidden sm:block">
+              <h1 className="text-sm font-bold text-blue-800 dark:text-blue-400 leading-tight font-['Manrope']">
+                Sistema ECE Didáctico
+              </h1>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wide">
+                Facultad de Medicina · UNAM
+              </p>
+            </div>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1">
+            {topbarItems.map((item) => {
+              const isActive = pathname === item.href || item.name === selectedTab;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`
+                    group relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                    flex items-center gap-2
+                    ${isActive 
+                      ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
+                      : 'text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                    }
+                  `}
+                >
+                  <span className="text-lg">{item.icon}</span>
+                  <span>{item.name}</span>
+                  
+                  {/* Active indicator */}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-3">
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            >
+              <span className="material-symbols-outlined text-slate-600 dark:text-slate-300">
+                {isMenuOpen ? 'close' : 'menu'}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className={`
+          md:hidden overflow-hidden transition-all duration-300 ease-in-out
+          ${isMenuOpen ? 'max-h-96 opacity-100 pb-4' : 'max-h-0 opacity-0'}
+        `}>
+          <nav className="flex flex-col gap-1">
+            {topbarItems.map((item) => {
+              const isActive = pathname === item.href || item.name === selectedTab;
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className={`
+                    px-4 py-3 rounded-lg text-sm font-medium transition-colors
+                    flex items-center gap-3
+                    ${isActive 
+                      ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
+                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                    }
+                  `}
+                >
+                  <span className="text-lg">{item.icon}</span>
+                  <span>{item.name}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+      </div>
+    </header>
+  );
+};
 
 export default Navbar;

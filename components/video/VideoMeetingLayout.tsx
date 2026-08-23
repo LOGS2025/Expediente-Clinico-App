@@ -1,10 +1,11 @@
 import { CallingState, CallParticipantsList, StreamTheme, useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
 import LoadingScreen from "../ui/LoadingScreen";
 import { FloatingParticipant } from "./VideoParticipants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CenteredOneView } from "./participant/ActiveMembers";
 import { CenteredDualView } from "./participant/CenteredDuaLView";
 import { CapibaraLoadingScreen } from "../ui/CapibaraLoadingScreen";
+import { getUserWithID } from "@/lib/supabase/users";
 
 export const UIVideoLayout = () => {
 
@@ -69,7 +70,9 @@ export const UIVideoLayout = () => {
   if (participantCount < 1) {
     return (
       <div className="fixed inset-0 h-full w-full bg-slate-900">
-        <CapibaraLoadingScreen count={participantCount} />
+        <CapibaraLoadingScreen 
+        count={participantCount} 
+        />
       </div>
     );
   }
@@ -97,7 +100,6 @@ export const UIVideoLayout = () => {
             { localParticipant && <CenteredDualView participants={remoteParticipants}/> }    
           </div>
         )
-    
     }
   }
 

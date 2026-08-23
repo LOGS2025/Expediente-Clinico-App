@@ -4,10 +4,9 @@ import Agenda from "@/components/dashboard/Agenda";
 import { ComponentType } from "react";
 import HistoriaClinica from "@/components/medical/HistoriaClinica";
 
-
 export type SIDEBAR_ITEM = {
   name: Side;
-  component: ComponentType;
+  component: ComponentType | null;
   icon: string;
 };
 
@@ -50,10 +49,6 @@ export const useSideBarItems = () => {
 
   const sidebarItems: SIDEBAR_ITEM[] = [
     {
-      name: "Historia Clínica",
-      component: HistoriaClinica, 
-      icon: "",
-    }, {
       name: "Paraclínicos",
       component: Paraclinicos,
       icon: "",
@@ -66,3 +61,21 @@ export const useSideBarItems = () => {
 
   return sidebarItems;
 };
+
+
+export const useExpedienteClinicoItems = () => {
+
+  const sidebarItems: SIDEBAR_ITEM[] = [
+    {
+      name: "Historia Clinica",
+      component: HistoriaClinica,
+      icon: "",
+    }, {
+      name: 'Nota SOAP',
+      component: null,
+      icon: ""
+    }
+  ]
+
+  return sidebarItems;
+}

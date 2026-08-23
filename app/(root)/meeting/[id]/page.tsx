@@ -91,7 +91,7 @@ export default function MeetingPage() {
     <div>
       <Sidebar ActiveItem={Item} setItem={setItem} setDisplayHistClin={()=>{}} displayHistClin={false} />
       
-      <div className="ml-[220px]">
+      <div className="ml-[220px] mr-[100px]">
         <StreamCall call={call}>
           {joined ? (
             <UIVideoLayout />

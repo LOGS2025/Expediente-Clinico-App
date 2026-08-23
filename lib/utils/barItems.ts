@@ -3,7 +3,9 @@
 */
 export type Side = "Historia Clínica" | 
     "Paraclínicos" | 
-    "Agenda";
+    "Agenda"    |
+    "Historia Clinica" |
+    "Nota SOAP";
 
 export type Top = "PROUNAM y Guías Clínicas" | 
     "Guía de teleconsulta" | 
