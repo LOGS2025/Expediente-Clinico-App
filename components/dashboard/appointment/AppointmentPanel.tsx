@@ -28,7 +28,7 @@ const AppointmentsPanel = ({
   };
 
   return (
-    <div className="text-gray-600 h-[500px] w-full overflow-y-auto">
+    <div className="text-gray-600 h-[500px] w-[700px] overflow-y-auto">
       <h2 className="text-lg font-semibold text-gray-700 mb-4 pt-5 sticky top-0 bg-white z-10">
         {title}
       </h2>

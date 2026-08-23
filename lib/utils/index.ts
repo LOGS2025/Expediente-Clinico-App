@@ -2,7 +2,7 @@ import { Side, Top } from "@/lib/utils/barItems";
 import Paraclinicos from "@/components/medical/Paraclinicos";
 import Agenda from "@/components/dashboard/Agenda";
 import { ComponentType } from "react";
-import HistoriaClinica from "@/components/medical/HistoriaClinica";
+import HistoriaClinica from "@/components/medical/historia/HistoriaClinica";
 
 export type SIDEBAR_ITEM = {
   name: Side;

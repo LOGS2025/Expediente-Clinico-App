@@ -4,14 +4,7 @@ import { useExpedienteClinicoItems, useSideBarItems } from "@/lib/utils/index";
 import { ComponentType, useState } from "react";
 
 
-const Sidebar = ({
-    ActiveItem, 
-    setItem,
-} : {
-    ActiveItem: ComponentType | null;
-        setItem: React.Dispatch<any>;
-})=> {
-
+const Sidebar = ({ActiveItem, setItem}:{ActiveItem : ComponentType | null; setItem: React.Dispatch<any>})=> {
     const sidebarItems = useSideBarItems();
     const expClinicoItems = useExpedienteClinicoItems();
     const [display, setDisplay ] = useState<boolean>(false);
@@ -29,7 +22,13 @@ const Sidebar = ({
                 return (
                     <span key={item.name}>
                         <button 
-                        onClick={()=>{ setItem(() => item.component) } }
+                        onClick={()=>{
+                            if ( ActiveItem == item.component ) {
+                                setItem(() => null );
+                            } else {
+                                setItem(() => item.component); 
+                            }
+                        } }
                         className="w-full bg-blue-600 py-3 bg-primary text-white rounded-xl font-bold text-xs uppercase tracking-widest 
                         shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
           <span className="material-symbols-outlined text-sm">{item.name}</span>
@@ -58,7 +57,7 @@ const Sidebar = ({
                 {expClinicoItems.map((item) => (
                 <button
                     key={item.name}
-                    onClick={() => setItem(item.component)}
+                    onClick={() => setItem(()=>item.component)}
                     className={`
                     relative w-full py-3 px-4 rounded-lg text-sm font-medium transition-all duration-200
                     flex items-center gap-3 overflow-hidden

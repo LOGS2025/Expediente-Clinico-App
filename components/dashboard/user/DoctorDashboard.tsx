@@ -7,7 +7,7 @@ import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
-import HistoriaClinica from "@/components/medical/HistoriaClinica";
+import HistoriaClinica from "@/components/medical/historia/HistoriaClinica";
 
 /*
 Dashboard 
