@@ -57,7 +57,7 @@ export const UIVideoLayout = () => {
   // allParticipants.map((participant)=>{
   //   console.log(participant.custom?.fields.role.kind.stringValue)
   // })
-  console.log(localParticipant.custom?.fields.role.kind.stringValue)
+  //console.log(localParticipant.custom?.fields.role.kind.stringValue)
 
   // console.log("Local", localParticipant);
   console.log("Remote", remoteParticipants);
@@ -113,7 +113,7 @@ export const UIVideoLayout = () => {
 
 
         {/* Rendering order matters */}
-        { localParticipant && localParticipant.custom?.fields.role.kind.stringValue == 'supervisor' &&
+        { localParticipant && (localParticipant as any).custom?.fields.role.kind.stringValue == 'supervisor' &&
           <FloatingParticipant participant={localParticipant}/> }
 
       {/* Participant listing */}

@@ -86,6 +86,8 @@ export async function getUserWithID(user_id: string) {
     try {
         const response = await fetch(`/api/supabase/user/getUser?user_id=${user_id}`);
         
+        console.log("Response from get user: ", response);
+
         if (!response.ok) {
             console.error("Response not OK:", response.status);
             return null;

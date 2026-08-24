@@ -42,7 +42,7 @@ import { NextRequest, NextResponse } from "next/server";
   } catch(error) {
     return Response.json({ 
       success: false, 
-      error: error.message 
+      error: (error as any).message 
     }, { status: 500 })
   }
 }

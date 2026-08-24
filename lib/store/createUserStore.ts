@@ -49,6 +49,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
 
 
     login: async ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => {
+        let user_build : User;
         try {// Save out firebase info
             set({
                 email: email || '',
@@ -61,15 +62,32 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             // fetch user data from db with the uid we received
             const data : UserFromSupabase = await getUserWithID(uid);
 
+            /**
+             * Case user doesnt exist
+             */
             if ( !data ) {
-                const name = displayName?.split(' ');
-                console.log(name);
-                throw new Error("User does not exist on database");
-                // const res = await createUser({ nombre: name[0] })
+                const name = displayName?.split(' ').reverse();
+                if (!name) return;
+                console.log("User doesnt exist, adding with name and lastnames :", name[0], name[1], name[2]);
+                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid: uid });
+
+                console.log("Continue to log but without a role, establishing role as undefined.");
+                
+                user_build = {
+                    nombre: name[0],
+                    apellido_p: name[1],
+                    apellido_m: name[2],
+                    uuid: uid
+                }
+                set({   loggedIn: true,
+                        user: user_build,
+                        role: 'indefinido'
+                    });
             }
 
+
             if ( data ) {
-                const user_build : User = {
+                user_build = {
                     nombre: data.nombre,
                     apellido_p: data.apellido_p,
                     apellido_m: data.apellido_m,
@@ -101,8 +119,16 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     setError: (error) => set({ error }),
 
     getRole: () => get().role,
-    getID: ()=> get().user.uuid,
-    getName: ()=> get().user.nombre,
+
+    getName: () => {
+        const user = get().user;
+        return user?.nombre || '';
+    },
+    
+    getID: () => {
+        const user = get().user;
+        return user?.uuid || '';
+    },
 
     getDashboard: ()=> {
         const role = get().role;

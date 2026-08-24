@@ -39,7 +39,7 @@ INSERT INTO supervisores (fk_supervisor_user_id) VALUES
   } catch(error) {
     return Response.json({ 
       success: false, 
-      error: error.message 
+      error: (error as any).message 
     }, { status: 500 })
   }
 }

@@ -28,7 +28,7 @@ export const CenteredDualView = (props: {
             <span>{participant.sessionId}</span>
             <span>{participant.userId}</span>
             <span>{participant.roles}</span>
-            <span>{participant.custom?.fields.role.kind.stringValue}</span>
+            <span>{(participant as any).custom?.fields.role.kind.stringValue}</span>
           </div>
         </div>
       ))}

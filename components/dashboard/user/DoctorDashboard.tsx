@@ -42,12 +42,11 @@ const DoctorDashboardLayout = ()=> {
 
 
     function setAppointmentStore(appointment: Appointment) {
-        const doctor = appointment.doctor;
+        const telemedic = appointment.telemedico;
         const patient = appointment.paciente;
         const supervisor = appointment.supervisor;
-        const list = [doctor, patient, supervisor? supervisor : ''];
 
-        setupVideoParticipantsUUID(list);
+        setupVideoParticipantsUUID(telemedic.usuario.uuid, patient.usuario.uuid, supervisor.usuario.uuid);
     }
    
     const handleJoin = () => {
@@ -96,8 +95,6 @@ const DoctorDashboardLayout = ()=> {
                 <Sidebar 
                     ActiveItem={ActiveItem}
                     setItem={setItem}
-                    displayHistClin={showForm}
-                    setDisplayHistClin={setShowForm}
                 />
             </div>
 

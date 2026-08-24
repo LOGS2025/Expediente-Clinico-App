@@ -27,8 +27,8 @@ export type UserSlice = {
   setCookie: ( cookie: string ) => void;
 
   getRole: () => Role;
-  getID: ()=> string,
   getName: ()=> string,
+  getID: ()=> string,
 
   getDashboard: ()=> ComponentType | null;
   //joinedAt: dayjs.Dayjs;

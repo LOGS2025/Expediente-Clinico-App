@@ -1,4 +1,3 @@
-import { TokenJSON } from "@/app/api/calls/generate-token/route";
 import { UserSlice } from "../slices/userSlice";
 
 export async function getToken(userData : UserSlice) {
@@ -15,7 +14,7 @@ export async function getToken(userData : UserSlice) {
         }),
     });
     const data = await res.json();
-    const tokenJson : TokenJSON = data.token;
+    const tokenJson = data.token;
 
     if (!data.success) 
         throw new Error(data.error);

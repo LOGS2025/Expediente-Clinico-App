@@ -89,7 +89,7 @@ export default function MeetingPage() {
 
   return (
     <div>
-      <Sidebar ActiveItem={Item} setItem={setItem} setDisplayHistClin={()=>{}} displayHistClin={false} />
+      <Sidebar ActiveItem={Item} setItem={setItem} />
       
       <div className="ml-[220px] mr-[100px]">
         <StreamCall call={call}>

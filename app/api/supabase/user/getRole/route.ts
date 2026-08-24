@@ -11,7 +11,19 @@ export async function GET(
     const { data, error } = await supabase
       .from('usuarios')
       .select(`
-        *
+        *,
+        supervisor:supervisores!fk_supervisor_user_id (
+          id,
+          creacion
+        ),
+        telemedico:telemedicos!fk_telemedic_user_id (
+          id,
+          creacion
+        ),
+        paciente:pacientes!fk_patient_user_id (
+          id,
+          creacion
+        )
       `)
       .eq('uuid', user_id)
       .single();
