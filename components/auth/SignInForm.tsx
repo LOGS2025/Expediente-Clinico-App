@@ -41,7 +41,7 @@ export const SignInForm = () => {
       return (
       <button
           className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition hover:bg-gray-50 hover:brightness-90"
-          onClick={()=>googleSignIn}>
+          onClick={googleSignIn}>
           <GoogleLogoSvg className="h-5 w-5" /> Google
         </button>
       )
