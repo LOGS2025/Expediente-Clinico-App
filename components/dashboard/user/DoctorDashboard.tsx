@@ -1,3 +1,11 @@
+/**
+ *  El dashboard del Supervisor debe contener 
+ *      - una vista de agendas?
+ *      - navbar
+ *      - sidebar
+ *      - Cuenta?
+ */
+
 import Sidebar from "@/components/dashboard/Sidebar";
 import { ComponentType, useEffect, useState } from "react";
 import AppointmentsPanel from "../appointment/AppointmentPanel";
@@ -7,28 +15,18 @@ import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
-import HistoriaClinica from "@/components/medical/historia/HistoriaClinica";
-
-/*
-Dashboard 
-    funcion :
-        Iniciar videocall
-        Crear cita
-    componentes :
-        Calendario
-        Citas dashboard
-*/
-const callId = 'demo-call-y276HhfW';
+import ErrorMessage from "@/components/ui/Error";
 
 const DoctorDashboardLayout = ()=> {
     const router = useRouter();
 
-    const [ActiveItem, setItem] = useState<ComponentType | null >(null);
     const [appointments, setAppointment] = useState<[Appointment] | null>(null);
     const [option, setOption] = useState<string>('');
     const [showForm, setShowForm] = useState<boolean>(false);
-    const setupVideoParticipantsUUID = useVideoCall((state)=>state.setParticipants);
-    const getVideoParticipantsUUID = useVideoCall((state)=>state.getParticipantsUUID);
+    const [ActiveItem, setItem] = useState<ComponentType | null >(null);
+    const videoCallHandler = useVideoCall((state)=>state);
+    const [error, setError] = useState<string | null>(null);
+    const [appointmentChosen, setAppointmentChosen] = useState<boolean>(false);
 
     // Get the appointments from supabase
     useEffect(()=>{
@@ -42,16 +40,32 @@ const DoctorDashboardLayout = ()=> {
 
 
     function setAppointmentStore(appointment: Appointment) {
-        const telemedic = appointment.telemedico;
-        const patient = appointment.paciente;
-        const supervisor = appointment.supervisor;
+        const telemedic_uuid = appointment.telemedico.usuario.uuid;
+        const patient_uuid = appointment.paciente.usuario.uuid;
+        const supervisor_uuid = appointment.supervisor.usuario.uuid;
+        const callId = appointment.callid;
 
-        setupVideoParticipantsUUID(telemedic.usuario.uuid, patient.usuario.uuid, supervisor.usuario.uuid);
+        if ( !telemedic_uuid || !patient_uuid || !supervisor_uuid ) {
+            setError("Missing a participant data");
+            return;
+        }
+
+        videoCallHandler.setParticipants(
+            telemedic_uuid, 
+            patient_uuid, 
+            supervisor_uuid);
+
+        if ( !callId ) {
+            setError("Missing call id!!!");
+        }
+
+        setAppointmentChosen(true);
+        videoCallHandler.setCallID(callId);
     }
    
     const handleJoin = () => {
         try {
-            // We create a call ID
+            const callId = videoCallHandler.getCallId()
             router.push(`/meeting/${callId}`);
 
         } catch (error) {
@@ -61,56 +75,48 @@ const DoctorDashboardLayout = ()=> {
 
     function optionDisplay() {
         switch (option) {
-            case 'create': return (
-            <div className="absolute top-[600px] left-1/2 -translate-x-1/2 -translate-y-1/2">
-                <AppointmentForm/>
-            </div>);
+            case 'create': return <AppointmentForm/>;
 
-            // case 'hist':
-            //     return (
-            // <div className="absolute top-[600px] left-1/2 -translate-x-1/2 -translate-y-1/2">
-            //     <HistoriaClinica/>
-            // </div>
-            // )
-
-            case 'config':
+            case 'consults': 
             default:
             /* On the same flex, place our db 
             information panel for appointments */
-            if ( appointments) { return (
-                <div className="absolute top-[600px] left-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <AppointmentsPanel appointments={appointments} 
-                    onSelectAppointment={setAppointmentStore}/>;
-                </div>)
-            } else return (<></>);
-
+            if ( appointments) { 
+                return <AppointmentsPanel appointments={appointments} 
+                    onSelectAppointment={setAppointmentStore}/>
+            };
         }
     }
 
     return (
         <div className="flex flex-row">
+            { error && <ErrorMessage message={error}/> }
+
             {/* Side bar  */}
-            <div className="flex-1">
-                <Sidebar 
-                    ActiveItem={ActiveItem}
-                    setItem={setItem}
-                />
+            <div className="flex-1 bg-blue-300">
+                <Sidebar ActiveItem={ActiveItem} setItem={setItem}/>
             </div>
 
-            {/* Adjust to the size of out Navbar */}
-            <div className="flex-4 mt-[100px]">
-                <div className="flex flex-rowgap-6">
+            <div className="flex-2 bg-amber-400 h-dvh">
+                <div className="flex flex-row items-center justify-end gap-6">
                     <Button onClick={()=>setOption('create')} text="Crear consulta"/>
-                    <Button onClick={()=>setOption('config')} text="Configurar consulta"/>
-                    <Button onClick={()=>handleJoin()} text="Iniciar consulta"/>
-                    <Button onClick={()=>setOption('hist')} text="Historia clinica"/>
+                    <Button onClick={()=>setOption('consults')} text="Ver Consultas"/>
+                    <Button onClick={()=>{
+                        if ( appointmentChosen )
+                            handleJoin()
+                        else 
+                            setError("Choose an appointment before joining");
+                        }} text="Iniciar consulta"/>
                 </div>
-
-                {/* Side bar selected item */}
-                {ActiveItem?  (<ActiveItem/>) : (<></>)}
+                
+                {optionDisplay()}
             </div>
 
-            {optionDisplay()}
+            <div className="flex-2 bg-green-400">
+                <div>   
+                    {ActiveItem ? <ActiveItem/> : <></>}
+                </div>
+            </div>
         </div>
     )
 }
