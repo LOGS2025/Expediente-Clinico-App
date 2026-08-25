@@ -17,18 +17,6 @@ export async function GET(
     if (error) {
       console.error(error);
     }
-
-    if ((error as any).code === 'PGRST116') {
-        return NextResponse.json({
-          ok: false,
-          mensaje: 'Usuario no encontrado en la base de datos',
-          error: 'USER_NOT_FOUND',
-          details: `No user found with uuid: ${user_id}`,
-          status: 404,
-      }, { status: 404 });
-    }
-  
-
     if (data) {
       return NextResponse.json({
         ok: true,
@@ -38,7 +26,7 @@ export async function GET(
     } else {
       return NextResponse.json({
         ok: true,
-        mensaje: "Mensaje de error",
+        mensaje: "Error al regresar de la base de datos",
         data : error,
       });
     } 
