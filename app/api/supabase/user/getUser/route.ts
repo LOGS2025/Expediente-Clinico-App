@@ -10,9 +10,7 @@ export async function GET(
 
     const { data, error } = await supabase
       .from('usuarios')
-      .select(`
-        *
-      `)
+      .select(`*`)
       .eq('uuid', user_id)
       .single();
 
@@ -40,7 +38,7 @@ export async function GET(
     } else {
       return NextResponse.json({
         ok: true,
-        mensaje: "Conexión exitosa",
+        mensaje: "Mensaje de error",
         data : error,
       });
     } 

@@ -6,7 +6,7 @@ import DoctorDashboardLayout from "@/components/dashboard/user/DoctorDashboard";
 import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDashboard";
 import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
 import { FirebaseLogin } from "../models/FirebaseLogin";
-import { createUser, getUserWithID } from "../supabase/users";
+import { createUser, getUserRole, getUserWithID } from "../supabase/users";
 import { User } from "../models/User";
 
 /*
@@ -21,6 +21,8 @@ const layoutMap = {
 } as const;
 
 interface UserFromSupabase {
+    code?: string;
+
     uuid: string;
     nombre: string;
     apellido_p : string;
@@ -63,15 +65,17 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             const data : UserFromSupabase = await getUserWithID(uid);
 
             /**
-             * Case user doesnt exist
+             * User doesnt exist
              */
-            if ( !data ) {
-                const name = displayName?.split(' ').reverse();
-                if (!name) return;
-                console.log("User doesnt exist, adding with name and lastnames :", name[0], name[1], name[2]);
-                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid: uid });
-
-                console.log("Continue to log but without a role, establishing role as undefined.");
+            let user_build : User;
+            if ( data.code == 'PGRST116') 
+            {
+                console.log("User doesnt exist");
+                const name = displayName?.split(' ');
+                if ( !name ) throw new Error("No name was given by firebase, possible error");
+                console.log(name);
+                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid })
+                if ( !res ) throw new Error("User wasn't able to be created!");
                 
                 user_build = {
                     nombre: name[0],
@@ -79,32 +83,41 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                     apellido_m: name[2],
                     uuid: uid
                 }
-                set({   loggedIn: true,
-                        user: user_build,
-                        role: 'indefinido'
-                    });
-            }
-
-
-            if ( data ) {
+                
+            } 
+            else if ( !data ) // no data was returned
+                throw new Error("No information received from database");
+            // If code wasn't non existant user and we got data then build upon it
+            else 
+            {
                 user_build = {
                     nombre: data.nombre,
                     apellido_p: data.apellido_p,
                     apellido_m: data.apellido_m,
                     uuid: data.uuid
                 }
-
-                if ( data.paciente )
-                    set({ role: 'patient' })
-                if ( data.supervisor )
-                    set({ role: 'supervisor' })
-                if ( data.telemedico )
-                    set({ role: 'doctor' })
-
-                set({   loggedIn: true,
-                        user: user_build
-                    });
             }
+            if ( !user_build ) throw new Error("User object couldn't be built");
+            /**
+             * Now that the user does exist, look for him on other tables.
+             */
+            const roleJoinsData : any = await getUserRole(uid);
+            console.log(roleJoinsData);
+
+            if ( roleJoinsData.paciente )
+                set({ role: 'patient' });
+            else if ( roleJoinsData.supervisor )
+                set({ role: 'supervisor' });
+            else if ( roleJoinsData.telemedico )
+                set({ role: 'doctor' });
+            else 
+                set({ role: 'indefinido' });
+
+            console.log(`Logged user in as ${get().role}`)
+            set({   loggedIn: true,
+                    user: user_build
+                });
+
         } catch ( err ) {
             console.error(err);
         }
@@ -120,14 +133,16 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
 
     getRole: () => get().role,
 
-    getName: () => {
+    getID: ()=> {
         const user = get().user;
-        return user?.nombre || '';
+        if ( user?.uuid ) return user.uuid;
+        else return '';
     },
-    
-    getID: () => {
+
+    getName: ()=> {
         const user = get().user;
-        return user?.uuid || '';
+        if ( user?.uuid ) return user.uuid;
+        else return '';
     },
 
     getDashboard: ()=> {
