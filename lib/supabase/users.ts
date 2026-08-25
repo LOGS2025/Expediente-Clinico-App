@@ -85,12 +85,14 @@ export async function getSupervisorList() {
 export async function getUserWithID(user_id: string) {
     try {
         const response = await fetch(`/api/supabase/user/getUser?user_id=${user_id}`);
-        
+
         if (!response.ok) {
             console.error("Response not OK:", response.status);
             return null;
         }
         const res = await response.json();
+        console.log(res);
+
         if (res.ok) {
             return res.data;
         } else {
