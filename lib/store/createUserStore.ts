@@ -6,7 +6,7 @@ import DoctorDashboardLayout from "@/components/dashboard/user/DoctorDashboard";
 import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDashboard";
 import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
 import { FirebaseLogin } from "../models/FirebaseLogin";
-import { createUser, getUserWithID } from "../supabase/users";
+import { createUser, getUserRole, getUserWithID } from "../supabase/users";
 import { User } from "../models/User";
 
 /*
@@ -67,7 +67,8 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
              * User doesnt exist
              */
             let user_build : User;
-            if ( data.code == 'PGRST116') {
+            if ( data.code == 'PGRST116') 
+            {
                 console.log("User doesnt exist");
                 const name = displayName?.split(' ');
                 if ( !name ) throw new Error("No name was given by firebase, possible error");
@@ -82,25 +83,31 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                     uuid: uid
                 }
                 
-            } else if ( !data ) // no data was returned
+            } 
+            else if ( !data ) // no data was returned
                 throw new Error("No information received from database");
-
-            /**
-             * Now that the user does exist, look for him on other tables.
-             */
-
-            user_build = {
+            // If code wasn't non existant user and we got data then build upon it
+            else 
+            {
+                user_build = {
                     nombre: data.nombre,
                     apellido_p: data.apellido_p,
                     apellido_m: data.apellido_m,
                     uuid: data.uuid
+                }
             }
+            if ( !user_build ) throw new Error("User object couldn't be built");
+            /**
+             * Now that the user does exist, look for him on other tables.
+             */
+            const roleJoinsData : any = await getUserRole(uid);
+            console.log(roleJoinsData);
 
-            if ( data.paciente )
+            if ( roleJoinsData.paciente )
                 set({ role: 'patient' });
-            else if ( data.supervisor )
+            else if ( roleJoinsData.supervisor )
                 set({ role: 'supervisor' });
-            else if ( data.telemedico )
+            else if ( roleJoinsData.telemedico )
                 set({ role: 'doctor' });
             else 
                 set({ role: 'indefinido' });
