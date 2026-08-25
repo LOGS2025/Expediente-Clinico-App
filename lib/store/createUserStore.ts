@@ -104,12 +104,12 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             const roleJoinsData : any = await getUserRole(uid);
             console.log(roleJoinsData);
 
-            if ( roleJoinsData.paciente )
-                set({ role: 'patient' });
-            else if ( roleJoinsData.supervisor )
+            if ( roleJoinsData.supervisor )
                 set({ role: 'supervisor' });
             else if ( roleJoinsData.telemedico )
                 set({ role: 'doctor' });
+            else if ( roleJoinsData.paciente )
+                set({ role: 'patient' });
             else 
                 set({ role: 'indefinido' });
 

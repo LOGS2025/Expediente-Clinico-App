@@ -46,8 +46,8 @@ export default function MeetingPage() {
           data: {
             members: [
               { user_id: participants.supervisor_uuid, role: "admin" },
-//              { user_id: participants.telemedic_uuid, role: "user" },
-//              { user_id: participants.patient_uuid, role: "user" },
+              { user_id: participants.telemedic_uuid, role: "user" },
+              { user_id: participants.patient_uuid, role: "user" },
             ],
             custom: {
               appointment_duration: 7200,

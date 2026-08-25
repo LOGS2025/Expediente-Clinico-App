@@ -51,7 +51,6 @@ const DoctorDashboardLayout = ()=> {
    
     const handleJoin = () => {
         try {
-            const data = getVideoParticipantsUUID();
             // We create a call ID
             router.push(`/meeting/${callId}`);
 
