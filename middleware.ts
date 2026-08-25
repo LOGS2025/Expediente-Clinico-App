@@ -7,7 +7,13 @@ const PUBLIC_PATHS = ['/sign-in', '/sign-up'];
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
+  // ✅ Allow public paths
   if (PUBLIC_PATHS.some(path => pathname.startsWith(path))) {
+    return NextResponse.next();
+  }
+
+  // ✅ Allow static assets (images, fonts, etc.)
+  if (pathname.match(/\.(png|jpg|jpeg|gif|svg|webp|ico|woff|woff2|ttf|eot)$/)) {
     return NextResponse.next();
   }
 
