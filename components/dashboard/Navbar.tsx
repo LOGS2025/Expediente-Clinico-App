@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTopBarItems } from "@/lib/utils";
 import { Top } from "@/lib/utils/barItems";
+import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
 interface NavbarProps {
   selectedTab?: Top | null;
@@ -15,6 +16,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
   const topbarItems = useTopBarItems();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const userInfo = useBoundStore((state)=>state);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
@@ -34,6 +36,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
               <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wide">
                 Facultad de Medicina · UNAM
               </p>
+              <span>Logged in as {userInfo.getRole()}</span>
             </div>
           </div>
 
