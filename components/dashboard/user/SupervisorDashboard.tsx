@@ -16,14 +16,14 @@ import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
 import ErrorMessage from "@/components/ui/Error";
+import { useLayout } from "@/contexts/LayoutContext";
 
 const SupervisorDashboardLayout = ()=> {
     const router = useRouter();
+    const { ActiveItem } = useLayout();
 
     const [appointments, setAppointment] = useState<[Appointment] | null>(null);
     const [option, setOption] = useState<string>('');
-    const [showForm, setShowForm] = useState<boolean>(false);
-    const [ActiveItem, setItem] = useState<ComponentType | null >(null);
     const videoCallHandler = useVideoCall((state)=>state);
     const [error, setError] = useState<string | null>(null);
     const [appointmentChosen, setAppointmentChosen] = useState<boolean>(false);
@@ -92,12 +92,7 @@ const SupervisorDashboardLayout = ()=> {
         <div className="flex flex-col lg:flex-row">
             { error && <ErrorMessage message={error}/> }
 
-            {/* Side bar  */}
-            <div className="hidden lg:block lg:w-[200px] min-w-[200px]">
-                <Sidebar ActiveItem={ActiveItem} setItem={setItem}/>
-            </div>
-
-            <div className="lg:flex-2 bg-amber-400 h-dvh">
+            <div className="lg:flex-2 h-dvh p-5">
                 <div className="flex flex-row items-center justify-end gap-6">
                     <Button onClick={()=>setOption('create')} text="Crear consulta"/>
                     <Button onClick={()=>setOption('consults')} text="Ver Consultas"/>
@@ -109,10 +104,12 @@ const SupervisorDashboardLayout = ()=> {
                         }} text="Iniciar consulta"/>
                 </div>
                 
-                {optionDisplay()}
+                <div className="flex flex-col w-full items-center justify-center">
+                    {optionDisplay()}
+                </div>
             </div>
 
-            <div className="lg:flex-2 bg-green-400">
+            <div className="lg:flex-1 p-5">
                 <div>   
                     {ActiveItem ? <ActiveItem/> : <></>}
                 </div>

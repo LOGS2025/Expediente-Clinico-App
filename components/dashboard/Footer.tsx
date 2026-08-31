@@ -1,9 +1,10 @@
+import { logo_without_bg, FacmedLogo, SaludDigitalLogo } from "@/assets/images"
 import Link from "next/link"
 
 export const Footer = () => {
     return(
         <div className="bg-slate-800 flex flex-col items-center justify-center p-4 pt-5 pb-5 text-base">
-            <section className="w-full flex flex-row md:flex-col">
+            <section className="w-full flex flex-col md:flex-row">
                 <div className="flex-1 flex-col p-5">
                     <h3 className="font-bold">CENTRAL DE ATENCION DE EMERGENCIAS [CAE]</h3>
                     <li className="flex flex-col">
@@ -45,8 +46,11 @@ export const Footer = () => {
                 <Link className="text-yellow-600 underline text-sm" href={''}>RESOLUCIÓN DEL COMITÉ DE TRANSPARENCIA</Link>
             </section>
 
-            <section>
-
+            <section className="flex flex-row w-full justify-center p-9 gap-5">
+                <img src={SaludDigitalLogo.src} 
+                className=" w-auto h-full object-contain left-0" 
+                alt="Logo Facultad de Medicina" 
+                />
             </section>
         </div>
     )

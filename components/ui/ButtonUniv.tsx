@@ -1,8 +1,9 @@
 const Button = ({text, onClick}:{text: string; onClick?: ()=>void;})=>{
     return (
         <div className="flex items-center justify-center p-8">
-            <button onClick={onClick} className="w-full bg-blue-600 py-3 bg-primary text-white rounded-xl font-bold text-xs uppercase tracking-widest 
-                        shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
+            <button onClick={onClick} className="w-full p-5 bg-blue-950 py-3 bg-primary text-gray-300 font-light rounded-xl text-xs uppercase tracking-widest 
+                        gap-2 hover:text-white hover:font-bold transition-all
+                        ">
             {text}</button>
         </div>
     )

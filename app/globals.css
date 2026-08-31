@@ -1,34 +1,73 @@
+/* app/globals.css */
 @import "tailwindcss";
+@import "@stream-io/video-react-sdk/dist/css/styles.css";
 
+/* ============================================
+   UNAM OFFICIAL COLORS
+   ============================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* UNAM Primary Colors */
+  --unam-blue: #002D72;        /* UNAM Official Blue */
+  --unam-gold: #C49A2E;        /* UNAM Official Gold */
+  --unam-white: #FFFFFF;       /* UNAM White */
+  --unam-light-blue: #E8F0FE;  /* Light Blue for backgrounds */
+  --unam-dark-blue: #001F4D;   /* Darker Blue for depth */
+  
+  /* UNAM Secondary Colors */
+  --unam-gold-light: #D4B04A;  /* Lighter Gold for hover states */
+  --unam-gold-dark: #A68020;   /* Darker Gold for depth */
+  
+  /* UNAM Neutral Colors */
+  --unam-gray-100: #F8F9FA;
+  --unam-gray-200: #E9ECEF;
+  --unam-gray-300: #DEE2E6;
+  --unam-gray-400: #CED4DA;
+  --unam-gray-500: #ADB5BD;
+  --unam-gray-600: #6C757D;
+  --unam-gray-700: #495057;
+  --unam-gray-800: #343A40;
+  --unam-gray-900: #212529;
+
+  /* Semantic Colors */
+  --success: #28A745;
+  --error: #DC3545;
+  --warning: #FFC107;
+  --info: #17A2B8;
+
+  /* Background & Foreground */
+  --background: var(--unam-white);
+  --foreground: var(--unam-gray-900);
+  
+  /* Stream Overrides */
+  --str-video-primary: var(--unam-blue);
+  --str-video-secondary: var(--unam-gold);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ============================================
+   DARK MODE
+   ============================================ */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121212;
+    --foreground: var(--unam-gray-100);
+    --unam-blue: #4A8BDB;          /* Lighter blue for dark mode */
+    --unam-gold: #D4B04A;          /* Lighter gold for dark mode */
+    --unam-light-blue: #1A2A4A;    /* Darker light blue */
   }
 }
 
+/* ============================================
+   BODY STYLES
+   ============================================ */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* app/globals.css */
-@import "@stream-io/video-react-sdk/dist/css/styles.css";
-
-/* Ensure Stream components have proper display */
+/* ============================================
+   STREAM COMPONENT OVERRIDES
+   ============================================ */
 .str-video__call-controls {
   display: flex !important;
   gap: 0.5rem !important;
@@ -38,4 +77,106 @@ body {
 .str-video__button {
   min-width: 44px !important;
   min-height: 44px !important;
+}
+
+/* Override Stream primary color with UNAM Blue */
+.str-video__theme {
+  --str-video-primary: var(--unam-blue) !important;
+}
+
+/* ============================================
+   UNAM UTILITY CLASSES
+   ============================================ */
+/* Background Colors */
+.bg-unam-blue { background-color: var(--unam-blue); }
+.bg-unam-gold { background-color: var(--unam-gold); }
+.bg-unam-light-blue { background-color: var(--unam-light-blue); }
+
+/* Text Colors */
+.text-unam-blue { color: var(--unam-blue); }
+.text-unam-gold { color: var(--unam-gold); }
+
+/* Border Colors */
+.border-unam-blue { border-color: var(--unam-blue); }
+.border-unam-gold { border-color: var(--unam-gold); }
+
+/* ============================================
+   BUTTON VARIANTS
+   ============================================ */
+.btn-unam-primary {
+  background-color: var(--unam-blue);
+  color: var(--unam-white);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-unam-primary:hover {
+  background-color: var(--unam-dark-blue);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 45, 114, 0.3);
+}
+
+.btn-unam-gold {
+  background-color: var(--unam-gold);
+  color: var(--unam-white);
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-unam-gold:hover {
+  background-color: var(--unam-gold-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(196, 154, 46, 0.3);
+}
+
+.btn-unam-outline {
+  background-color: transparent;
+  color: var(--unam-blue);
+  padding: 8px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 2px solid var(--unam-blue);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-unam-outline:hover {
+  background-color: var(--unam-blue);
+  color: var(--unam-white);
+}
+
+/* ============================================
+   SIDEBAR STYLES
+   ============================================ */
+.sidebar-unam {
+  background-color: var(--unam-blue);
+  color: var(--unam-white);
+}
+
+.sidebar-unam .active {
+  background-color: var(--unam-gold);
+  color: var(--unam-white);
+}
+
+.sidebar-unam .nav-item:hover {
+  background-color: var(--unam-dark-blue);
+}
+
+/* ============================================
+   GRADIENT USAGE
+   ============================================ */
+.bg-unam-gradient {
+  background: linear-gradient(135deg, var(--unam-blue) 0%, var(--unam-dark-blue) 100%);
+}
+
+.bg-unam-gradient-gold {
+  background: linear-gradient(135deg, var(--unam-gold) 0%, var(--unam-gold-dark) 100%);
 }

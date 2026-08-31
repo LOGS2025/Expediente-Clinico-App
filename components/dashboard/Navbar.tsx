@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useTopBarItems } from "@/lib/utils";
 import { Top } from "@/lib/utils/barItems";
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
-import { logo_without_bg } from '@/assets/images';
+import { logo_without_bg, FacmedLogo } from '@/assets/images';
 
 interface NavbarProps {
   selectedTab?: Top | null;
@@ -24,8 +24,12 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
           <div className="flex items-center gap-3 flex-shrink-0">
             
             <img src={logo_without_bg.src} 
-              className=" w-auto h-full object-contain left-0" 
+              className="pl-5 w-auto h-[75%] object-contain left-0" 
               alt="Logo UNAM" 
+            />
+            <img src={FacmedLogo.src} 
+              className=" w-auto h-[75%] object-contain left-0" 
+              alt="Logo Facultad de Medicina" 
             />
             
             <div className="items-start">
@@ -38,36 +42,38 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
             </div>
           
           </div>
-          <span>Logged in as {userInfo.getRole()}</span>
 
-          <nav className="md:flex sm:hidden gap-1">
-            {topbarItems.map((item) => {
-              const isActive = pathname === item.href || item.name === selectedTab;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`
-                    group relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
-                    flex items-center gap-2
-                    ${isActive 
-                      ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
-                      : 'text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                    }
-                  `}
-                >
-                  <span className="text-lg">{item.icon}</span>
-                  <span>{item.name}</span>
-                  
-                  {isActive && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
+          <nav className="hidden lg:block">
+            <div className='flex gap-1'>
+              {topbarItems.map((item) => {
+                const isActive = pathname === item.href || item.name === selectedTab;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`
+                      group relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                      flex items-center gap-2
+                      ${isActive 
+                        ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
+                        : 'text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                      }
+                    `}
+                  >
+                    <span className="text-lg">{item.icon}</span>
+                    <span>{item.name}</span>
+                    
+                    {isActive && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
           </nav>
         </div>
       </div>
+      <span className='fixed top-0'>Logged in as {userInfo.getRole()}</span>
     </header>
   );
 };
