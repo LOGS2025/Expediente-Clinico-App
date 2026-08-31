@@ -3,7 +3,7 @@
 import { Footer } from '@/components/dashboard/Footer';
 import Navbar from '@/components/dashboard/Navbar';
 import Sidebar from '@/components/dashboard/Sidebar';
-import { LayoutProvider } from '@/contexts/LayoutContext';
+import { LayoutProvider } from '@/providers/LayoutContext';
 import { ComponentType, ReactNode, useState } from 'react';
 
 

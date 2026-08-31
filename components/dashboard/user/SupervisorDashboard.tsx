@@ -16,7 +16,7 @@ import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
 import ErrorMessage from "@/components/ui/Error";
-import { useLayout } from "@/contexts/LayoutContext";
+import { useLayout } from "@/providers/LayoutContext";
 
 const SupervisorDashboardLayout = ()=> {
     const router = useRouter();

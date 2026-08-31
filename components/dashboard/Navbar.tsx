@@ -18,17 +18,17 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
   const userInfo = useBoundStore((state)=>state);
 
   return (
-    <header className="top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
-      <div className="flex flex-row">
-        <div className="flex h-[120px]">
+    <header className="top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm w-full">
+      <div className="flex flex-row w-full">
+        <div className="flex h-[120px] w-full">
           <div className="flex items-center gap-3 flex-shrink-0">
             
             <img src={logo_without_bg.src} 
-              className="pl-5 w-auto h-[75%] object-contain left-0" 
+              className="pl-5 w-auto h-[30%] object-contain left-0" 
               alt="Logo UNAM" 
             />
             <img src={FacmedLogo.src} 
-              className=" w-auto h-[75%] object-contain left-0" 
+              className=" w-auto h-[30%] object-contain left-0" 
               alt="Logo Facultad de Medicina" 
             />
             
@@ -43,8 +43,8 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
           
           </div>
 
-          <nav className="hidden lg:block">
-            <div className='flex gap-1'>
+          <nav className="flex-1 hidden lg:block">
+            <div className='flex gap-1 text-xs font-medium h-full justify-around items-stretch'>
               {topbarItems.map((item) => {
                 const isActive = pathname === item.href || item.name === selectedTab;
                 return (
@@ -52,7 +52,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
                     key={item.name}
                     href={item.href}
                     className={`
-                      group relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
+                      group relative px-4 py-2.5 rounded-lg transition-all duration-200
                       flex items-center gap-2
                       ${isActive 
                         ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 

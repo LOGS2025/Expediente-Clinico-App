@@ -1,8 +1,8 @@
 'use client';
 
-import { useLayout } from "@/contexts/LayoutContext";
+import { useLayout } from "@/providers/LayoutContext";
 import { useExpedienteClinicoItems, useSideBarItems } from "@/lib/utils/index";
-import { ComponentType, useState } from "react";
+import { useState } from "react";
 
 
 const Sidebar = ()=> {
