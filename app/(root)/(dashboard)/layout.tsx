@@ -1,5 +1,6 @@
 'use client'
 
+import Accountbar from '@/components/dashboard/Accountbar';
 import { Footer } from '@/components/dashboard/Footer';
 import Navbar from '@/components/dashboard/Navbar';
 import Sidebar from '@/components/dashboard/Sidebar';
@@ -17,6 +18,7 @@ const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
       {/* The right side information for wide displays */}
       <div className="w-full flex flex-col">
         <Navbar/>
+        <Accountbar/>
         <section className="flex flex-row md:flex-col">
           <div className="w-full">{children}</div>
         </section>
