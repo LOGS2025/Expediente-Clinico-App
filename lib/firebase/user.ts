@@ -43,7 +43,7 @@ export const handleGoogleSignIn = async ({
     const idToken = await user.getIdToken();
 
     // Store UID in a simple cookie for middleware
-    document.cookie = `uid=${user.uid}; path=/; max-age=604800; SameSite=Lax`;
+    //document.cookie = `uid=${user.uid}; path=/; max-age=604800; SameSite=Lax`;
 
     login({ email: user.email,
             displayName: user.displayName,

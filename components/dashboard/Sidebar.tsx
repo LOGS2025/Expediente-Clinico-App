@@ -10,7 +10,7 @@ const Sidebar = ({ActiveItem, setItem}:{ActiveItem : ComponentType | null; setIt
     const [display, setDisplay ] = useState<boolean>(false);
 
     return (
-    <aside className="flex flex-col h-dvh fixed w-[200px] left-0 bg-blue-400 gap-6 p-4">
+    <aside className="flex flex-col h-dvh left-0 bg-blue-400 gap-6 p-4">
         <div className="mb-8 px-2">
         <h2 className="font-['Manrope'] font-bold text-blue-900 dark:text-blue-100 text-lg" >Biblioteca</h2>
         <p className="text-xs text-slate-500" >Recursos de teleaprendizaje</p>

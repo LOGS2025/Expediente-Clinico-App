@@ -95,7 +95,7 @@ export async function getUserWithID(user_id: string) {
         if (res.ok) {
             return res.data;
         } else {
-            console.error("API returned error:", res.mensaje);
+            console.error("API returned error:", res);
             return null;
         }
     } catch (error) {

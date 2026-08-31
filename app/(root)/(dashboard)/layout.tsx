@@ -1,17 +1,16 @@
+import { Footer } from '@/components/dashboard/Footer';
 import Navbar from '@/components/dashboard/Navbar';
 import { ReactNode } from 'react';
 
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   return (
-    <main className="">
+    <main className="flex flex-col">
       <Navbar/>
-      
-      <div className="flex">        
-        <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-28 max-md:pb-14 sm:px-14">
-          <div className="w-full">{children}</div>
-        </section>
-      </div>
+      <section className="flex flex-row md:flex-col">
+        <div className="w-full">{children}</div>
+      </section>
+      <Footer/>
     </main>
   );
 };

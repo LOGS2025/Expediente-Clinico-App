@@ -49,13 +49,8 @@ export const SignInForm = () => {
   }
 
   return (
-    <article
-      className="fixed inset-0 z-30 flex flex-col bg-[url('/FacMedVista1.png')]
-        bg-cover bg-top bg-contain bg-no-repeat
-      p-7 transition duration-300"
-    >
+    <article className="fixed inset-0 z-30 flex flex-col p-7 transition duration-300">
       <header className="flex flex-row-reverse justify-between sm:flex-row">
-        <button className="flex text-white">  <CloseSvg/> </button>
       </header>
 
       <div className="flex grow items-center justify-center">

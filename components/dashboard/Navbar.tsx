@@ -18,7 +18,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
   const userInfo = useBoundStore((state)=>state);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+    <header className="top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
       <div className="flex flex-row">
         <div className="flex h-[120px]">
           <div className="flex items-center gap-3 flex-shrink-0">

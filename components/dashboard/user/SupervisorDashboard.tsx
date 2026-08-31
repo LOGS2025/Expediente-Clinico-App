@@ -89,15 +89,15 @@ const SupervisorDashboardLayout = ()=> {
     }
 
     return (
-        <div className="flex flex-row">
+        <div className="flex flex-col lg:flex-row">
             { error && <ErrorMessage message={error}/> }
 
             {/* Side bar  */}
-            <div className="flex-1 bg-blue-300">
+            <div className="hidden lg:block lg:w-[200px] min-w-[200px]">
                 <Sidebar ActiveItem={ActiveItem} setItem={setItem}/>
             </div>
 
-            <div className="flex-2 bg-amber-400 h-dvh">
+            <div className="lg:flex-2 bg-amber-400 h-dvh">
                 <div className="flex flex-row items-center justify-end gap-6">
                     <Button onClick={()=>setOption('create')} text="Crear consulta"/>
                     <Button onClick={()=>setOption('consults')} text="Ver Consultas"/>
@@ -112,7 +112,7 @@ const SupervisorDashboardLayout = ()=> {
                 {optionDisplay()}
             </div>
 
-            <div className="flex-2 bg-green-400">
+            <div className="lg:flex-2 bg-green-400">
                 <div>   
                     {ActiveItem ? <ActiveItem/> : <></>}
                 </div>

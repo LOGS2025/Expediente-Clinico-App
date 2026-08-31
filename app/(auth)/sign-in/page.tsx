@@ -8,9 +8,12 @@ import SignInForm from "@/components/auth/SignInForm"
 
 const SignIn = ()=> {
     return (
-        <>
+        <div
+        className="w-auto h-dvh flex flex-col bg-[url('@/assets/FacMedVista1.png')]
+        bg-cover bg-no-repeat
+          ">
         <SignInForm></SignInForm>
-        </>
+        </div>
     )
 }
 

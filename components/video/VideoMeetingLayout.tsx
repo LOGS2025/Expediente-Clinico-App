@@ -4,7 +4,6 @@ import { FloatingParticipant } from "./VideoParticipants";
 import { useEffect, useState } from "react";
 import { CenteredOneView } from "./participant/ActiveMembers";
 import { CenteredDualView } from "./participant/CenteredDuaLView";
-import { CapibaraLoadingScreen } from "../ui/CapibaraLoadingScreen";
 import { getUserWithID } from "@/lib/supabase/users";
 
 export const UIVideoLayout = () => {
