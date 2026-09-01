@@ -69,9 +69,7 @@ export const UIVideoLayout = () => {
   if (participantCount < 1) {
     return (
       <div className="fixed inset-0 h-full w-full bg-slate-900">
-        <CapibaraLoadingScreen 
-        count={participantCount} 
-        />
+        Hola
       </div>
     );
   }

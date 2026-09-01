@@ -10,6 +10,7 @@ import Lobby from "@/components/video/VideoLobby";
 import LoadingScreen from "@/components/ui/LoadingScreen";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import Sidebar from "@/components/dashboard/Sidebar";
+import { useLayout } from "@/providers/LayoutContext";
 
 export default function MeetingPage() {
   const router = useRouter();
@@ -25,7 +26,9 @@ export default function MeetingPage() {
   // Get participants from store (set when appointment is selected)
   const participants = callStore.getParticipantsUUID();
 
-  const [Item, setItem] = useState<ComponentType | null >(null);
+  // const [Item, setItemLocal] = useState<ComponentType | null >(null);
+
+  // const { setItem } = useLayout();
 
 
   useEffect(()=>{
@@ -89,7 +92,7 @@ export default function MeetingPage() {
 
   return (
     <div>
-      <Sidebar ActiveItem={Item} setItem={setItem} />
+      <Sidebar/>
       
       <div className="ml-[220px] mr-[100px]">
         <StreamCall call={call}>

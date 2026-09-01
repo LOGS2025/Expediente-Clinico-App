@@ -92,10 +92,7 @@ const DoctorDashboardLayout = ()=> {
         <div className="flex flex-row">
             {/* Side bar  */}
             <div className="flex-1">
-                <Sidebar 
-                    ActiveItem={ActiveItem}
-                    setItem={setItem}
-                />
+                <Sidebar/>
             </div>
 
             {/* Adjust to the size of out Navbar */}
