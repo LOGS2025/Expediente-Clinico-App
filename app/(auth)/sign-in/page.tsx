@@ -1,20 +1,113 @@
 'use client'
 
-import SignInForm from "@/components/auth/SignInForm"
+import { useRouter } from 'next/navigation';
+import { useBoundStore } from "@/lib/hooks/useBoundStore"
+import { logoutSVG } from "@/assets/images";
+import { handleGoogleSignIn } from '@/lib/firebase/user';
+import { GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '@/lib/firebase/firebase';
 
-// We first find if our user exists.
+import Image from "next/image";
+import { ComponentProps } from 'react';
 
-// we use his token as user id on the users table to look for this user?
+/*
+ *  Should only expect an email and a password assuing the account creation 
+ *  is done manually for each user 
+ */
+const googleProvider = new GoogleAuthProvider();
+
 
 const SignIn = ()=> {
+    const loggedIn = useBoundStore((state)=>state.loggedIn);
+    const logout = useBoundStore((state)=>state.logout);
+
+    const router = useRouter();
+    const login = useBoundStore((state) => state.login);
+    const error = useBoundStore((state) => state.error);
+    const userState = useBoundStore((state)=>state);
+
+    async function googleSignIn() {
+        handleGoogleSignIn({
+        auth: auth, 
+        googleProvider: googleProvider,
+        login
+        })
+    }
+
+  function btn_log_in() {
+    if ( userState.loggedIn && userState.getID() ) {
+      return (
+      <button
+        className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition hover:bg-gray-50 hover:brightness-90"
+        onClick={()=>router.push('/')}>
+          Entra al sitio
+        </button>
+      )
+    } else {
+      return (
+      <button
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition hover:bg-gray-50 hover:brightness-90"
+          onClick={googleSignIn}>
+          <GoogleLogoSvg className="h-5 w-5" /> Google
+        </button>
+      )
+    }
+  }
+
     return (
-        <div
-        className="w-auto h-dvh flex flex-col bg-[url('@/assets/FacMedVista1.png')]
-        bg-cover bg-no-repeat
-          ">
-        <SignInForm></SignInForm>
+    <div
+    className="w-auto h-dvh flex flex-col bg-[url('@/assets/FacMedVista1.png')]
+    bg-cover bg-no-repeat
+        ">
+        <article className="fixed inset-0 flex flex-col p-7 transition duration-300">
+        <div className="flex grow items-center justify-center">
+            <div className="flex w-full flex-col gap-5 sm:w-96">
+            <h2 className="text-center text-2xl font-bold">
+                Inicia sesion
+            </h2>
+            <div className="flex flex-col gap-5">
+                { btn_log_in() }
+                { loggedIn &&
+                    <button
+                        className="z-30 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition 
+                        hover:bg-gray-50 hover:brightness-90"
+                        onClick={()=>logout()}>
+                        <Image width={20} height={20} src={logoutSVG.src} alt="logout icon as door with exit arrow" className="h-5 w-5" /> Cerrar sesion
+                    </button>
+                }
+            </div>
+            </div>
         </div>
+        </article>
+    </div>
     )
 }
 
 export default SignIn;
+
+
+export const GoogleLogoSvg = (props: ComponentProps<"svg">) => {
+  return (
+    <svg viewBox="0 0 48 48" {...props}>
+      <g>
+        <path
+          fill="#EA4335"
+          d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
+        ></path>
+        <path
+          fill="#4285F4"
+          d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
+        ></path>
+        <path
+          fill="#FBBC05"
+          d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
+        ></path>
+        <path
+          fill="#34A853"
+          d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
+        ></path>
+        <path fill="none" d="M0 0h48v48H0z"></path>
+      </g>
+    </svg>
+  );
+};

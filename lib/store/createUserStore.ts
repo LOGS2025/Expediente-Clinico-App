@@ -123,7 +123,10 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
         }
     },
 
-    logout() { set({loggedIn: false}) },
+    logout: () => {
+        set({loggedIn: false})
+        console.log("Set logged in as false");
+    },
 
     setCookie: ( cookie: string ) => {
         set({cookieToken: cookie});
