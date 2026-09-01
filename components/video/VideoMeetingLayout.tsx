@@ -4,7 +4,6 @@ import { FloatingParticipant } from "./VideoParticipants";
 import { useEffect, useState } from "react";
 import { CenteredOneView } from "./participant/ActiveMembers";
 import { CenteredDualView } from "./participant/CenteredDuaLView";
-import { CapibaraLoadingScreen } from "../ui/CapibaraLoadingScreen";
 import { getUserWithID } from "@/lib/supabase/users";
 
 export const UIVideoLayout = () => {
@@ -70,9 +69,7 @@ export const UIVideoLayout = () => {
   if (participantCount < 1) {
     return (
       <div className="fixed inset-0 h-full w-full bg-slate-900">
-        <CapibaraLoadingScreen 
-        count={participantCount} 
-        />
+        Hola
       </div>
     );
   }

@@ -93,8 +93,8 @@ const DoctorDashboardLayout = ()=> {
             { error && <ErrorMessage message={error}/> }
 
             {/* Side bar  */}
-            <div className="flex-1 bg-blue-300">
-                <Sidebar ActiveItem={ActiveItem} setItem={setItem}/>
+            <div className="flex-1">
+                <Sidebar/>
             </div>
 
             <div className="flex-2 bg-amber-400 h-dvh">

@@ -108,7 +108,10 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
   }
 
   return (
-    <div className='flex flex-col text-gray-900 max-w-lg min-w-64 p-5 border border-blue-400 rounded-4xl bg-white'>
+    <div className='flex flex-col text-gray-500 
+    border-gray-300 shadow-xl/30
+    min-w-[75%] min-h-100 p-5 border-2 rounded-2xl bg-white
+    '>
       { error ? ( 
         <ErrorMessage message={error} />
     ) : ( <></> ) }
@@ -123,6 +126,18 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
             <DisplayUsers userList={telemedicList} setUser={setDoctor} selectedUserId={selAsDoctor?.usuario.uuid} label='Selecciona un telemedico'/>
           ) : (<></>)
             }
+          
+          { userState.role == 'supervisor'&&
+          <div className="flex flex-col">
+            <h2 className='p-3 text-base font-mono opacity-40'>Seras designado como el supervisor de esta consulta.</h2>
+            <span className="font-medium">
+              Supervisor : {userState.user?.nombre} {userState.user?.apellido_p} {userState.user?.apellido_m}
+            </span>
+            <span className="text-xs text-gray-500">
+              ID: {userState.user?.uuid}
+            </span>
+          </div>
+          }
         </div>
 
       <div className='pt-7'>

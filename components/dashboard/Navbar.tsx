@@ -1,12 +1,12 @@
 // components/layout/Navbar.tsx
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTopBarItems } from "@/lib/utils";
 import { Top } from "@/lib/utils/barItems";
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
+import { logo_without_bg, FacmedLogo } from '@/assets/images';
 
 interface NavbarProps {
   selectedTab?: Top | null;
@@ -15,21 +15,24 @@ interface NavbarProps {
 const Navbar = ({ selectedTab = null }: NavbarProps) => {
   const topbarItems = useTopBarItems();
   const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const userInfo = useBoundStore((state)=>state);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[120px]">
-          {/* Logo Section */}
+    <header className="top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm w-full">
+      <div className="flex flex-row w-full">
+        <div className="flex h-[120px] w-full">
           <div className="flex items-center gap-3 flex-shrink-0">
-            <img 
-              className=" fixed w-[100px] h-auto object-contain left-0" 
-              src="/logoUnam.png" 
+            
+            <img src={logo_without_bg.src} 
+              className="pl-5 w-auto h-[30%] object-contain left-0" 
               alt="Logo UNAM" 
             />
-            <div className="hidden sm:block">
+            <img src={FacmedLogo.src} 
+              className=" w-auto h-[30%] object-contain left-0" 
+              alt="Logo Facultad de Medicina" 
+            />
+            
+            <div className="items-start">
               <h1 className="text-sm font-bold text-blue-800 dark:text-blue-400 leading-tight font-['Manrope']">
                 Sistema ECE Didáctico
               </h1>
@@ -38,82 +41,40 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
               </p>
               <span>Logged in as {userInfo.getRole()}</span>
             </div>
+          
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
-            {topbarItems.map((item) => {
-              const isActive = pathname === item.href || item.name === selectedTab;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`
-                    group relative px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200
-                    flex items-center gap-2
-                    ${isActive 
-                      ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
-                      : 'text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                    }
-                  `}
-                >
-                  <span className="text-lg">{item.icon}</span>
-                  <span>{item.name}</span>
-                  
-                  {/* Active indicator */}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Right Side Actions */}
-          <div className="flex items-center gap-3">
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-            >
-              <span className="material-symbols-outlined text-slate-600 dark:text-slate-300">
-                {isMenuOpen ? 'close' : 'menu'}
-              </span>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div className={`
-          md:hidden overflow-hidden transition-all duration-300 ease-in-out
-          ${isMenuOpen ? 'max-h-96 opacity-100 pb-4' : 'max-h-0 opacity-0'}
-        `}>
-          <nav className="flex flex-col gap-1">
-            {topbarItems.map((item) => {
-              const isActive = pathname === item.href || item.name === selectedTab;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`
-                    px-4 py-3 rounded-lg text-sm font-medium transition-colors
-                    flex items-center gap-3
-                    ${isActive 
-                      ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
-                      : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                    }
-                  `}
-                >
-                  <span className="text-lg">{item.icon}</span>
-                  <span>{item.name}</span>
-                </Link>
-              );
-            })}
+          <nav className="flex-1 hidden lg:block">
+            <div className='flex gap-1 text-xs font-medium h-full justify-around items-stretch'>
+              {topbarItems.map((item) => {
+                const isActive = pathname === item.href || item.name === selectedTab;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`
+                      group relative px-4 py-2.5 rounded-lg transition-all duration-200
+                      flex items-center gap-2
+                      ${isActive 
+                        ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
+                        : 'text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
+                      }
+                    `}
+                  >
+                    <span className="text-lg">{item.icon}</span>
+                    <span>{item.name}</span>
+                    
+                    {isActive && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
           </nav>
         </div>
       </div>
+      <span className='fixed top-0'>Logged in as {userInfo.getRole()}</span>
     </header>
   );
 };

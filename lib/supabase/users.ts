@@ -91,12 +91,11 @@ export async function getUserWithID(user_id: string) {
             return null;
         }
         const res = await response.json();
-        console.log(res);
 
         if (res.ok) {
             return res.data;
         } else {
-            console.error("API returned error:", res.mensaje);
+            console.error("API returned error:", res);
             return null;
         }
     } catch (error) {
@@ -181,3 +180,25 @@ export async function createPatient( uuid : string ) {
     }    
 }
 
+export async function getUserAppointments(uuid: string) {
+    try {
+        const response = await fetch(`/api/supabase/appointment/getRoleAppointment?uuid=${uuid}`);
+
+        if (!response.ok) {
+            console.error("Response not OK:", response.status);
+            return null;
+        }
+        const res = await response.json();
+        console.log(res);
+
+        if (res.ok) {
+            return res.data;
+        } else {
+            console.error("API returned error:", res.mensaje);
+            return null;
+        }
+    } catch (error) {
+        console.error("Could not retrieve the information from Supabase: ", error);
+        return null;
+    }
+}

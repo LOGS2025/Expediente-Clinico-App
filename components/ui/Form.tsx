@@ -24,12 +24,13 @@ const Form = ({
     <form onSubmit={handleSubmit} className="space-y-4">
 
       {/* Botones */}
-      <div className="flex gap-3 pt-2">
+      <div className="flex gap-3 pt-2 items-center justify-center">
         <button
           type="submit"
           disabled={isLoading}
-          className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
+          className="w-3xs p-5 bg-blue-950 py-3 bg-primary text-gray-300 font-light rounded-xl text-xs uppercase tracking-widest 
+                        gap-2 hover:text-white hover:font-bold transition-all
+                        ">
           {isLoading ? 'Guardando...' : 'Crear pareja'}
         </button>
         {onCancel && (

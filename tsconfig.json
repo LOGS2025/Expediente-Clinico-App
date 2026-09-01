@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "components/video/VideoMeetingLayout.tsx.bakup"  ],
+, "components/video/VideoMeetingLayout.tsx.bakup", "middleware.ts.bk"  ],
   "exclude": ["node_modules"]
 }
