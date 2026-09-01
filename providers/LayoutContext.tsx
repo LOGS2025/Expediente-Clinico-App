@@ -1,11 +1,11 @@
 // contexts/LayoutContext.tsx
 'use client';
 
-import { createContext, useContext, useState, ReactNode, ComponentType } from 'react';
+import { createContext, useContext, useState, ReactNode, ComponentType, Dispatch, SetStateAction } from 'react';
 
 interface LayoutContextType {
   ActiveItem: ComponentType | null;
-  setItem: (item: ComponentType | null) => void;
+  setItem: Dispatch<SetStateAction<ComponentType | null >>;
 }
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);

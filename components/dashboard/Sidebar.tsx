@@ -26,9 +26,9 @@ const Sidebar = ()=> {
                         <button 
                         onClick={()=>{
                             if ( ActiveItem == item.component ) {
-                                setItem(null);
+                                setItem(()=>null);
                             } else {
-                                setItem(item.component); 
+                                setItem(()=>item.component); 
                             }
                         } }
                         className="w-full p-5 bg-blue-950 py-3 bg-primary text-gray-300 font-light rounded-xl text-xs uppercase tracking-widest 
@@ -61,7 +61,7 @@ const Sidebar = ()=> {
                     {expClinicoItems.map((item) => (
                     <button
                         key={item.name}
-                        onClick={() => setItem(item.component)}
+                        onClick={() => setItem(()=>item.component)}
                         className={`w-full p-5 bg-blue-950 rounded-2xl font-light 
                             text-sm hover:text-white hover:font-bold
                             `}
