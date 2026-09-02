@@ -1,13 +1,4 @@
-/**
- *  El dashboard del Supervisor debe contener 
- *      - una vista de agendas?
- *      - navbar
- *      - sidebar
- *      - Cuenta?
- */
-
-import Sidebar from "@/components/dashboard/Sidebar";
-import { ComponentType, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AppointmentsPanel from "../appointment/AppointmentPanel";
 import AppointmentForm from "../appointment/AppointmentForm";
 import { Appointment } from "@/lib/models/Appointment";
@@ -93,7 +84,7 @@ const SupervisorDashboardLayout = ()=> {
             { error && <ErrorMessage message={error}/> }
 
             <div className="lg:flex-2 h-dvh p-5">
-                <div className="flex flex-row items-center justify-end gap-6">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-end w-fit">
                     <Button onClick={()=>setOption('create')} text="Crear consulta"/>
                     <Button onClick={()=>setOption('consults')} text="Ver Consultas"/>
                     <Button onClick={()=>{
@@ -109,10 +100,8 @@ const SupervisorDashboardLayout = ()=> {
                 </div>
             </div>
 
-            <div className="lg:flex-1 p-5">
-                <div>   
-                    {ActiveItem ? <ActiveItem/> : <></>}
-                </div>
+            <div className="z-50 fixed right-0 top-0 h-full">
+                {ActiveItem ? <ActiveItem/> : <></>}
             </div>
         </div>
     )

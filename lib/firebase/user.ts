@@ -43,9 +43,6 @@ export const handleGoogleSignIn = async ({
     // Get the ID token
     const idToken = await user.getIdToken();
 
-    // Store UID in a simple cookie for middleware
-    //document.cookie = `uid=${user.uid}; path=/; max-age=604800; SameSite=Lax`;
-
     login({ email: user.email,
             displayName: user.displayName,
             photoURL: user.photoURL,
@@ -54,9 +51,11 @@ export const handleGoogleSignIn = async ({
 
     sendLogIntoFirebaseDB({auth, firestore})
 
-    return true;
   } catch (error) {
     console.error("Google sign-in error:", error);
-    return false;
   }
 } 
+
+export const fetchUserData = ()=> {
+
+}

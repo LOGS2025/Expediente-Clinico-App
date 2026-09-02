@@ -157,18 +157,18 @@ const HistoriaClinica = () => {
   ];
 
   return (
-    <div className="max-w-[450px] mx-auto p-6 overflow-y-auto h-[600px] bg-white rounded-3xl">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Historia Clínica</h1>
+    <div className="max-w-[450px] text-white p-6 overflow-y-auto h-dvh bg-blue-950">
+      <h1 className="text-2xl font-bold text-white mb-6">Historia Clínica</h1>
 
       {/* Navigation Tabs */}
-      <div className="flex flex-wrap gap-2 mb-6 border-b border-gray-200 pb-4">
+      <div className="grid grid-cols-2 gap-2 mb-6 border-b border-gray-200 pb-4">
         {sections.map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveSection(tab.id)}
-            className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+            className={`px-4 py-2 text-sm font-medium brightness-80 hover:brightness-90 transition-colors ${
               activeSection === tab.id
-                ? 'bg-blue-600 text-white'
+                ? 'bg-yellow-500 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
