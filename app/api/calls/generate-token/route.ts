@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
         id: id,
         name: name,
         role: userRole,
-//        custom: { role: role }, // store original role for custom logic
+        custom: { role: role }, // store original role for custom logic
       },
     ]);
 

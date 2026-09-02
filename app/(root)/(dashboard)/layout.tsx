@@ -10,7 +10,6 @@ import { ReactNode } from 'react';
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   return (
-  <LayoutProvider>
     <main className='flex flex-row'>
       <div className='hidden lg:block w-[10%] min-w-[200px] sticky top-0 h-dvh'>
         <Sidebar/>
@@ -25,7 +24,6 @@ const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
         <Footer/>
       </div>
     </main>
-  </LayoutProvider>
   );
 };
 

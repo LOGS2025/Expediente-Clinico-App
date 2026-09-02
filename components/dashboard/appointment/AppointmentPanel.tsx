@@ -47,18 +47,11 @@ const AppointmentsPanel = ({
                 {/* Header - Clickable */}
                 <div
                   onClick={() => handleSelect(appointment)}
-                  className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white cursor-pointer hover:from-blue-700 hover:to-blue-800 transition-all"
+                  className="flex items-center justify-between p-4 bg-blue-950"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-lg font-semibold">
+                    <span className="text-lg text-white font-semibold">
                       Consulta #{appointment.id}
-                    </span>
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${
-                      appointment.pending
-                        ? 'bg-yellow-400/20 text-yellow-200' 
-                        : 'bg-green-400/20 text-green-200'
-                    }`}>
-                      {appointment.pending ? 'Pendiente' : 'Completada'}
                     </span>
                   </div>
                   <svg
@@ -83,13 +76,8 @@ const AppointmentsPanel = ({
                     {/* Split Participants View */}
                     <div className="grid grid-cols-2 gap-4">
                       {/* Telemedico Card */}
-                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200 shadow-sm">
+                      <div className="bg-gradient-to-br  rounded-xl p-4 border border-blue-200 shadow-sm">
                         <div className="flex items-center gap-2 mb-2">
-                          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
-                            <span className="material-symbols-outlined text-white text-sm">
-                              M
-                            </span>
-                          </div>
                           <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">
                             Telemedico
                           </span>
@@ -98,13 +86,8 @@ const AppointmentsPanel = ({
                       </div>
 
                       {/* Paciente Card */}
-                      <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200 shadow-sm">
+                      <div className="bg-gradient-to-br rounded-xl p-4 border border-green-200 shadow-sm">
                         <div className="flex items-center gap-2 mb-2">
-                          <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                            <span className="material-symbols-outlined text-white text-sm">
-                              P
-                            </span>
-                          </div>
                           <span className="text-sm font-semibold text-green-700 uppercase tracking-wide">
                             Paciente
                           </span>

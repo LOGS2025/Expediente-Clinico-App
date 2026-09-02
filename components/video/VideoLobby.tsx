@@ -3,20 +3,19 @@ import {
   DefaultVideoPlaceholder,
   VideoPreview,
   StreamVideoParticipant,
-  useCall,
-  useCallStateHooks,
+  useStreamVideoClient,
 } from '@stream-io/video-react-sdk';
 import { GoldenShineSvg, GoldenTreasureSvg } from "../ui/Svgs";
-import { useRouter } from "next/navigation";
 import { useVideoCall } from '@/lib/hooks/useVideoCall';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
 const Lobby = () => {
-  const router = useRouter();
-  const call = useCall();
-
   const videoDataSubmitted = useVideoCall((state)=>state);
   const userDataSubmitted = useBoundStore((state)=>state);
+
+  const client = useStreamVideoClient();
+
+  console.log(client?.state.connectedUser);
 
   return (
     <div className="flex flex-row items-center justify-center h-[70%] bg-slate-900 p-4">
@@ -32,6 +31,7 @@ const Lobby = () => {
         <span>E-mail: {userDataSubmitted.email}</span>
         <span>Display Name: {userDataSubmitted.displayName}</span>
         <span>UUID: {userDataSubmitted.uid}</span>
+        <span>Custom field: {client?.state.connectedUser?.custom?.role}</span>
       </div>
     </div>
   );

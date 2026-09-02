@@ -1,3 +1,5 @@
+'use client'
+
 import { CallingState, CallParticipantsList, StreamTheme, useCall, useCallStateHooks } from "@stream-io/video-react-sdk";
 import LoadingScreen from "../ui/LoadingScreen";
 import { FloatingParticipant } from "./VideoParticipants";
@@ -102,9 +104,7 @@ export const UIVideoLayout = () => {
 
   return (
     <div className="pt-10 h-full w-full items-center justify-center">
-      {/* <Navbar/> */}
       <StreamTheme>
-        {/* Main logic */}
         {/* {displayMainParticipants(localParticipant.custom?.fields.role.kind.stringValue)} */}
         { localParticipant && <CenteredDualView participants={remoteParticipants}/> }    
 

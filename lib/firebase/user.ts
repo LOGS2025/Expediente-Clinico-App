@@ -36,6 +36,7 @@ export const handleGoogleSignIn = async ({
   }) => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
+
     const user = result.user;
     const firestore = getFirestore();
 
@@ -53,7 +54,9 @@ export const handleGoogleSignIn = async ({
 
     sendLogIntoFirebaseDB({auth, firestore})
 
+    return true;
   } catch (error) {
     console.error("Google sign-in error:", error);
+    return false;
   }
 } 

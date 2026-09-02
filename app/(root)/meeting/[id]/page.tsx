@@ -92,8 +92,6 @@ export default function MeetingPage() {
 
   return (
     <div>
-      <Sidebar/>
-      
       <div className="ml-[220px] mr-[100px]">
         <StreamCall call={call}>
           {joined ? (
