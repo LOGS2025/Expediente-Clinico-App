@@ -3,6 +3,7 @@ import Paraclinicos from "@/components/medical/Paraclinicos";
 import Agenda from "@/components/dashboard/Agenda";
 import { ComponentType } from "react";
 import HistoriaClinica from "@/components/medical/historia/HistoriaClinica";
+import { TeleTriage } from "@/components/dashboard/TeleTriage";
 
 export type SIDEBAR_ITEM = {
   name: Side;
@@ -20,7 +21,7 @@ export const useTopBarItems = () => {
 
   const sidebarItems: NAVBAR_ITEM[] = [
     {
-      name: "PROUNAM y Guías Clínicas",
+      name: "PRONAM y Guías Clínicas",
       href: "https://www.google.com/?hl=es",
       icon: "",
     }, {
@@ -55,6 +56,14 @@ export const useSideBarItems = () => {
     }, {
       name: "Agenda",
       component: Agenda,
+      icon: "",
+    }, {
+      name: "TeleTriage", // Before consult
+      component: TeleTriage,
+      icon: "",
+    }, {
+      name: "Lista de Cotejo APCs", // Check as pdf's
+      component: null,
       icon: "",
     }
   ];
