@@ -40,7 +40,7 @@ const Accountbar = () => {
       hover:bg-red-400
       focus:outline-none focus:ring-2 focus:ring-blue-400
     '> 
-            <Image width={24} height={24} alt='Gray gear as settings icon' src={SettingsSVG.src}/>Settings
+            <Image width={24} height={24} alt='Gray gear as settings icon' src={SettingsSVG.src}/>Ajustes
             </button></li>
           <li className='w-full'>    <button className='
       border-l border-black 

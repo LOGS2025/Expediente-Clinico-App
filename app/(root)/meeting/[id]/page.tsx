@@ -1,16 +1,13 @@
 // app/meeting/[callId]/page.tsx
 'use client';
 
-import { ComponentType, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
-import { CallControls, StreamCall, useStreamVideoClient } from "@stream-io/video-react-sdk";
+import { StreamCall, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { UIVideoLayout } from "@/components/video/VideoMeetingLayout";
 import Lobby from "@/components/video/VideoLobby";
-import LoadingScreen from "@/components/ui/LoadingScreen";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
-import Sidebar from "@/components/dashboard/Sidebar";
-import { useLayout } from "@/providers/LayoutContext";
 
 export default function MeetingPage() {
   const router = useRouter();

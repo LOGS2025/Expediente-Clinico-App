@@ -36,7 +36,7 @@ export const FloatingParticipant = (props: {
     <div
     className=''
     style={{
-      position: 'absolute',
+      position: 'relative',
       top: '15px',
       left: '215px',
       width: '300px',
