@@ -6,19 +6,24 @@ import ListSVG from '@/assets/list.svg';
 
 import Image from 'next/image';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
 
 const Accountbar = () => {
   const pathname = usePathname();
   const userInfo = useBoundStore((state)=>state);
+  const router = useRouter();
 
   return (
     <header className="bg-red-500 w-full">
       <nav>
         <ul className='flex flex-row justify-around text-base p-2'>
-          <li className='w-full'>    <button className='
+          <li className='w-full'>    <button 
+          onClick={()=>{
+            router.push('/account')
+          }}
+          className='
       border-l border-black 
       w-full flex flex-row items-center gap-2 
       px-4 py-2 hover:rounded-lg
@@ -30,7 +35,11 @@ const Accountbar = () => {
     '> 
             <Image width={24} height={24} alt='Person silouette' src={AccountSVG.src}/>Cuenta
             </button></li>
-          <li className='w-full'>    <button className='
+          <li className='w-full'>    <button 
+          onClick={()=>{
+            router.push('/account')
+          }}
+          className='
       border-l border-black 
       w-full flex flex-row items-center gap-2 
       px-4 py-2 hover:rounded-lg
@@ -42,7 +51,11 @@ const Accountbar = () => {
     '> 
             <Image width={24} height={24} alt='Gray gear as settings icon' src={SettingsSVG.src}/>Ajustes
             </button></li>
-          <li className='w-full'>    <button className='
+          <li className='w-full'>    <button 
+          onClick={()=>{
+            router.push('/account')
+          }}
+          className='
       border-l border-black 
       w-full flex flex-row items-center gap-2 
       px-4 py-2 hover:rounded-lg
