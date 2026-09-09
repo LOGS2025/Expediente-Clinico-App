@@ -53,7 +53,7 @@ const Accountbar = () => {
             </button></li>
           <li className='w-full'>    <button 
           onClick={()=>{
-            router.push('/account')
+            router.push('/ratePage')
           }}
           className='
       border-l border-black 
@@ -65,7 +65,7 @@ const Accountbar = () => {
       hover:bg-red-400
       focus:outline-none focus:ring-2 focus:ring-blue-400
     '> 
-            <Image width={24} height={24} alt='Bullet point list icon' src={ListSVG.src}/>Personal
+            <Image width={24} height={24} alt='Bullet point list icon' src={ListSVG.src}/>Comentarios
             </button></li>
         </ul>
       </nav>
