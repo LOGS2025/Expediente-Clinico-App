@@ -33,7 +33,7 @@ const Accountbar = () => {
       hover:bg-red-400
       focus:outline-none focus:ring-2 focus:ring-blue-400
     '> 
-            <Image width={24} height={24} alt='Person silouette' src={AccountSVG.src}/>Cuenta
+            <img width={24} height={24} alt='Person silouette' src={userInfo.photoURL}/>Cuenta
             </button></li>
           <li className='w-full'>    <button 
           onClick={()=>{

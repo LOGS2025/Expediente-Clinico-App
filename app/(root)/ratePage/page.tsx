@@ -21,7 +21,7 @@ const CommentBox = ({
               {personList && personList.map((person) => {
                 return (
                     <button key={person.usuario.uuid}>
-                        <span>{person.usuario.nombre} {person.usuario.apellido_p} {person.usuario.apellido_m}</span>                        
+                        <span>{person.usuario.nombre} {person.usuario.apellido_p} {person.usuario.apellido_m}</span>
                     </button>
                 )
               })}  
