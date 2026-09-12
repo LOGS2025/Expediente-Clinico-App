@@ -19,7 +19,7 @@ const Sidebar = ()=> {
         </div>
       
         {/*  Loop for each sidebar item and its attributes */}
-        <nav className="flex flex-col gap-24">
+        <nav className="flex flex-col gap-1">
             {sidebarItems.map((item) => {
                 return (
                     <span key={item.name}>
@@ -31,8 +31,18 @@ const Sidebar = ()=> {
                                 setItem(()=>item.component); 
                             }
                         } }
-                        className="w-full p-5 bg-blue-950 py-3 bg-primary text-gray-300 font-light rounded-xl text-xs uppercase tracking-widest 
-                        gap-2 hover:text-white hover:font-bold transition-all
+                        // w-full p-5 bg-blue-950 py-3 bg-primary text-gray-300 font-light rounded-xl text-xs uppercase tracking-widest 
+                        // gap-2 hover:text-white hover:font-bold transition-all
+                        className="
+h-[100px] p-5 border-b-2
+text-gray-300 font-light text-xs uppercase tracking-widest
+w-full flex flex-row items-center gap-2 
+px-4 py-3 hover:rounded-lg
+transition-all duration-300 ease-in-out
+hover:scale-130 hover:font-bold 
+hover:shadow-lg hover:shadow-xl/30
+hover:bg-blue-950
+focus:outline-none focus:ring-2 focus:ring-blue-400
                         ">
           <span className="material-symbols-outlined text-sm">{item.name}</span>
                         </button>
@@ -44,8 +54,11 @@ const Sidebar = ()=> {
             {/* Main Button - Toggle */}
             <button 
             onClick={() => setDisplay(!display)}
-            className="w-full p-5 bg-blue-950 py-3 bg-primary text-gray-300 font-light rounded-xl text-xs uppercase tracking-widest 
-                        gap-2 hover:text-white hover:font-bold transition-all
+            className="
+w-full p-5 py-3 border-b-2
+text-gray-300 font-light text-xs uppercase tracking-widest
+transition-all duration-300 ease-in-out
+hover:text-white hover:font-bold
             ">
             <span>Expediente Clínico</span>
             </button>
@@ -80,11 +93,8 @@ const Sidebar = ()=> {
             SOLICITAR APOYO
             </button>
         </div>
-
     </aside>
     )
 }
 
 export default Sidebar;
-
-

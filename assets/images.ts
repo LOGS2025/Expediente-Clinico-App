@@ -3,3 +3,6 @@ export { default as logo_without_bg } from '@/assets/logoUnam_no_bg.png';
 export { default as FacmedLogo } from './FacMedIcon.png';
 export { default as SaludDigitalLogo } from './SaludDigitalIcon.png';
 export { default as logoutSVG } from './logout-2-svgrepo-com.svg'
+export { default as chatpgtSVG } from './chatgpt-icon.svg';
+export { default as listSVG } from './edit-list-icon.svg';
+export { default as hamburgerMenuSVG } from './three-horizontal-lines-icon.svg';

@@ -9,7 +9,7 @@ import { ReactNode } from 'react';
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   return (
-    <main className='flex flex-row'>
+    <main className='flex flex-row bg-blue-100'>
       <div className='hidden lg:block w-[10%] min-w-50 sticky top-0 h-dvh'>
         <Sidebar/>
       </div>

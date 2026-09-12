@@ -5,6 +5,7 @@ import VideoProvider from '@/providers/VideoProvider';
 import { useRouter } from 'next/navigation';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 import { LayoutProvider } from '@/providers/LayoutContext';
+import { AppBar } from '@/components/dashboard/AppBar';
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   const router = useRouter();
@@ -23,6 +24,7 @@ const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
         </VideoProvider>
       </LayoutProvider>
       </div>
+      <AppBar/>
     </main>
   );
 };

@@ -6,7 +6,10 @@ import { usePathname } from 'next/navigation';
 import { useTopBarItems } from "@/lib/utils";
 import { Top } from "@/lib/utils/barItems";
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
-import { logo_without_bg, FacmedLogo } from '@/assets/images';
+import { logo_without_bg, FacmedLogo, hamburgerMenuSVG } from '@/assets/images';
+import Image from 'next/image';
+import { SVGProps } from 'react';
+import { JSX } from 'react/jsx-runtime';
 
 interface NavbarProps {
   selectedTab?: Top | null;
@@ -22,7 +25,15 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
       <div className="flex flex-row w-full">
         <div className="flex h-[120px] w-full">
           <div className="flex items-center gap-3 flex-shrink-0">
-            
+
+            <button
+              onClick={()=>{
+
+              }} 
+              className='w-[12%] left-0 hover:scale-110'>
+              <HamburgerMenu/>
+            </button>
+
             <img src={logo_without_bg.src} 
               className="pl-5 w-auto h-[30%] object-contain left-0" 
               alt="Logo UNAM" 
@@ -80,3 +91,27 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
 };
 
 export default Navbar;
+
+
+const HamburgerMenu = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      viewBox="0 0 122.88 95.95"
+      xmlSpace="preserve"
+      {...props}
+    >
+      <g>
+        <path
+          style={{ fillRule: 'evenodd', clipRule: 'evenodd' }}
+          fill="currentColor"
+          d="M8.94,0h105c4.92,0,8.94,4.02,8.94,8.94l0,0c0,4.92-4.02,8.94-8.94,8.94h-105C4.02,17.88,0,13.86,0,8.94l0,0 C0,4.02,4.02,0,8.94,0L8.94,0z M8.94,78.07h105c4.92,0,8.94,4.02,8.94,8.94l0,0c0,4.92-4.02,8.94-8.94,8.94h-105 C4.02,95.95,0,91.93,0,87.01l0,0C0,82.09,4.02,78.07,8.94,78.07L8.94,78.07z M8.94,39.03h105c4.92,0,8.94,4.02,8.94,8.94l0,0 c0,4.92-4.02,8.94-8.94,8.94h-105C4.02,56.91,0,52.89,0,47.97l0,0C0,43.06,4.02,39.03,8.94,39.03L8.94,39.03z"
+        />
+      </g>
+    </svg>
+  );
+};

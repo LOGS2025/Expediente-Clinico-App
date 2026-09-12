@@ -10,11 +10,7 @@ import { useEffect, useState } from "react";
  * 
  * UI Function for these page
  */
-const CommentBox = ({
-    personList
-}:{
-    personList : [Participant] | undefined
-})=>{
+const CommentBox = ({ personList }:{ personList : [Participant] | undefined })=>{
     return (
         <div>
             <div className="h-[100px]">
@@ -41,7 +37,7 @@ const RatePage = ()=>{
         const getAll = async ()=>{
             const supervisors   : [Participant] = await getSupervisorList();
             const patients      : [Participant] = await getPatientList();
-            const telemedics    : [Participant] = await getSupervisorList();
+            const telemedics    : [Participant] = await getTelemedicList();
 
             if ( patients )     setPatients(patients);
             if ( telemedics )   setTelemedics(telemedics);

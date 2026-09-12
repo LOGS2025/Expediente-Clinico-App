@@ -1,8 +1,6 @@
-
 'use client'
 
 import { useBoundStore } from "@/lib/hooks/useBoundStore";
-import { useEffect } from "react";
 
 /**
  * Based off google gmail account editing page UI.

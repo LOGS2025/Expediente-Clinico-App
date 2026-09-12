@@ -1,0 +1,2751 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+  <title>Rúbricas TeleAPC | Evaluación de atención médica a distancia</title>
+<!-- 
+  <style>
+    :root {
+      --primary: #123b64;
+      --primary-light: #e8f1fa;
+      --accent: #007c83;
+      --surface: #ffffff;
+      --background: #f3f6f9;
+      --text: #1f2933;
+      --muted: #52606d;
+      --border: #cbd5e1;
+      --danger: #b42318;
+      --danger-soft: #fee4e2;
+      --warning: #8a4b08;
+      --warning-soft: #fff3cd;
+      --success: #176b3a;
+      --success-soft: #dcfce7;
+      --info: #174ea6;
+      --info-soft: #dbeafe;
+      --neutral-soft: #edf1f5;
+      --shadow: 0 8px 24px rgba(18, 59, 100, 0.10);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family:
+        Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    select,
+    input[type="radio"] {
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid rgba(0, 124, 131, 0.35);
+      outline-offset: 2px;
+    }
+
+    .app {
+      min-height: 100vh;
+    }
+
+    .hero {
+      padding: 28px clamp(18px, 4vw, 54px);
+      background:
+        linear-gradient(
+          135deg,
+          #0d3154 0%,
+          #15557e 55%,
+          #087d83 100%
+        );
+      color: white;
+    }
+
+    .hero-inner {
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      opacity: 0.88;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      margin: 0;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.08;
+    }
+
+    .hero p,
+    .hero .eyebrow {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+    }
+
+    .hero p {
+      max-width: 1120px;
+      margin: 14px 0 0;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
+
+    .layout {
+      width: min(1500px, calc(100% - 28px));
+      margin: 24px auto 56px;
+    }
+
+    .panel {
+      margin-bottom: 20px;
+      padding: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2,
+    .panel h3 {
+      color: var(--primary);
+    }
+
+    .panel h2 {
+      margin: 0 0 16px;
+      font-size: 1.38rem;
+    }
+
+    .configuration-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.wide {
+      grid-column: span 2;
+    }
+
+    label.field-label {
+      font-size: 0.91rem;
+      font-weight: 750;
+      color: var(--primary);
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      color: var(--text);
+      background: white;
+      border: 1px solid #aebdcc;
+      border-radius: 9px;
+    }
+
+    input,
+    select {
+      min-height: 44px;
+      padding: 9px 11px;
+    }
+
+    textarea {
+      min-height: 94px;
+      padding: 11px;
+      resize: vertical;
+    }
+
+    .role-note,
+    .disclaimer {
+      margin-top: 16px;
+      padding: 13px 15px;
+      border-left: 5px solid var(--accent);
+      border-radius: 8px;
+      background: #edf9fa;
+    }
+
+    .disclaimer {
+      border-left-color: var(--warning);
+      background: var(--warning-soft);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 9px 15px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-weight: 760;
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(18, 59, 100, 0.12);
+    }
+
+    .btn-primary {
+      color: white;
+      background: var(--primary);
+    }
+
+    .btn-secondary {
+      color: var(--primary);
+      background: var(--primary-light);
+      border-color: #bfd2e5;
+    }
+
+    .btn-danger {
+      color: var(--danger);
+      background: var(--danger-soft);
+      border-color: #f1b8b2;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 14px;
+    }
+
+    .summary-card {
+      min-height: 115px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fbfdff;
+    }
+
+    .summary-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 760;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .summary-value {
+      display: block;
+      color: var(--primary);
+      font-size: 1.72rem;
+      font-weight: 850;
+      line-height: 1.15;
+    }
+
+    .summary-detail {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .alert-box {
+      margin-top: 16px;
+      padding: 13px 15px;
+      border: 1px solid #efc0bb;
+      border-radius: 9px;
+      color: #761b14;
+      background: var(--danger-soft);
+    }
+
+    .apc-nav {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    .apc-tab {
+      position: relative;
+      min-height: 114px;
+      padding: 15px;
+      text-align: left;
+      color: var(--text);
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .apc-tab:hover {
+      border-color: var(--accent);
+    }
+
+    .apc-tab.active {
+      border: 2px solid var(--accent);
+      background: #eefafa;
+    }
+
+    .apc-tab strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+
+    .apc-tab-title {
+      display: block;
+      min-height: 42px;
+      font-size: 0.91rem;
+      line-height: 1.25;
+    }
+
+    .progress {
+      height: 8px;
+      margin-top: 10px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #dfe7ee;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--accent);
+    }
+
+    .progress-caption {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .apc-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: start;
+      margin: -4px -4px 20px;
+      padding: 20px;
+      border-radius: 12px;
+      background:
+        linear-gradient(
+          135deg,
+          #0d3154 0%,
+          #15557e 58%,
+          #087d83 100%
+        );
+    }
+
+    .apc-header h2 {
+      margin: 0 0 7px;
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+
+    .apc-header .eyebrow,
+    .apc-description {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+    }
+
+    .apc-description {
+      max-width: 930px;
+      margin: 0;
+      opacity: 0.96;
+    }
+
+    .apc-score-badge {
+      min-width: 160px;
+      padding: 12px 15px;
+      text-align: center;
+      border-radius: 12px;
+      color: var(--primary);
+      background: var(--primary-light);
+      border: 1px solid #bfd2e5;
+    }
+
+    .apc-score-badge strong {
+      display: block;
+      font-size: 1.45rem;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(150px, 1fr));
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .legend-item {
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 760;
+      text-align: center;
+    }
+
+    .level-na {
+      background: var(--neutral-soft);
+    }
+
+    .level-incipiente {
+      background: var(--danger-soft);
+      color: #7a1f18;
+    }
+
+    .level-desarrollo {
+      background: var(--warning-soft);
+      color: #754000;
+    }
+
+    .level-competente {
+      background: var(--success-soft);
+      color: #155f35;
+    }
+
+    .level-destacado {
+      background: var(--info-soft);
+      color: #17458f;
+    }
+
+    .criterion {
+      margin: 18px 0;
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: white;
+    }
+
+    .criterion.critical {
+      border-left: 6px solid var(--danger);
+    }
+
+    .criterion-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 13px;
+    }
+
+    .criterion-header h3 {
+      margin: 0;
+      color: var(--primary);
+      font-size: 1.08rem;
+    }
+
+    .critical-tag {
+      flex: 0 0 auto;
+      padding: 5px 8px;
+      border-radius: 999px;
+      color: #761b14;
+      background: var(--danger-soft);
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(170px, 1fr));
+      gap: 9px;
+    }
+
+    .level-card {
+      position: relative;
+      display: block;
+      min-height: 174px;
+      padding: 13px 12px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fbfcfe;
+      transition:
+        border 0.15s ease,
+        box-shadow 0.15s ease,
+        transform 0.15s ease;
+    }
+
+    .level-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .level-card.selected {
+      border: 3px solid var(--accent);
+      box-shadow: 0 4px 16px rgba(0, 124, 131, 0.14);
+    }
+
+    .level-card input {
+      width: auto;
+      min-height: auto;
+      margin: 0 8px 0 0;
+      vertical-align: middle;
+    }
+
+    .level-title {
+      display: inline;
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    .level-description {
+      display: block;
+      margin-top: 10px;
+      color: #334e68;
+      font-size: 0.87rem;
+      line-height: 1.42;
+    }
+
+    .criterion-evidence {
+      margin-top: 14px;
+    }
+
+    .criterion-evidence label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--primary);
+      font-size: 0.88rem;
+      font-weight: 780;
+    }
+
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      gap: 15px;
+    }
+
+    .entrustment {
+      margin-top: 18px;
+      padding: 16px;
+      border: 1px solid #bfd2e5;
+      border-radius: 10px;
+      background: var(--primary-light);
+    }
+
+    .entrustment h3 {
+      margin: 0 0 10px;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .source-note {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .empty-state {
+      padding: 34px 18px;
+      text-align: center;
+      color: var(--muted);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+    }
+
+    .save-status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 42px;
+      padding: 7px 10px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .save-status[data-state="saving"] {
+      color: var(--warning);
+    }
+
+    .save-status[data-state="saved"] {
+      color: var(--success);
+    }
+
+    .save-status[data-state="error"] {
+      color: var(--danger);
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 100;
+      max-width: 360px;
+      padding: 13px 17px;
+      border-radius: 10px;
+      color: white;
+      background: #173f5f;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    footer {
+      padding: 24px 18px 36px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 1180px) {
+      .configuration-grid,
+      .summary-grid,
+      .apc-nav {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+      }
+
+      .levels-grid,
+      .legend {
+        grid-template-columns: repeat(2, minmax(210px, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .configuration-grid,
+      .summary-grid,
+      .apc-nav,
+      .feedback-grid,
+      .levels-grid,
+      .legend {
+        grid-template-columns: 1fr;
+      }
+
+      .field.wide {
+        grid-column: span 1;
+      }
+
+      .apc-header {
+        grid-template-columns: 1fr;
+      }
+
+      .apc-score-badge {
+        width: 100%;
+      }
+
+      .level-card {
+        min-height: auto;
+      }
+
+      .criterion-header {
+        flex-direction: column;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .hero {
+        padding: 18px;
+        background: white;
+        color: black;
+        border-bottom: 2px solid black;
+      }
+
+      .hero h1 {
+        color: black !important;
+        -webkit-text-fill-color: black !important;
+      }
+
+      .apc-header {
+        margin: 0 0 16px;
+        padding: 12px 0;
+        background: white;
+        border-bottom: 2px solid black;
+        border-radius: 0;
+      }
+
+      .apc-header h2,
+      .apc-header .eyebrow,
+      .apc-description {
+        color: black !important;
+        -webkit-text-fill-color: black !important;
+      }
+
+      .hero p,
+      .eyebrow,
+      .configuration-panel,
+      .toolbar,
+      .summary-panel,
+      .navigation-panel,
+      .toast,
+      footer {
+        display: none !important;
+      }
+
+      .layout {
+        width: 100%;
+        margin: 0;
+      }
+
+      .panel,
+      .criterion {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .levels-grid {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .level-card {
+        min-height: auto;
+        font-size: 0.72rem;
+      }
+
+      .level-card:not(.selected) {
+        opacity: 0.42;
+      }
+    }
+  </style> -->
+</head>
+
+<body>
+  <div class="app">
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Instrumento educativo para atención médica a distancia</p>
+        <h1>Rúbricas TeleAPC</h1>
+        <p>
+          Rúbricas para evaluar las 8 Actividades Profesionales a Confiar (APC)
+          para atención médica a distancia.
+        </p>
+      </div>
+    </header>
+
+    <div class="layout">
+      <section
+        class="panel configuration-panel"
+        aria-labelledby="config-title"
+      >
+        <h2 id="config-title">Datos de la evaluación</h2>
+
+        <div class="configuration-grid">
+          <div class="field">
+            <label class="field-label" for="role">
+              Tipo de evaluador
+            </label>
+            <select id="role">
+              <option value="supervisor">Supervisor clínico</option>
+              <option value="profesor">Profesor</option>
+              <option value="paciente">Paciente estandarizado</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="studentName">
+              Nombre o clave del estudiante
+            </label>
+            <input
+              id="studentName"
+              type="text"
+              autocomplete="off"
+              placeholder="Evite datos de pacientes reales"
+            >
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="evaluatorName">
+              Nombre o clave del evaluador
+            </label>
+            <input
+              id="evaluatorName"
+              type="text"
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="evaluationDate">
+              Fecha
+            </label>
+            <input id="evaluationDate" type="date">
+          </div>
+
+          <div class="field wide">
+            <label class="field-label" for="scenario">
+              Escenario clínico o actividad
+            </label>
+            <input
+              id="scenario"
+              type="text"
+              placeholder="Ejemplo: teleconsulta por cefalea en adulto"
+            >
+          </div>
+
+          <div class="field wide">
+            <label class="field-label" for="course">
+              Curso, grupo o sede
+            </label>
+            <input
+              id="course"
+              type="text"
+              placeholder="Ejemplo: Medicina Familiar, cuarto año"
+            >
+          </div>
+        </div>
+
+        <div id="roleNote" class="role-note" aria-live="polite"></div>
+
+        <div class="disclaimer">
+          <strong>Uso educativo:</strong>
+          no registre nombres, imágenes, diagnósticos ni otros datos
+          identificables de pacientes reales. La puntuación apoya la
+          retroalimentación, pero no sustituye el juicio del supervisor.
+        </div>
+
+        <div class="toolbar">
+          <button id="saveBtn" class="btn btn-primary" type="button">
+            Guardar en este navegador
+          </button>
+          <button id="jsonBtn" class="btn btn-secondary" type="button">
+            Exportar JSON
+          </button>
+          <button id="csvBtn" class="btn btn-secondary" type="button">
+            Exportar CSV
+          </button>
+          <button id="printBtn" class="btn btn-secondary" type="button">
+            Imprimir APC actual
+          </button>
+          <button id="resetBtn" class="btn btn-danger" type="button">
+            Nueva evaluación
+          </button>
+          <span
+            id="saveStatus"
+            class="save-status"
+            data-state="saved"
+            role="status"
+            aria-live="polite"
+          >
+            Guardado automático activo
+          </span>
+        </div>
+      </section>
+
+      <section
+        class="panel summary-panel"
+        aria-labelledby="summary-title"
+      >
+        <h2 id="summary-title">Resumen del rol seleccionado</h2>
+        <div id="summaryGrid" class="summary-grid"></div>
+        <div id="criticalAlerts"></div>
+      </section>
+
+      <section
+        class="panel navigation-panel"
+        aria-labelledby="navigation-title"
+      >
+        <h2 id="navigation-title">Seleccione una APC</h2>
+        <nav
+          id="apcNav"
+          class="apc-nav"
+          aria-label="Navegación entre las ocho APC"
+        ></nav>
+      </section>
+
+      <main
+        id="rubricPanel"
+        class="panel"
+        aria-live="polite"
+      ></main>
+    </div>
+
+    <footer>
+      Rúbricas TeleAPC · Instrumento educativo basado en desempeño observable.
+      La decisión de confianza debe integrar múltiples observaciones,
+      complejidad del caso, consistencia y seguridad.
+    </footer>
+  </div>
+
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+  <script>
+    "use strict";
+
+    const STORAGE_KEY = "teleapc_evalua_v2";
+    const LEGACY_STORAGE_KEYS = ["teleapc_evalua_v1"];
+    const AUTOSAVE_DELAY = 450;
+
+    const LEVELS = [
+      {
+        id: "no_evaluado",
+        label: "No evaluado",
+        score: null,
+        css: "level-na",
+        generic:
+          "No fue posible observar este indicador durante la actividad."
+      },
+      {
+        id: "incipiente",
+        label: "Incipiente",
+        score: 1,
+        css: "level-incipiente"
+      },
+      {
+        id: "en_desarrollo",
+        label: "En desarrollo",
+        score: 2,
+        css: "level-desarrollo"
+      },
+      {
+        id: "competente",
+        label: "Competente",
+        score: 3,
+        css: "level-competente"
+      },
+      {
+        id: "destacado",
+        label: "Destacado",
+        score: 4,
+        css: "level-destacado"
+      }
+    ];
+
+    const RUBRICS = [
+      {
+        id: "apc1",
+        short: "APC 1",
+        title: "Identificar la viabilidad de la teleconsulta",
+        description:
+          "Determina si la atención a distancia es clínica, tecnológica, ética y operativamente apropiada, y establece una ruta segura cuando la modalidad remota no es suficiente.",
+        criteria: [
+          {
+            id: "identificacion_ubicacion",
+            name: "Identificación, ubicación y medio de contacto",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Inicia la atención sin verificar de forma suficiente la identidad, ubicación o medio de contacto del paciente. Requiere indicaciones para completar los datos básicos.",
+              en_desarrollo:
+                "Verifica la mayoría de los datos, pero omite algún elemento relevante o necesita recordatorios para confirmar la ubicación y un medio alterno de contacto.",
+              competente:
+                "Confirma de manera ordenada la identidad, ubicación actual, acompañantes y medio alterno de contacto antes de iniciar la valoración.",
+              destacado:
+                "Además de verificar todos los datos, explica su finalidad, anticipa interrupciones y confirma cómo restablecer la comunicación sin comprometer la privacidad."
+            }
+          },
+          {
+            id: "triage_seguridad",
+            name: "Triage, estabilidad clínica y detección de urgencias",
+            critical: true,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "No busca de manera sistemática datos de alarma o continúa la teleconsulta pese a signos de posible urgencia. Requiere intervención inmediata del supervisor.",
+              en_desarrollo:
+                "Identifica algunos datos de alarma, pero la valoración es incompleta o necesita apoyo para decidir la prioridad y la ruta asistencial.",
+              competente:
+                "Valora estabilidad, identifica datos de alarma pertinentes y determina oportunamente si debe continuar, referir o activar atención urgente.",
+              destacado:
+                "Prioriza con rapidez, integra riesgos clínicos y contextuales, anticipa deterioro y coordina una transición segura a atención presencial o de urgencias."
+            }
+          },
+          {
+            id: "pertinencia_modalidad",
+            name: "Pertinencia clínica y condiciones tecnológicas",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Asume que la modalidad remota es adecuada sin valorar limitaciones clínicas, conectividad, dispositivos, alfabetización digital o apoyo disponible.",
+              en_desarrollo:
+                "Explora parte de las condiciones clínicas y tecnológicas, pero necesita ayuda para relacionarlas con la factibilidad de la atención.",
+              competente:
+                "Valora las necesidades clínicas, la calidad de la conexión, los recursos disponibles y la capacidad del paciente para participar en la teleconsulta.",
+              destacado:
+                "Adapta la modalidad a las capacidades del paciente, propone alternativas accesibles y reduce activamente barreras tecnológicas, culturales o funcionales."
+            }
+          },
+          {
+            id: "consentimiento_privacidad",
+            name: "Consentimiento, privacidad y límites de la teleconsulta",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "No explica adecuadamente la modalidad, sus límites, la privacidad o el consentimiento. Utiliza lenguaje poco comprensible o requiere guía constante.",
+              en_desarrollo:
+                "Proporciona información básica, pero omite algún límite, riesgo o medida de privacidad, o confirma el consentimiento de manera superficial.",
+              competente:
+                "Explica propósito, beneficios, límites, privacidad y alternativas; obtiene consentimiento y confirma que el paciente se encuentra en un espacio apropiado.",
+              destacado:
+                "Explora preferencias y preocupaciones, adapta la explicación, verifica comprensión y resuelve de manera anticipada riesgos de privacidad o participación de terceros."
+            }
+          },
+          {
+            id: "contingencia_derivacion",
+            name: "Plan de contingencia y ruta de derivación",
+            critical: true,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "No establece qué hacer ante interrupción, deterioro o imposibilidad de completar la consulta. La ruta de derivación es inexistente o insegura.",
+              en_desarrollo:
+                "Menciona una alternativa general, pero el plan carece de instrucciones claras, responsables, tiempos o criterios de activación.",
+              competente:
+                "Define un plan comprensible ante fallas técnicas o deterioro clínico e indica cuándo, dónde y cómo solicitar atención presencial.",
+              destacado:
+                "Personaliza el plan, confirma recursos reales, utiliza verificación de comprensión y coordina activamente la continuidad cuando identifica vulnerabilidad o alto riesgo."
+            }
+          }
+        ]
+      },
+
+      {
+        id: "apc2",
+        short: "APC 2",
+        title: "Realizar la historia clínica mediante teleconsulta",
+        description:
+          "Obtiene información clínica relevante, completa y ordenada mediante comunicación remota, preservando la relación terapéutica y verificando la comprensión.",
+        criteria: [
+          {
+            id: "apertura_relacion",
+            name: "Apertura, presentación y relación terapéutica",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Inicia de forma abrupta, no se presenta claramente o mantiene una interacción distante. Requiere apoyo para establecer confianza y orientar la consulta.",
+              en_desarrollo:
+                "Se presenta y establece una relación básica, aunque la comunicación puede ser rígida, poco empática o insuficientemente centrada en el paciente.",
+              competente:
+                "Se presenta, confirma cómo desea ser llamado el paciente, explica la dinámica de la consulta y establece una interacción respetuosa y empática.",
+              destacado:
+                "Adapta de manera natural la comunicación verbal y no verbal, reconoce emociones y crea un ambiente de confianza que facilita información sensible o compleja."
+            }
+          },
+          {
+            id: "padecimiento_actual",
+            name: "Motivo de consulta y padecimiento actual",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Obtiene información fragmentada, desordenada o incompleta y utiliza preguntas que dificultan la narración del paciente.",
+              en_desarrollo:
+                "Identifica los elementos principales, pero omite detalles temporales, modificadores, repercusión funcional o necesita apoyo para organizar la información.",
+              competente:
+                "Caracteriza el motivo de consulta de forma cronológica, explora síntomas asociados y repercusión, y utiliza preguntas abiertas y dirigidas apropiadamente.",
+              destacado:
+                "Integra con fluidez la narrativa del paciente, aclara inconsistencias sin confrontación y obtiene información compleja con eficiencia y sensibilidad."
+            }
+          },
+          {
+            id: "antecedentes_medicacion",
+            name: "Antecedentes, medicamentos, alergias y contexto",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Omite antecedentes relevantes, medicamentos, alergias o factores contextuales. Requiere recordatorios frecuentes.",
+              en_desarrollo:
+                "Explora la mayoría de los antecedentes, pero la información es parcial o no se relaciona claramente con el problema actual.",
+              competente:
+                "Obtiene antecedentes pertinentes, tratamientos, adherencia, alergias, exposiciones y factores familiares, sociales y funcionales relevantes.",
+              destacado:
+                "Prioriza antecedentes según el riesgo, identifica discrepancias o interacciones y explora determinantes sociales que pueden modificar el diagnóstico o el plan."
+            }
+          },
+          {
+            id: "revision_red_flags",
+            name: "Revisión dirigida y búsqueda de datos de alarma",
+            critical: true,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "No realiza una revisión dirigida suficiente o no identifica síntomas que requieren atención inmediata.",
+              en_desarrollo:
+                "Busca algunos datos de alarma, pero necesita apoyo para seleccionar preguntas pertinentes o interpretar las respuestas.",
+              competente:
+                "Realiza una revisión dirigida, identifica datos de alarma relevantes y modifica la prioridad o modalidad de atención cuando corresponde.",
+              destacado:
+                "Ajusta dinámicamente el interrogatorio al riesgo, detecta presentaciones atípicas y explica con claridad el impacto de los hallazgos en la toma de decisiones."
+            }
+          },
+          {
+            id: "sintesis_verificacion",
+            name: "Síntesis, clarificación y verificación de comprensión",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Finaliza el interrogatorio sin resumir ni verificar la información y deja dudas relevantes sin aclarar.",
+              en_desarrollo:
+                "Realiza una síntesis parcial o poco estructurada y verifica la comprensión de forma limitada.",
+              competente:
+                "Resume los datos relevantes, confirma su exactitud con el paciente, aclara dudas y establece una transición ordenada hacia la valoración clínica.",
+              destacado:
+                "Construye una síntesis compartida, identifica prioridades del paciente y utiliza la verificación para corregir datos, expectativas o interpretaciones."
+            }
+          }
+        ]
+      },
+
+      {
+        id: "apc3",
+        short: "APC 3",
+        title: "Dirigir la exploración física en telemedicina",
+        description:
+          "Selecciona, explica y dirige maniobras de exploración remota seguras, reconoce sus límites e integra los hallazgos con la información clínica disponible.",
+        criteria: [
+          {
+            id: "alcance_consentimiento",
+            name: "Explicación del alcance, consentimiento y preparación",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Inicia maniobras sin explicar su propósito, limitaciones o requisitos de seguridad y privacidad.",
+              en_desarrollo:
+                "Explica parcialmente el procedimiento, pero omite confirmar comodidad, espacio, acompañamiento o capacidad para realizarlo.",
+              competente:
+                "Explica el propósito y las limitaciones, obtiene consentimiento y verifica espacio, iluminación, posición, privacidad y apoyo disponible.",
+              destacado:
+                "Adapta la preparación a capacidades físicas, cognitivas y culturales, anticipa riesgos y ofrece alternativas que preservan dignidad y comodidad."
+            }
+          },
+          {
+            id: "instrucciones_maniobras",
+            name: "Claridad y seguridad al dirigir maniobras",
+            critical: true,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Da instrucciones confusas, rápidas o inseguras y requiere que el supervisor corrija la maniobra.",
+              en_desarrollo:
+                "Dirige maniobras simples, pero necesita apoyo para secuenciarlas, demostrar técnicas o verificar que se realicen correctamente.",
+              competente:
+                "Proporciona instrucciones breves y secuenciales, demuestra cuando es necesario, confirma comprensión y supervisa la ejecución segura.",
+              destacado:
+                "Ajusta instrucciones en tiempo real, reconoce fatiga o incomodidad y utiliza estrategias alternativas para obtener información sin aumentar el riesgo."
+            }
+          },
+          {
+            id: "observacion_dispositivos",
+            name: "Observación clínica y uso de dispositivos disponibles",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Aprovecha de forma limitada la observación por video o solicita mediciones sin verificar técnica, confiabilidad o condiciones del dispositivo.",
+              en_desarrollo:
+                "Obtiene algunos hallazgos útiles, pero necesita apoyo para optimizar cámara, iluminación, encuadre o validar mediciones.",
+              competente:
+                "Realiza observación sistemática y utiliza de forma apropiada dispositivos o mediciones disponibles, verificando calidad y plausibilidad.",
+              destacado:
+                "Combina observación, maniobras guiadas y dispositivos de manera eficiente, detecta resultados poco confiables y propone formas seguras de confirmación."
+            }
+          },
+          {
+            id: "integracion_limitaciones",
+            name: "Interpretación de hallazgos y reconocimiento de limitaciones",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Interpreta hallazgos de forma aislada o muestra falsa certeza pese a información insuficiente.",
+              en_desarrollo:
+                "Relaciona algunos hallazgos con la historia, pero necesita apoyo para distinguir datos confiables de limitaciones de la modalidad.",
+              competente:
+                "Integra los hallazgos con la historia clínica, explicita incertidumbre y reconoce cuándo la exploración remota no permite responder la pregunta clínica.",
+              destacado:
+                "Valora críticamente la calidad de la evidencia, plantea hipótesis alternativas y define el método más apropiado para confirmar hallazgos relevantes."
+            }
+          },
+          {
+            id: "suspension_referencia",
+            name: "Suspensión de maniobras y referencia por seguridad",
+            critical: true,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Continúa una maniobra pese a dolor, riesgo, deterioro o incapacidad para realizarla correctamente.",
+              en_desarrollo:
+                "Reconoce algunas condiciones para detenerse, pero requiere apoyo para decidir cuándo referir o cambiar a valoración presencial.",
+              competente:
+                "Detiene maniobras inseguras, explica la razón y establece una ruta de valoración presencial o urgente cuando es necesario.",
+              destacado:
+                "Anticipa la necesidad de suspensión, protege al paciente, moviliza recursos disponibles y asegura una transición coordinada sin demoras evitables."
+            }
+          }
+        ]
+      },
+
+      {
+        id: "apc4",
+        short: "APC 4",
+        title: "Integrar el diagnóstico clínico",
+        description:
+          "Construye una representación del problema, genera diagnósticos diferenciales, maneja la incertidumbre y define la necesidad de estudios o atención presencial.",
+        criteria: [
+          {
+            id: "representacion_problema",
+            name: "Representación clínica del problema",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Enumera datos sin jerarquizarlos o formula una representación incompleta y poco útil para la toma de decisiones.",
+              en_desarrollo:
+                "Identifica los elementos principales, pero necesita apoyo para integrar temporalidad, gravedad, contexto y factores de riesgo.",
+              competente:
+                "Resume el problema de manera precisa, jerarquizada y clínicamente significativa, incluyendo contexto y nivel de riesgo.",
+              destacado:
+                "Construye una representación concisa que explica el caso, incorpora incertidumbre y orienta de manera explícita las decisiones posteriores."
+            }
+          },
+          {
+            id: "diagnostico_diferencial",
+            name: "Diagnóstico diferencial",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Propone un diagnóstico único sin considerar alternativas relevantes o incluye opciones sin relación suficiente con los hallazgos.",
+              en_desarrollo:
+                "Genera algunas alternativas plausibles, pero requiere ayuda para priorizarlas o incluir diagnósticos graves que no deben omitirse.",
+              competente:
+                "Formula un diagnóstico diferencial pertinente, priorizado por probabilidad y gravedad, y lo relaciona con los datos del caso.",
+              destacado:
+                "Considera presentaciones atípicas, sesgos diagnósticos y consecuencias de error, y explica cómo cada dato modifica la probabilidad."
+            }
+          },
+          {
+            id: "razonamiento_incertidumbre",
+            name: "Razonamiento clínico y manejo de incertidumbre",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Presenta conclusiones sin fundamentarlas o expresa certeza injustificada ante información limitada.",
+              en_desarrollo:
+                "Explica parcialmente su razonamiento, pero necesita apoyo para relacionar evidencia, incertidumbre y límites de la teleconsulta.",
+              competente:
+                "Fundamenta el diagnóstico presuntivo, reconoce incertidumbre y explicita qué información podría modificar la conclusión.",
+              destacado:
+                "Hace transparente su razonamiento, contrasta hipótesis, identifica sesgos y comunica una incertidumbre calibrada y clínicamente útil."
+            }
+          },
+          {
+            id: "estudios_referencia",
+            name: "Selección de estudios, referencia y prioridad",
+            critical: true,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Solicita estudios indiscriminadamente, omite pruebas necesarias o no refiere ante datos de alarma.",
+              en_desarrollo:
+                "Selecciona estudios o referencia parcialmente adecuados, pero requiere apoyo para definir prioridad, utilidad o modalidad.",
+              competente:
+                "Indica estudios y referencia de acuerdo con la pregunta clínica, el riesgo, la utilidad esperada y las limitaciones de la atención remota.",
+              destacado:
+                "Evita pruebas innecesarias, prioriza recursos, anticipa barreras de acceso y coordina la alternativa diagnóstica más segura y eficiente."
+            }
+          },
+          {
+            id: "comunicacion_diagnostico",
+            name: "Comunicación del diagnóstico, incertidumbre y señales de alarma",
+            critical: true,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Comunica conclusiones de forma confusa, técnica o alarmante y no explica incertidumbre ni señales de alarma.",
+              en_desarrollo:
+                "Explica el diagnóstico probable, pero la información es incompleta o necesita apoyo para adaptar el lenguaje y verificar comprensión.",
+              competente:
+                "Explica el diagnóstico o las posibilidades principales con lenguaje comprensible, aclara incertidumbre y proporciona señales de alarma específicas.",
+              destacado:
+                "Integra expectativas y preocupaciones, comunica riesgo con sensibilidad, utiliza verificación de comprensión y facilita decisiones informadas."
+            }
+          }
+        ]
+      },
+
+      {
+        id: "apc5",
+        short: "APC 5",
+        title: "Prescribir el tratamiento inicial",
+        description:
+          "Establece un plan terapéutico seguro, basado en evidencia y adaptado al contexto, incluyendo tratamiento farmacológico, no farmacológico y vigilancia.",
+        criteria: [
+          {
+            id: "objetivos_evidencia",
+            name: "Objetivos terapéuticos y fundamento del plan",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Propone intervenciones sin objetivos claros o con fundamento insuficiente y requiere supervisión constante.",
+              en_desarrollo:
+                "Define objetivos generales y un plan parcialmente apropiado, pero necesita apoyo para vincularlo con la evidencia y las prioridades del paciente.",
+              competente:
+                "Establece objetivos realistas y selecciona intervenciones de primera elección acordes con el diagnóstico y la evidencia disponible.",
+              destacado:
+                "Jerarquiza objetivos, considera beneficios, daños, recursos y preferencias, y adapta el plan ante comorbilidad o incertidumbre diagnóstica."
+            }
+          },
+          {
+            id: "seguridad_medicamentos",
+            name: "Selección y seguridad de medicamentos",
+            critical: true,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Selecciona un medicamento, dosis o duración inadecuados o no revisa alergias, interacciones, contraindicaciones y función orgánica.",
+              en_desarrollo:
+                "Elige un tratamiento generalmente apropiado, pero necesita apoyo para ajustar dosis, duración o precauciones.",
+              competente:
+                "Selecciona medicamento, dosis, vía, frecuencia y duración correctos y verifica alergias, interacciones, contraindicaciones y condiciones relevantes.",
+              destacado:
+                "Individualiza la prescripción, previene errores, propone alternativas ante barreras de acceso y explica de manera fundamentada el balance beneficio-riesgo."
+            }
+          },
+          {
+            id: "plan_no_farmacologico",
+            name: "Medidas no farmacológicas y toma de decisiones compartida",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Ofrece recomendaciones genéricas o prescriptivas sin explorar posibilidades, preferencias o contexto del paciente.",
+              en_desarrollo:
+                "Incluye algunas medidas pertinentes, pero la participación del paciente y la adaptación contextual son limitadas.",
+              competente:
+                "Propone medidas específicas y factibles, explora preferencias y acuerda un plan compatible con el contexto y las capacidades del paciente.",
+              destacado:
+                "Facilita una decisión verdaderamente compartida, identifica barreras, negocia alternativas y fortalece la autonomía y el autocuidado."
+            }
+          },
+          {
+            id: "educacion_tratamiento",
+            name: "Explicación del tratamiento, efectos adversos y uso correcto",
+            critical: true,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Da instrucciones incompletas o ambiguas y no explica efectos adversos, precauciones ni qué hacer ante problemas.",
+              en_desarrollo:
+                "Explica los aspectos principales, pero omite alguna precaución relevante o verifica comprensión de forma insuficiente.",
+              competente:
+                "Explica indicación, uso correcto, duración, efectos esperados, efectos adversos y conductas ante problemas, y verifica comprensión.",
+              destacado:
+                "Adapta la educación a la alfabetización en salud, utiliza demostración o teach-back y anticipa errores frecuentes de uso o adherencia."
+            }
+          },
+          {
+            id: "monitoreo_seguimiento",
+            name: "Monitoreo, metas y seguimiento del tratamiento",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "No define cómo valorar respuesta, efectos adversos o necesidad de reevaluación.",
+              en_desarrollo:
+                "Propone seguimiento general, pero sin indicadores, tiempos o criterios claros para modificar el plan.",
+              competente:
+                "Define metas, parámetros de vigilancia, tiempos de reevaluación y criterios de ajuste, referencia o atención urgente.",
+              destacado:
+                "Diseña un seguimiento individualizado, viable y coordinado, incorpora monitoreo remoto cuando es apropiado y anticipa pérdida de continuidad."
+            }
+          }
+        ]
+      },
+
+      {
+        id: "apc6",
+        short: "APC 6",
+        title: "Realizar teleinterconsulta",
+        description:
+          "Solicita y coordina apoyo de otro profesional mediante una pregunta clínica clara, información pertinente, comunicación segura y continuidad del plan.",
+        criteria: [
+          {
+            id: "pregunta_pertinencia",
+            name: "Pertinencia y formulación de la pregunta de interconsulta",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Solicita interconsulta sin una pregunta definida o por situaciones que podrían resolverse con recursos disponibles.",
+              en_desarrollo:
+                "Reconoce la necesidad de apoyo, pero formula una pregunta amplia, incompleta o poco priorizada.",
+              competente:
+                "Justifica la interconsulta y formula una pregunta clínica específica, pertinente y útil para la toma de decisiones.",
+              destacado:
+                "Delimita con precisión la decisión requerida, prioriza según riesgo y selecciona al profesional o servicio más apropiado."
+            }
+          },
+          {
+            id: "presentacion_estructurada",
+            name: "Presentación clínica estructurada",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Presenta datos desorganizados, excesivos o insuficientes y omite información crítica.",
+              en_desarrollo:
+                "Comunica los datos principales, pero necesita apoyo para sintetizar, jerarquizar o relacionarlos con la pregunta.",
+              competente:
+                "Presenta de forma breve y estructurada la situación, antecedentes, evaluación, riesgos, intervenciones y pregunta de interconsulta.",
+              destacado:
+                "Adapta la presentación al interlocutor, anticipa la información necesaria y facilita una respuesta rápida y clínicamente accionable."
+            }
+          },
+          {
+            id: "privacidad_informacion",
+            name: "Privacidad y transferencia segura de información",
+            critical: true,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Comparte información por medios no autorizados o transmite datos innecesarios sin considerar privacidad y consentimiento.",
+              en_desarrollo:
+                "Utiliza medios apropiados, pero necesita apoyo para limitar la información o documentar autorización y finalidad.",
+              competente:
+                "Utiliza canales institucionales, comparte la información mínima necesaria y protege la confidencialidad durante todo el proceso.",
+              destacado:
+                "Anticipa riesgos de seguridad, verifica destinatarios y accesos y promueve prácticas seguras en el equipo."
+            }
+          },
+          {
+            id: "coordinacion_plan",
+            name: "Coordinación y comunicación del plan compartido",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "No integra claramente la recomendación del consultor o deja al paciente sin explicación sobre responsabilidades y siguientes pasos.",
+              en_desarrollo:
+                "Comunica parte del plan, pero persisten dudas sobre quién realizará cada acción o cuándo deberá completarse.",
+              competente:
+                "Integra las recomendaciones, aclara responsabilidades, explica el plan al paciente y confirma aceptación y comprensión.",
+              destacado:
+                "Facilita decisiones colaborativas, resuelve discrepancias, adapta el plan al contexto y mantiene al paciente como participante activo."
+            }
+          },
+          {
+            id: "documentacion_continuidad",
+            name: "Documentación, respuesta y continuidad",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "No registra la solicitud, la respuesta o las acciones derivadas, lo que compromete la continuidad.",
+              en_desarrollo:
+                "Documenta elementos básicos, pero omite tiempos, responsables, acuerdos o pendientes.",
+              competente:
+                "Registra la pregunta, información compartida, respuesta, decisiones, responsables y plan de seguimiento.",
+              destacado:
+                "Asegura cierre del circuito, verifica ejecución de recomendaciones y detecta oportunamente retrasos o pérdida de seguimiento."
+            }
+          }
+        ]
+      },
+
+      {
+        id: "apc7",
+        short: "APC 7",
+        title: "Recomendar promoción y prevención a distancia",
+        description:
+          "Identifica riesgos y oportunidades preventivas, ofrece recomendaciones pertinentes y acompaña al paciente en la definición de metas factibles.",
+        criteria: [
+          {
+            id: "valoracion_riesgos",
+            name: "Valoración de riesgos, necesidades y disposición al cambio",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Ofrece recomendaciones sin explorar riesgos, prioridades, conocimientos o disposición del paciente.",
+              en_desarrollo:
+                "Identifica algunos riesgos y necesidades, pero la valoración es parcial o poco vinculada con las recomendaciones.",
+              competente:
+                "Explora riesgos, prácticas actuales, determinantes contextuales y disposición al cambio antes de proponer acciones.",
+              destacado:
+                "Integra riesgos clínicos y sociales, reconoce fortalezas y utiliza la valoración para personalizar una intervención alcanzable."
+            }
+          },
+          {
+            id: "recomendacion_evidencia",
+            name: "Selección de recomendaciones preventivas",
+            critical: false,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Proporciona recomendaciones genéricas, no prioritarias o sin fundamento suficiente.",
+              en_desarrollo:
+                "Selecciona acciones generalmente pertinentes, pero necesita apoyo para priorizarlas según edad, riesgo o contexto.",
+              competente:
+                "Recomienda acciones de promoción, tamizaje, vacunación o prevención apropiadas para el perfil del paciente.",
+              destacado:
+                "Jerarquiza intervenciones por beneficio esperado, factibilidad y equidad, evitando sobrecargar al paciente con múltiples indicaciones."
+            }
+          },
+          {
+            id: "comunicacion_adaptada",
+            name: "Comunicación adaptada y alfabetización en salud",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Utiliza lenguaje técnico, moralizante o poco sensible a las condiciones culturales y educativas del paciente.",
+              en_desarrollo:
+                "Emplea lenguaje generalmente comprensible, pero necesita adaptar mejor la cantidad, secuencia o formato de la información.",
+              competente:
+                "Comunica de manera respetuosa, clara y adaptada a la alfabetización, cultura, idioma y recursos disponibles.",
+              destacado:
+                "Utiliza ejemplos, apoyos visuales o demostraciones pertinentes y comprueba que la información pueda aplicarse en la vida cotidiana."
+            }
+          },
+          {
+            id: "metas_compartidas",
+            name: "Metas compartidas y verificación de comprensión",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Impone metas o finaliza sin verificar comprensión, motivación o capacidad para llevarlas a cabo.",
+              en_desarrollo:
+                "Propone metas razonables, pero la participación del paciente y la verificación son limitadas.",
+              competente:
+                "Acuerda una meta específica y factible, explora barreras y utiliza verificación de comprensión.",
+              destacado:
+                "Facilita que el paciente formule su propia meta, identifica apoyos y establece estrategias concretas para mantener el cambio."
+            }
+          },
+          {
+            id: "recursos_seguimiento",
+            name: "Recursos, redes de apoyo y seguimiento preventivo",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "No proporciona recursos confiables ni define seguimiento de las acciones preventivas.",
+              en_desarrollo:
+                "Menciona algún recurso o seguimiento, pero sin verificar acceso, pertinencia o responsable.",
+              competente:
+                "Proporciona recursos confiables y accesibles y acuerda cómo se revisará el avance o la necesidad de apoyo adicional.",
+              destacado:
+                "Conecta al paciente con redes y servicios pertinentes, anticipa barreras de acceso y coordina seguimiento proporcional al riesgo."
+            }
+          }
+        ]
+      },
+
+      {
+        id: "apc8",
+        short: "APC 8",
+        title: "Realizar seguimiento a distancia",
+        description:
+          "Evalúa evolución, respuesta, adherencia y seguridad; actualiza el plan y garantiza continuidad mediante criterios claros de seguimiento o escalamiento.",
+        criteria: [
+          {
+            id: "actualizacion_estado",
+            name: "Actualización del estado clínico y objetivos del seguimiento",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Realiza un seguimiento desestructurado y no compara el estado actual con los objetivos o la consulta previa.",
+              en_desarrollo:
+                "Explora la evolución general, pero omite síntomas, función, mediciones o cambios relevantes.",
+              competente:
+                "Revisa de forma estructurada evolución, nuevos síntomas, función, resultados y cumplimiento de objetivos.",
+              destacado:
+                "Prioriza los cambios clínicamente significativos, identifica patrones y adapta la consulta al riesgo y a las preocupaciones actuales."
+            }
+          },
+          {
+            id: "adherencia_respuesta",
+            name: "Adherencia, respuesta y efectos adversos",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Pregunta de forma superficial por el tratamiento y no identifica dificultades, errores o efectos adversos.",
+              en_desarrollo:
+                "Reconoce problemas evidentes, pero necesita apoyo para explorar sus causas y consecuencias.",
+              competente:
+                "Evalúa respuesta, uso real del tratamiento, barreras, efectos adversos y experiencia del paciente sin emitir juicios.",
+              destacado:
+                "Distingue falta de eficacia, uso incorrecto e imposibilidad de acceso y negocia soluciones realistas con el paciente."
+            }
+          },
+          {
+            id: "reevaluacion_riesgo",
+            name: "Reevaluación diagnóstica, riesgo y datos de alarma",
+            critical: true,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Mantiene el diagnóstico y plan inicial pese a deterioro, datos nuevos o falta de respuesta.",
+              en_desarrollo:
+                "Reconoce algunos cambios, pero necesita apoyo para reconsiderar el diagnóstico, identificar alarmas o modificar la prioridad.",
+              competente:
+                "Reevalúa hipótesis, busca datos de alarma y reconoce fracaso terapéutico, complicaciones o necesidad de atención presencial.",
+              destacado:
+                "Detecta tendencias tempranas de deterioro, revisa sesgos del plan inicial y coordina escalamiento antes de que aumente el riesgo."
+            }
+          },
+          {
+            id: "ajuste_escalamiento",
+            name: "Ajuste del plan y escalamiento de la atención",
+            critical: true,
+            roles: ["supervisor", "profesor"],
+            descriptions: {
+              incipiente:
+                "Modifica o mantiene el tratamiento sin fundamento suficiente y no define cuándo escalar la atención.",
+              en_desarrollo:
+                "Propone ajustes parcialmente apropiados, pero requiere apoyo para precisar dosis, tiempos, estudios o referencia.",
+              competente:
+                "Ajusta el plan según evolución, evidencia y preferencias, y establece criterios claros para referencia o atención urgente.",
+              destacado:
+                "Individualiza el ajuste, coordina recursos, previene demoras y asegura que el nivel de atención corresponda al riesgo actual."
+            }
+          },
+          {
+            id: "continuidad_proximos_pasos",
+            name: "Continuidad, próximos pasos y red de seguridad",
+            critical: false,
+            roles: ["supervisor", "profesor", "paciente"],
+            descriptions: {
+              incipiente:
+                "Finaliza sin definir próximos pasos, responsables, fecha o señales para solicitar nueva atención.",
+              en_desarrollo:
+                "Menciona seguimiento general, pero persisten ambigüedades en tiempos, responsabilidades o criterios de contacto.",
+              competente:
+                "Acuerda próximos pasos, responsables, fecha de seguimiento, señales de alarma y medios para resolver dudas.",
+              destacado:
+                "Confirma comprensión y factibilidad, coordina activamente la continuidad y adapta la frecuencia de seguimiento al riesgo y recursos disponibles."
+            }
+          }
+        ]
+      }
+    ];
+
+    function createInitialState() {
+      return {
+        version: 2,
+        meta: {
+          role: "supervisor",
+          studentName: "",
+          evaluatorName: "",
+          evaluationDate: new Date().toISOString().slice(0, 10),
+          scenario: "",
+          course: ""
+        },
+        ui: {
+          currentApc: "apc1"
+        },
+        ratings: {},
+        evidence: {},
+        feedback: {},
+        entrustment: {}
+      };
+    }
+
+    let state = loadState();
+
+    const roleElement = document.getElementById("role");
+    const studentNameElement = document.getElementById("studentName");
+    const evaluatorNameElement = document.getElementById("evaluatorName");
+    const evaluationDateElement = document.getElementById("evaluationDate");
+    const scenarioElement = document.getElementById("scenario");
+    const courseElement = document.getElementById("course");
+
+    function normalizeEntrustmentValues(entrustment = {}) {
+      const mapping = {
+        observacion: "nivel_1",
+        supervision_directa: "nivel_1",
+        supervision_indirecta: "nivel_2",
+        sin_supervision: "nivel_3"
+      };
+
+      return Object.fromEntries(
+        Object.entries(entrustment).map(([apcId, value]) => [
+          apcId,
+          mapping[value] || value
+        ])
+      );
+    }
+
+    function loadState() {
+      try {
+        let raw = localStorage.getItem(STORAGE_KEY);
+        let migratedFromLegacy = false;
+
+        if (!raw) {
+          for (const legacyKey of LEGACY_STORAGE_KEYS) {
+            raw = localStorage.getItem(legacyKey);
+
+            if (raw) {
+              migratedFromLegacy = true;
+              break;
+            }
+          }
+        }
+
+        if (!raw) {
+          return createInitialState();
+        }
+
+        const parsed = JSON.parse(raw);
+        const base = createInitialState();
+
+        const loaded = {
+          ...base,
+          ...parsed,
+          version: 2,
+          meta: {
+            ...base.meta,
+            ...(parsed.meta || {})
+          },
+          ui: {
+            ...base.ui,
+            ...(parsed.ui || {})
+          },
+          ratings: parsed.ratings || {},
+          evidence: parsed.evidence || {},
+          feedback: parsed.feedback || {},
+          entrustment: normalizeEntrustmentValues(
+            parsed.entrustment || {}
+          )
+        };
+
+        if (migratedFromLegacy) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(loaded));
+        }
+
+        return loaded;
+      } catch (error) {
+        console.error("No fue posible cargar la evaluación:", error);
+        return createInitialState();
+      }
+    }
+
+    let autosaveTimer = null;
+
+    function setSaveStatus(message, status = "saved") {
+      const element = document.getElementById("saveStatus");
+
+      if (!element) {
+        return;
+      }
+
+      element.textContent = message;
+      element.dataset.state = status;
+    }
+
+    function persistState(showConfirmation = false) {
+      window.clearTimeout(autosaveTimer);
+      autosaveTimer = null;
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        setSaveStatus(
+          `Guardado · ${new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+          })}`,
+          "saved"
+        );
+
+        try {
+          if (window.parent && window.parent !== window) {
+            window.parent.postMessage(
+              {
+                type: "teleapc-autosave",
+                payload: buildReport()
+              },
+              window.location.origin === "null"
+                ? "*"
+                : window.location.origin
+            );
+          }
+        } catch (postMessageError) {
+          console.debug(
+            "El contenedor no recibe mensajes de integración.",
+            postMessageError
+          );
+        }
+
+        if (showConfirmation) {
+          showToast("La evaluación se guardó en este navegador.");
+        }
+
+        return true;
+      } catch (error) {
+        console.error("Error de guardado:", error);
+        setSaveStatus("Error de guardado", "error");
+        showToast(
+          "No fue posible guardar. Exporte el informe para conservar los datos."
+        );
+        return false;
+      }
+    }
+
+    function schedulePersistState() {
+      setSaveStatus("Guardando…", "saving");
+      window.clearTimeout(autosaveTimer);
+
+      autosaveTimer = window.setTimeout(() => {
+        persistState();
+      }, AUTOSAVE_DELAY);
+    }
+
+    function initializeFields() {
+      roleElement.value = state.meta.role;
+      studentNameElement.value = state.meta.studentName;
+      evaluatorNameElement.value = state.meta.evaluatorName;
+      evaluationDateElement.value = state.meta.evaluationDate;
+      scenarioElement.value = state.meta.scenario;
+      courseElement.value = state.meta.course;
+    }
+
+    function getCurrentRole() {
+      return state.meta.role || "supervisor";
+    }
+
+    function getRoleLabel(role) {
+      const labels = {
+        supervisor: "Supervisor clínico",
+        profesor: "Profesor",
+        paciente: "Paciente estandarizado"
+      };
+      return labels[role] || role;
+    }
+
+    function getVisibleCriteria(apc, role = getCurrentRole()) {
+      return apc.criteria.filter(
+        criterion => criterion.roles.includes(role)
+      );
+    }
+
+    function rubricKey(apcId, criterionId) {
+      return `${apcId}::${criterionId}`;
+    }
+
+    function getLevel(levelId) {
+      return LEVELS.find(level => level.id === levelId) || null;
+    }
+
+    function calculateApcMetrics(apc, role = getCurrentRole()) {
+      const criteria = getVisibleCriteria(apc, role);
+      let evaluated = 0;
+      let totalScore = 0;
+
+      criteria.forEach(criterion => {
+        const key = rubricKey(apc.id, criterion.id);
+        const selected = getLevel(state.ratings[key]);
+
+        if (selected && selected.score !== null) {
+          evaluated += 1;
+          totalScore += selected.score;
+        }
+      });
+
+      const total = criteria.length;
+      const average = evaluated > 0 ? totalScore / evaluated : null;
+      const coverage = total > 0 ? evaluated / total : 0;
+
+      return {
+        total,
+        evaluated,
+        average,
+        coverage
+      };
+    }
+
+    function calculateOverallMetrics(role = getCurrentRole()) {
+      let total = 0;
+      let evaluated = 0;
+      let totalScore = 0;
+      const criticalAlerts = [];
+
+      RUBRICS.forEach(apc => {
+        const visible = getVisibleCriteria(apc, role);
+
+        visible.forEach(criterion => {
+          total += 1;
+
+          const key = rubricKey(apc.id, criterion.id);
+          const selected = getLevel(state.ratings[key]);
+
+          if (selected && selected.score !== null) {
+            evaluated += 1;
+            totalScore += selected.score;
+
+            if (
+              criterion.critical &&
+              selected.score <= 2
+            ) {
+              criticalAlerts.push({
+                apc: apc.short,
+                criterion: criterion.name,
+                level: selected.label
+              });
+            }
+          }
+        });
+      });
+
+      const average = evaluated > 0 ? totalScore / evaluated : null;
+      const coverage = total > 0 ? evaluated / total : 0;
+
+      return {
+        total,
+        evaluated,
+        average,
+        coverage,
+        criticalAlerts
+      };
+    }
+
+    function performanceLabel(average, coverage) {
+      if (average === null) {
+        return "Sin datos";
+      }
+
+      if (coverage < 0.70) {
+        return "Evidencia insuficiente";
+      }
+
+      if (average < 1.50) {
+        return "Incipiente";
+      }
+
+      if (average < 2.50) {
+        return "En desarrollo";
+      }
+
+      if (average < 3.50) {
+        return "Competente";
+      }
+
+      return "Destacado";
+    }
+
+    function renderRoleNote() {
+      const role = getCurrentRole();
+      const roleNote = document.getElementById("roleNote");
+
+      if (role === "paciente") {
+        roleNote.innerHTML = `
+          <strong>Paciente estandarizado:</strong>
+          se muestran únicamente comportamientos observables por el paciente,
+          como respeto, privacidad, claridad, comodidad, participación y
+          comprensión. No se solicitan juicios sobre razonamiento diagnóstico.
+        `;
+        return;
+      }
+
+      if (role === "profesor") {
+        roleNote.innerHTML = `
+          <strong>Profesor:</strong>
+          puede valorar todos los criterios, registrar evidencia y emitir una
+          recomendación de supervisión. Fundamente cada nivel con conductas
+          observadas durante el escenario.
+        `;
+        return;
+      }
+
+      roleNote.innerHTML = `
+        <strong>Supervisor clínico:</strong>
+        puede valorar todos los criterios, señalar riesgos críticos y emitir una
+        decisión de confianza. La decisión final debe considerar múltiples
+        observaciones, contexto, complejidad y seguridad.
+      `;
+    }
+
+    function renderSummary() {
+      const metrics = calculateOverallMetrics();
+      const level = performanceLabel(metrics.average, metrics.coverage);
+
+      const averageText =
+        metrics.average === null
+          ? "—"
+          : metrics.average.toFixed(2);
+
+      const coveragePercent = Math.round(metrics.coverage * 100);
+
+      document.getElementById("summaryGrid").innerHTML = `
+        <div class="summary-card">
+          <span class="summary-label">Promedio observado</span>
+          <span class="summary-value">${averageText}</span>
+          <span class="summary-detail">
+            Escala de 1 a 4; “No evaluado” no puntúa.
+          </span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Nivel de desempeño</span>
+          <span class="summary-value" style="font-size:1.25rem">
+            ${level}
+          </span>
+          <span class="summary-detail">
+            Resultado descriptivo del rol seleccionado.
+          </span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Cobertura de observación</span>
+          <span class="summary-value">${coveragePercent}%</span>
+          <span class="summary-detail">
+            ${metrics.evaluated} de ${metrics.total} indicadores observados.
+          </span>
+        </div>
+
+        <div class="summary-card">
+          <span class="summary-label">Evaluador</span>
+          <span class="summary-value" style="font-size:1.15rem">
+            ${getRoleLabel(getCurrentRole())}
+          </span>
+          <span class="summary-detail">
+            Los resultados de cada rol deben analizarse por separado.
+          </span>
+        </div>
+      `;
+
+      const alertsContainer = document.getElementById("criticalAlerts");
+
+      if (metrics.criticalAlerts.length === 0) {
+        alertsContainer.innerHTML = "";
+        return;
+      }
+
+      const alertItems = metrics.criticalAlerts
+        .map(
+          alert => `
+            <li>
+              <strong>${alert.apc}:</strong>
+              ${alert.criterion} — ${alert.level}
+            </li>
+          `
+        )
+        .join("");
+
+      alertsContainer.innerHTML = `
+        <div class="alert-box">
+          <strong>Indicadores críticos que requieren revisión:</strong>
+          <ul>${alertItems}</ul>
+          La presencia de un indicador crítico incipiente o en desarrollo
+          debe generar retroalimentación específica y una decisión explícita
+          sobre el nivel de supervisión.
+        </div>
+      `;
+    }
+
+    function renderNavigation() {
+      const currentId = state.ui.currentApc;
+      const role = getCurrentRole();
+
+      document.getElementById("apcNav").innerHTML = RUBRICS
+        .map(apc => {
+          const metrics = calculateApcMetrics(apc, role);
+          const percentage = Math.round(metrics.coverage * 100);
+          const activeClass = apc.id === currentId ? "active" : "";
+
+          return `
+            <button
+              type="button"
+              class="apc-tab ${activeClass}"
+              data-apc-id="${apc.id}"
+              aria-current="${apc.id === currentId ? "page" : "false"}"
+            >
+              <strong>${apc.short}</strong>
+              <span class="apc-tab-title">${apc.title}</span>
+              <span class="progress" aria-hidden="true">
+                <span style="width:${percentage}%"></span>
+              </span>
+              <span class="progress-caption">
+                ${metrics.evaluated}/${metrics.total} observados
+              </span>
+            </button>
+          `;
+        })
+        .join("");
+
+      document
+        .querySelectorAll("[data-apc-id]")
+        .forEach(button => {
+          button.addEventListener("click", () => {
+            state.ui.currentApc = button.dataset.apcId;
+            persistState();
+            renderAll();
+
+            const rubricPanel = document.getElementById("rubricPanel");
+            rubricPanel.setAttribute("tabindex", "-1");
+            rubricPanel.focus({ preventScroll: true });
+
+            window.scrollTo({
+              top: rubricPanel.offsetTop - 16,
+              behavior: "smooth"
+            });
+          });
+        });
+    }
+
+    function criterionHtml(apc, criterion) {
+      const key = rubricKey(apc.id, criterion.id);
+      const selectedId = state.ratings[key] || "";
+      const evidence = state.evidence[key] || "";
+
+      const levelCards = LEVELS.map(level => {
+        const description =
+          level.id === "no_evaluado"
+            ? level.generic
+            : criterion.descriptions[level.id];
+
+        const selectedClass =
+          selectedId === level.id ? "selected" : "";
+
+        return `
+          <label class="level-card ${selectedClass} ${level.css}">
+            <input
+              type="radio"
+              name="rating-${key}"
+              value="${level.id}"
+              data-rating-key="${key}"
+              ${selectedId === level.id ? "checked" : ""}
+            >
+            <span class="level-title">${level.label}</span>
+            <span class="level-description">${description}</span>
+          </label>
+        `;
+      }).join("");
+
+      return `
+        <article
+          class="criterion ${criterion.critical ? "critical" : ""}"
+          aria-labelledby="criterion-${key}"
+        >
+          <div class="criterion-header">
+            <h3 id="criterion-${key}">${criterion.name}</h3>
+            ${
+              criterion.critical
+                ? `<span class="critical-tag">Indicador crítico</span>`
+                : ""
+            }
+          </div>
+
+          <div
+            class="levels-grid"
+            role="radiogroup"
+            aria-label="${criterion.name}"
+          >
+            ${levelCards}
+          </div>
+
+          <div class="criterion-evidence">
+            <label for="evidence-${key}">
+              Evidencia observable o comentario
+            </label>
+            <textarea
+              id="evidence-${key}"
+              data-evidence-key="${key}"
+              placeholder="Describa conductas, expresiones o decisiones observadas. Evite juicios generales."
+            >${escapeHtml(evidence)}</textarea>
+          </div>
+        </article>
+      `;
+    }
+
+    function feedbackHtml(apc) {
+      const feedback = state.feedback[apc.id] || {
+        strengths: "",
+        priority: "",
+        action: "",
+        followup: ""
+      };
+
+      const role = getCurrentRole();
+      const entrustmentValue = state.entrustment[apc.id] || "";
+
+      return `
+        <section aria-labelledby="feedback-title-${apc.id}">
+          <h2 id="feedback-title-${apc.id}">
+            Retroalimentación de ${apc.short}
+          </h2>
+
+          <div class="feedback-grid">
+            <div class="field">
+              <label
+                class="field-label"
+                for="feedback-strengths-${apc.id}"
+              >
+                Fortalezas observadas
+              </label>
+              <textarea
+                id="feedback-strengths-${apc.id}"
+                data-feedback-apc="${apc.id}"
+                data-feedback-field="strengths"
+                placeholder="¿Qué conducta efectiva debe mantener?"
+              >${escapeHtml(feedback.strengths || "")}</textarea>
+            </div>
+
+            <div class="field">
+              <label
+                class="field-label"
+                for="feedback-priority-${apc.id}"
+              >
+                Oportunidad prioritaria
+              </label>
+              <textarea
+                id="feedback-priority-${apc.id}"
+                data-feedback-apc="${apc.id}"
+                data-feedback-field="priority"
+                placeholder="¿Qué conducta debe mejorar primero y por qué?"
+              >${escapeHtml(feedback.priority || "")}</textarea>
+            </div>
+
+            <div class="field">
+              <label
+                class="field-label"
+                for="feedback-action-${apc.id}"
+              >
+                Acción acordada
+              </label>
+              <textarea
+                id="feedback-action-${apc.id}"
+                data-feedback-apc="${apc.id}"
+                data-feedback-field="action"
+                placeholder="Defina una acción específica, observable y alcanzable."
+              >${escapeHtml(feedback.action || "")}</textarea>
+            </div>
+
+            <div class="field">
+              <label
+                class="field-label"
+                for="feedback-followup-${apc.id}"
+              >
+                Evidencia y seguimiento
+              </label>
+              <textarea
+                id="feedback-followup-${apc.id}"
+                data-feedback-apc="${apc.id}"
+                data-feedback-field="followup"
+                placeholder="¿Cuándo y cómo se volverá a observar la actividad?"
+              >${escapeHtml(feedback.followup || "")}</textarea>
+            </div>
+          </div>
+
+          ${
+            role === "paciente"
+              ? `
+                <p class="small-note">
+                  La valoración del paciente estandarizado constituye una fuente
+                  de evidencia sobre experiencia, comunicación y participación.
+                  No representa una decisión de confianza clínica.
+                </p>
+              `
+              : `
+                <div class="entrustment">
+                  <h3>Decisión de confianza o supervisión recomendada</h3>
+                  <p class="small-note">
+                    Esta decisión no se genera automáticamente a partir del
+                    promedio. Considere seguridad, consistencia, complejidad,
+                    experiencia previa y evidencia de múltiples observaciones.
+                  </p>
+
+                  <label
+                    class="field-label"
+                    for="entrustment-${apc.id}"
+                  >
+                    Nivel recomendado
+                  </label>
+
+                  <select
+                    id="entrustment-${apc.id}"
+                    data-entrustment-apc="${apc.id}"
+                  >
+                    <option value="" ${entrustmentValue === "" ? "selected" : ""}>
+                      No emitir decisión en esta observación
+                    </option>
+                    <option
+                      value="nivel_1"
+                      ${entrustmentValue === "nivel_1" ? "selected" : ""}
+                    >
+                      Nivel 1 · Supervisión directa y proactiva
+                    </option>
+                    <option
+                      value="nivel_2"
+                      ${entrustmentValue === "nivel_2" ? "selected" : ""}
+                    >
+                      Nivel 2 · Supervisión reactiva
+                    </option>
+                    <option
+                      value="nivel_3"
+                      ${entrustmentValue === "nivel_3" ? "selected" : ""}
+                    >
+                      Nivel 3 · Ejecución independiente con realimentación posterior
+                    </option>
+                    <option
+                      value="nivel_4"
+                      ${entrustmentValue === "nivel_4" ? "selected" : ""}
+                    >
+                      Nivel 4 · Supervisa o instruye a colegas con menor experiencia
+                    </option>
+                  </select>
+                </div>
+              `
+          }
+        </section>
+      `;
+    }
+
+    function renderRubric() {
+      const apc =
+        RUBRICS.find(item => item.id === state.ui.currentApc) ||
+        RUBRICS[0];
+
+      const role = getCurrentRole();
+      const criteria = getVisibleCriteria(apc, role);
+      const metrics = calculateApcMetrics(apc, role);
+      const performance = performanceLabel(
+        metrics.average,
+        metrics.coverage
+      );
+
+      const score =
+        metrics.average === null
+          ? "Sin datos"
+          : `${metrics.average.toFixed(2)} · ${performance}`;
+
+      const rubricContainer = document.getElementById("rubricPanel");
+
+      if (criteria.length === 0) {
+        rubricContainer.innerHTML = `
+          <div class="empty-state">
+            No hay indicadores disponibles para este rol en la APC seleccionada.
+          </div>
+        `;
+        return;
+      }
+
+      rubricContainer.innerHTML = `
+        <div class="apc-header">
+          <div>
+            <p class="eyebrow" style="color:#007c83">${apc.short}</p>
+            <h2>${apc.title}</h2>
+            <p class="apc-description">${apc.description}</p>
+          </div>
+
+          <div class="apc-score-badge">
+            <span>Resultado de esta APC</span>
+            <strong>${score}</strong>
+            <small>
+              ${metrics.evaluated}/${metrics.total} indicadores observados
+            </small>
+          </div>
+        </div>
+
+        <div class="legend" aria-label="Escala de desempeño">
+          ${LEVELS.map(
+            level => `
+              <div class="legend-item ${level.css}">
+                ${level.label}
+                ${
+                  level.score === null
+                    ? ""
+                    : ` · ${level.score} punto${level.score === 1 ? "" : "s"}`
+                }
+              </div>
+            `
+          ).join("")}
+        </div>
+
+        <p class="small-note">
+          Seleccione un nivel por indicador y registre evidencia específica.
+          “No evaluado” se excluye del promedio, pero reduce la cobertura de
+          observación.
+        </p>
+
+        ${criteria
+          .map(criterion => criterionHtml(apc, criterion))
+          .join("")}
+
+        ${feedbackHtml(apc)}
+
+        <p class="source-note">
+          Los descriptores deben someterse a revisión por expertos,
+          pilotaje y análisis de consistencia antes de utilizarse con
+          consecuencias sumativas o de certificación.
+        </p>
+      `;
+
+      bindRubricEvents();
+    }
+
+    function bindRubricEvents() {
+      document
+        .querySelectorAll("[data-rating-key]")
+        .forEach(input => {
+          input.addEventListener("change", event => {
+            state.ratings[event.target.dataset.ratingKey] =
+              event.target.value;
+            persistState();
+            renderSummary();
+            renderNavigation();
+            renderRubric();
+          });
+        });
+
+      document
+        .querySelectorAll("[data-evidence-key]")
+        .forEach(textarea => {
+          textarea.addEventListener("input", event => {
+            state.evidence[event.target.dataset.evidenceKey] =
+              event.target.value;
+            schedulePersistState();
+          });
+        });
+
+      document
+        .querySelectorAll("[data-feedback-apc]")
+        .forEach(textarea => {
+          textarea.addEventListener("input", event => {
+            const apcId = event.target.dataset.feedbackApc;
+            const field = event.target.dataset.feedbackField;
+
+            if (!state.feedback[apcId]) {
+              state.feedback[apcId] = {};
+            }
+
+            state.feedback[apcId][field] = event.target.value;
+            schedulePersistState();
+          });
+        });
+
+      document
+        .querySelectorAll("[data-entrustment-apc]")
+        .forEach(select => {
+          select.addEventListener("change", event => {
+            state.entrustment[
+              event.target.dataset.entrustmentApc
+            ] = event.target.value;
+            persistState();
+          });
+        });
+    }
+
+    function renderAll() {
+      renderRoleNote();
+      renderSummary();
+      renderNavigation();
+      renderRubric();
+    }
+
+    function bindMetadataEvents() {
+      roleElement.addEventListener("change", event => {
+        state.meta.role = event.target.value;
+        persistState();
+        renderAll();
+      });
+
+      const metadataBindings = [
+        [studentNameElement, "studentName"],
+        [evaluatorNameElement, "evaluatorName"],
+        [evaluationDateElement, "evaluationDate"],
+        [scenarioElement, "scenario"],
+        [courseElement, "course"]
+      ];
+
+      metadataBindings.forEach(([element, key]) => {
+        element.addEventListener("input", event => {
+          state.meta[key] = event.target.value;
+          schedulePersistState();
+        });
+      });
+    }
+
+    function buildReport() {
+      const overall = calculateOverallMetrics();
+
+      return {
+        instrument: "Rúbricas TeleAPC",
+        version: state.version,
+        exportedAt: new Date().toISOString(),
+        meta: {
+          ...state.meta,
+          roleLabel: getRoleLabel(state.meta.role)
+        },
+        summary: {
+          average: overall.average,
+          coverage: overall.coverage,
+          evaluatedIndicators: overall.evaluated,
+          availableIndicators: overall.total,
+          performance: performanceLabel(
+            overall.average,
+            overall.coverage
+          ),
+          criticalAlerts: overall.criticalAlerts
+        },
+        apcs: RUBRICS.map(apc => {
+          const metrics = calculateApcMetrics(apc);
+
+          return {
+            id: apc.id,
+            short: apc.short,
+            title: apc.title,
+            average: metrics.average,
+            coverage: metrics.coverage,
+            performance: performanceLabel(
+              metrics.average,
+              metrics.coverage
+            ),
+            entrustment: state.entrustment[apc.id] || "",
+            feedback: state.feedback[apc.id] || {},
+            criteria: getVisibleCriteria(apc).map(criterion => {
+              const key = rubricKey(apc.id, criterion.id);
+              const level = getLevel(state.ratings[key]);
+
+              return {
+                id: criterion.id,
+                name: criterion.name,
+                critical: criterion.critical,
+                level: level ? level.label : "",
+                levelId: level ? level.id : "",
+                score: level ? level.score : null,
+                evidence: state.evidence[key] || ""
+              };
+            })
+          };
+        })
+      };
+    }
+
+    function exportJson() {
+      const report = buildReport();
+      const fileName = createFileName("json");
+
+      downloadFile(
+        fileName,
+        "application/json;charset=utf-8",
+        JSON.stringify(report, null, 2)
+      );
+
+      showToast("Informe JSON exportado.");
+    }
+
+    function exportCsv() {
+      const report = buildReport();
+
+      const headers = [
+        "Estudiante",
+        "Evaluador",
+        "Rol",
+        "Fecha",
+        "Curso",
+        "Escenario",
+        "APC",
+        "Título APC",
+        "Indicador",
+        "Crítico",
+        "Nivel",
+        "Puntuación",
+        "Evidencia"
+      ];
+
+      const rows = [headers];
+
+      report.apcs.forEach(apc => {
+        apc.criteria.forEach(criterion => {
+          rows.push([
+            report.meta.studentName,
+            report.meta.evaluatorName,
+            report.meta.roleLabel,
+            report.meta.evaluationDate,
+            report.meta.course,
+            report.meta.scenario,
+            apc.short,
+            apc.title,
+            criterion.name,
+            criterion.critical ? "Sí" : "No",
+            criterion.level,
+            criterion.score === null ? "" : criterion.score,
+            criterion.evidence
+          ]);
+        });
+      });
+
+      const csv = "\uFEFF" + rows
+        .map(row => row.map(csvEscape).join(","))
+        .join("\r\n");
+
+      downloadFile(
+        createFileName("csv"),
+        "text/csv;charset=utf-8",
+        csv
+      );
+
+      showToast("Informe CSV exportado.");
+    }
+
+    function createFileName(extension) {
+      const student =
+        sanitizeFilePart(state.meta.studentName) || "estudiante";
+      const role = sanitizeFilePart(getCurrentRole());
+      const date =
+        sanitizeFilePart(state.meta.evaluationDate) ||
+        new Date().toISOString().slice(0, 10);
+
+      return `teleapc_${student}_${role}_${date}.${extension}`;
+    }
+
+    function sanitizeFilePart(value) {
+      return String(value || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9_-]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+    }
+
+    function csvEscape(value) {
+      const text = String(value ?? "");
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+
+    function downloadFile(fileName, mimeType, content) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function resetEvaluation() {
+      const confirmation = window.confirm(
+        "Se eliminarán los datos guardados en este navegador. " +
+        "Exporte el informe antes de continuar si necesita conservarlo."
+      );
+
+      if (!confirmation) {
+        return;
+      }
+
+      state = createInitialState();
+      localStorage.removeItem(STORAGE_KEY);
+      initializeFields();
+      renderAll();
+      showToast("Se inició una nueva evaluación.");
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    let toastTimer;
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      window.clearTimeout(toastTimer);
+
+      toastTimer = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3200);
+    }
+
+    document
+      .getElementById("saveBtn")
+      .addEventListener("click", () => persistState(true));
+
+    document
+      .getElementById("jsonBtn")
+      .addEventListener("click", exportJson);
+
+    document
+      .getElementById("csvBtn")
+      .addEventListener("click", exportCsv);
+
+    document
+      .getElementById("printBtn")
+      .addEventListener("click", () => window.print());
+
+    document
+      .getElementById("resetBtn")
+      .addEventListener("click", resetEvaluation);
+
+    window.addEventListener("beforeunload", () => {
+      if (autosaveTimer) {
+        persistState();
+      }
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden" && autosaveTimer) {
+        persistState();
+      }
+    });
+
+    initializeFields();
+    bindMetadataEvents();
+    renderAll();
+  </script>
+</body>
+</html>
