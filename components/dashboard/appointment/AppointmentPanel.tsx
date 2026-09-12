@@ -1,8 +1,9 @@
 // components/appointments/AppointmentsPanel.tsx
 'use client';
 
+import { PersonIcon } from "@/assets/images";
 import { Appointment } from "@/lib/models/Appointment";
-import { Participant } from "@/lib/models/User";
+import Image from "next/image";
 import { useState } from "react";
 
 interface AppointmentsPanelProps {
@@ -28,140 +29,53 @@ const AppointmentsPanel = ({
   };
 
   return (
-    <div className="text-gray-500 border-2 border-gray-300 h-auto min-h-[200px] w-[80%]
-     overflow-y-auto shadow-xl/30 rounded-2xl p-5">
-      <h2 className="text-lg font-semibold mb-4 pt-5 sticky top-0 z-10">
-        {title}
-      </h2>
+    <div className="text-gray-500 text-sm h-auto w-full
+     overflow-y-auto">
 
       {appointments.length < 1 ? (
         <div className="text-center py-8 text-gray-500">
           <p>No hay consultas</p>
         </div>
       ) : (
-        <div className="space-y-3">
-          {appointments.map((appointment) => {
-            const isSelected = selectedId === appointment.id;
-            return (
-              <div key={appointment.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                {/* Header - Clickable */}
+    <div className="space-y-2">
+    {appointments.map((appointment) => {
+      const isSelected = selectedId === appointment.id;
+      const { paciente, telemedico, supervisor } = appointment;
+      return (
+        <button
+          key={appointment.id}
+          onClick={() => handleSelect(appointment)}
+          className={`w-full text-left py-2 transition-all duration-150
+            ${isSelected ? 'bg-gray-300 px-2.5' : ''}`}
+        >
+          <span>Consulta {appointment.id}</span>
+
+          <div className="flex flex-row items-center mt-1">
+            {[appointment.paciente, appointment.telemedico, appointment.supervisor].map((p, i) => {
+              const url = p?.usuario?.photoURL;
+              return (
                 <div
-                  onClick={() => handleSelect(appointment)}
-                  className="flex items-center justify-between p-4 bg-blue-950"
+                  key={i}
+                  className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 -ml-2 first:ml-0"
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg text-white font-semibold">
-                      Consulta #{appointment.id}
-                    </span>
-                  </div>
-                  <svg
-                    className={`w-6 h-6 transition-transform duration-300 ${
-                      isSelected ? 'rotate-180' : ''
-                    }`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <Image
+                    src={url || PersonIcon}
+                    alt=""
+                    fill
+                    sizes="32px"
+                    className="object-cover"
+                  />
                 </div>
-
-                {/* Content - Expandable */}
-                <div
-                  className={`overflow-hidden transition-all duration-300 ${
-                    isSelected ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
-                  }`}
-                >
-                  <div className="p-4">
-                    {/* Split Participants View */}
-                    <div className="grid grid-cols-2 gap-4">
-                      {/* Telemedico Card */}
-                      <div className="bg-gradient-to-br  rounded-xl p-4 border border-blue-200 shadow-sm">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-sm font-semibold text-blue-700 uppercase tracking-wide">
-                            Telemedico
-                          </span>
-                        </div>
-                        <ParticipantInfo participant={appointment.telemedico} role="telemedico" />
-                      </div>
-
-                      {/* Paciente Card */}
-                      <div className="bg-gradient-to-br rounded-xl p-4 border border-green-200 shadow-sm">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="text-sm font-semibold text-green-700 uppercase tracking-wide">
-                            Paciente
-                          </span>
-                        </div>
-                        <ParticipantInfo participant={appointment.paciente} role="paciente" />
-                      </div>
-                    </div>
-
-                    {/* Optional: Supervisor info */}
-                    {appointment.supervisor && (
-                      <div className="mt-3 pt-3 border-t border-gray-200">
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <span className="font-medium">Supervisor:</span>
-                          <span>
-                            {appointment.supervisor.usuario.nombre} {appointment.supervisor.usuario.apellido_p}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        </button>
+      );
+    })}
+    </div>
       )}
     </div>
   );
 };
 
 export default AppointmentsPanel;
-
-// Participant Info Component with Avatar
-const ParticipantInfo = ({
-  participant,
-  role,
-}: {
-  participant: Participant;
-  role?: 'telemedico' | 'paciente';
-}) => {
-  if (!participant || !participant.usuario) {
-    return <span className="text-gray-400 text-sm">No disponible</span>;
-  }
-
-  const { nombre, apellido_p, apellido_m, uuid } = participant.usuario;
-
-  // Color scheme based on role
-  const colors = {
-    telemedico: {
-      bg: 'bg-blue-50',
-      border: 'border-blue-200',
-      text: 'text-blue-700',
-      icon: '',
-    },
-    paciente: {
-      bg: 'bg-green-50',
-      border: 'border-green-200',
-      text: 'text-green-700',
-      icon: '',
-    }
-  };
-
-  const color = role ? colors[role] : colors.paciente;
-
-  return (
-    <div className="flex items-center gap-3">
-      <div className={`w-10 h-10 rounded-full ${color.bg} border ${color.border} flex items-center justify-center flex-shrink-0`}>
-      </div>
-      <div>
-        <p className="font-medium text-gray-800">
-          {nombre} {apellido_p} {apellido_m}
-        </p>
-        <p className="text-xs text-gray-400">ID: {uuid?.substring(0, 8)}...</p>
-      </div>
-    </div>
-  );
-};

@@ -27,14 +27,16 @@ const DisplayUsers = ({
   const selectedUser = userList.find(u => u.usuario.uuid === selectedUserId);
 
   return (
-    <div className="relative">
+    <div className="relative text-sm">
       {/* Toggle Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-full px-4 py-2 text-left bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="flex items-center justify-between w-full px-2 py-1 
+        text-left bg-white rounded-lg hover:bg-gray-50 transition-colors
+        "
       >
-        <span className={selectedUser ? 'text-gray-900' : 'text-gray-500'}>
+        <span className={selectedUser ? 'text-blue-900 font-bold' : 'text-gray-500'}>
           {selectedUser 
             ? `${selectedUser.usuario.nombre} ${selectedUser.usuario.apellido_p} ${selectedUser.usuario.apellido_m}`
             : label

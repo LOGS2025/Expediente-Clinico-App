@@ -6,3 +6,5 @@ export { default as logoutSVG } from './logout-2-svgrepo-com.svg'
 export { default as chatpgtSVG } from './chatgpt-icon.svg';
 export { default as listSVG } from './edit-list-icon.svg';
 export { default as hamburgerMenuSVG } from './three-horizontal-lines-icon.svg';
+export { default as TeletriageImage } from './Teletriage.png'
+export { default as PersonIcon } from './account.svg'

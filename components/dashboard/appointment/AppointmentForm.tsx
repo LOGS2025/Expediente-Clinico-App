@@ -108,16 +108,15 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
   }
 
   return (
-    <div className='flex flex-col text-gray-500 
-    border-gray-300 shadow-xl/30
-    min-w-[75%] min-h-100 p-5 border-2 rounded-2xl bg-white
+    <div className='flex flex-col text-gray-500 w-full
     '>
       { error ? ( 
         <ErrorMessage message={error} />
     ) : ( <></> ) }
 
       {/* Space to see all users */}
-        <div className='flex flex-col gap-8'>
+        <div className='flex flex-col gap-8 mt-10'>
+          <h1>Llena el formulario para crear una consulta</h1>
           { patientList ? (
             <DisplayUsers userList={patientList} setUser={setPacient} selectedUserId={selAsPacient?.usuario.uuid} label='Selecciona un paciente'/>
           ) : (<></>)
@@ -127,14 +126,11 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
           ) : (<></>)
             }
           
-          { userState.role == 'supervisor'&&
+          { userState.role == 'supervisor' &&
           <div className="flex flex-col">
-            <h2 className='p-3 text-base font-mono opacity-40'>Seras designado como el supervisor de esta consulta.</h2>
-            <span className="font-medium">
+            <h2 className='p-3 text-sm font-mono opacity-40 text-blue-950 text-justify'>Seras designado como el supervisor de esta consulta.</h2>
+            <span className="font-medium text-sm">
               Supervisor : {userState.user?.nombre} {userState.user?.apellido_p} {userState.user?.apellido_m}
-            </span>
-            <span className="text-xs text-gray-500">
-              ID: {userState.user?.uuid}
             </span>
           </div>
           }

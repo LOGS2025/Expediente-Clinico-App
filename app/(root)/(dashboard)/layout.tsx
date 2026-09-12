@@ -9,19 +9,22 @@ import { ReactNode } from 'react';
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   return (
-    <main className='flex flex-row bg-blue-100'>
-      <div className='hidden lg:block w-[10%] min-w-50 sticky top-0 h-dvh'>
-        <Sidebar/>
-      </div>
-      {/* The right side information for wide displays */}
-      <div className="w-full flex flex-col">
+    <main className='flex flex-col bg-blue-100'>
+      <div className='sticky top-0 z-50'>
         <Navbar/>
-        <Accountbar/>
-        <section className="flex flex-row md:flex-col">
+      </div>
+      <Accountbar/>
+      
+      <div className="w-full flex flex-row justify-start">
+        <div className='w-75'>
+          <Sidebar/>
+        </div>
+        <section className='w-full z-0'>
           <div className="w-full">{children}</div>
         </section>
-        <Footer/>
       </div>
+
+      <Footer/>
     </main>
   );
 };

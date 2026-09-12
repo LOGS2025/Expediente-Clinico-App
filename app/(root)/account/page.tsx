@@ -23,7 +23,7 @@ const Account = ()=>{
 export default Account;
 
 /**
- * We get the tabs for 00000
+ * We get the tabs for
  */
 const LeftBar = ()=>{
     return (

@@ -21,7 +21,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
   const userInfo = useBoundStore((state)=>state);
 
   return (
-    <header className="top-0 left-0 right-0 z-50 bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm w-full">
+    <header className="top-0 left-0 right-0 bg-slate-900/90 backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm w-full">
       <div className="flex flex-row w-full">
         <div className="flex h-[120px] w-full">
           <div className="flex items-center gap-3 flex-shrink-0">
@@ -30,7 +30,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
               onClick={()=>{
 
               }} 
-              className='w-[12%] left-0 hover:scale-110'>
+              className='sm:hidden w-[12%] left-0 hover:scale-110 ml-5'>
               <HamburgerMenu/>
             </button>
 
