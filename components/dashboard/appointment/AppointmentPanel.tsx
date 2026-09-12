@@ -29,7 +29,7 @@ const AppointmentsPanel = ({
   };
 
   return (
-    <div className="text-gray-500 text-sm h-auto w-full
+    <div className="text-gray-500 text-sm h-full w-full
      overflow-y-auto">
 
       {appointments.length < 1 ? (

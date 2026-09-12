@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
   try {
     const body = await request.json();
     
-    if (!body.nombre || !body.apellido_p || !body.apellido_m || !body.uuid ) {
+    if (!body.nombre || !body.apellido_p || !body.apellido_m || !body.uuid  || !body.photoURL) {
       return NextResponse.json({
         success: false,
         error: 'Missing required fields'
@@ -24,6 +24,7 @@ import { NextRequest, NextResponse } from "next/server";
         nombre : body.nombre,
         apellido_p : body.apellido_p,
         apellido_m : body.apellido_m,
+        photourl : body.photoURL,
         uuid : body.uuid
       })
       .select()

@@ -45,7 +45,7 @@ export const handleGoogleSignIn = async ({
 
     login({ email: user.email,
             displayName: user.displayName,
-            photoURL: user.photoURL,
+            photoURL: user.photoURL ? user.photoURL : '',
             token: idToken,
             uid: user.uid })
 

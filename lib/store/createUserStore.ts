@@ -56,7 +56,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             set({
                 email: email || '',
                 displayName: displayName || '',
-                photoURL: photoURL || '',
+                photoURL: photoURL,
                 token: token,
                 uid: uid
             });
@@ -67,24 +67,24 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             /**
              * User doesnt exist
              */
-            let user_build : User;
             if ( data.code == 'PGRST116') 
             {
                 console.log("User doesnt exist");
                 const name = displayName?.split(' ');
                 if ( !name ) throw new Error("No name was given by firebase, possible error");
                 console.log(name);
-                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid })
+                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid, photoURL: photoURL })
                 if ( !res ) throw new Error("User wasn't able to be created!");
                 
                 user_build = {
                     nombre: name[0],
                     apellido_p: name[1],
                     apellido_m: name[2],
-                    uuid: uid
+                    uuid: uid,
+                    photoURL: photoURL
                 }
                 
-            } 
+            }
             else if ( !data ) // no data was returned
                 throw new Error("No information received from database");
             // If code wasn't non existant user and we got data then build upon it
@@ -94,7 +94,8 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                     nombre: data.nombre,
                     apellido_p: data.apellido_p,
                     apellido_m: data.apellido_m,
-                    uuid: data.uuid
+                    uuid: data.uuid,
+                    photoURL: photoURL
                 }
             }
             if ( !user_build ) throw new Error("User object couldn't be built");
