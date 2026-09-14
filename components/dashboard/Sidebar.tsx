@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import AppointmentsPanel from "./appointment/AppointmentPanel";
-import AppointmentForm from "./appointment/AppointmentForm";
 import { Appointment } from "@/lib/models/Appointment";
 import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
@@ -10,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
 import ErrorMessage from "@/components/ui/Error";
 import { useLayout } from "@/providers/LayoutContext";
-import { chatpgtSVG } from "@/assets/images";
+import { DraggableAppointmentForm } from "../ui/PseudoWindow";
 
 const Sidebar = ()=> {
     const router = useRouter();
@@ -21,7 +20,7 @@ const Sidebar = ()=> {
     const videoCallHandler = useVideoCall((state)=>state);
     const [error, setError] = useState<string | null>(null);
     const [appointmentChosen, setAppointmentChosen] = useState<boolean>(false);
-
+    
     // Get the appointments from supabase
     useEffect(()=>{
         (async () => {
@@ -68,14 +67,18 @@ const Sidebar = ()=> {
 
     function optionDisplay() {
         switch (option) {
-            case 'create': return <AppointmentForm/>;
+            case 'create': return (
+            <DraggableAppointmentForm/>
+            );
 
             case 'consults': 
             /* On the same flex, place our db 
             information panel for appointments */
             if ( appointments) { 
-                return <AppointmentsPanel appointments={appointments} 
-                    onSelectAppointment={setAppointmentStore}/>
+                return (
+                    <AppointmentsPanel appointments={appointments} 
+                        onSelectAppointment={setAppointmentStore}/>
+                )
             };
 
             default:
@@ -122,71 +125,3 @@ const Sidebar = ()=> {
 
 export default Sidebar;
 
-//         {/*  Loop for each sidebar item and its attributes */}
-//         <nav className="flex flex-col gap-1">
-//             {sidebarItems.map((item) => {
-//                 return (
-//                     <span key={item.name}>
-//                         <button 
-//                         onClick={()=>{
-//                             if ( ActiveItem == item.component ) {
-//                                 setItem(()=>null);
-//                             } else {
-//                                 setItem(()=>item.component); 
-//                             }
-//                         } }
-//                         // w-full p-5 bg-blue-950 py-3 bg-primary text-gray-300 font-light rounded-xl text-xs uppercase tracking-widest 
-//                         // gap-2 hover:text-white hover:font-bold transition-all
-//                         className="
-// h-[100px] p-5 border-b-2
-// text-gray-300 font-light text-xs uppercase tracking-widest
-// w-full flex flex-row items-center gap-2 
-// px-4 py-3 hover:rounded-lg
-// transition-all duration-300 ease-in-out
-// hover:scale-130 hover:font-bold 
-// hover:shadow-lg hover:shadow-xl/30
-// hover:bg-blue-950
-// focus:outline-none focus:ring-2 focus:ring-blue-400
-//                         ">
-//           <span className="material-symbols-outlined text-sm">{item.name}</span>
-//                         </button>
-//                     </span>
-//                 )
-//             })}
-
-//         <div className="flex flex-col w-full">
-//             {/* Main Button - Toggle */}
-//             <button 
-//             onClick={() => setDisplay(!display)}
-//             className="
-// w-full p-5 py-3 border-b-2
-// text-gray-300 font-light text-xs uppercase tracking-widest
-// transition-all duration-300 ease-in-out
-// hover:text-white hover:font-bold
-//             ">
-//             <span>Expediente Clínico</span>
-//             </button>
-
-//             {/* Dropdown Menu */}
-//             <div 
-//             className={`
-//                 overflow-hidden transition-all duration-300 ease-in-out
-//                 ${display ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0'}
-//             `}
-//             >
-//                 <div className="flex flex-col gap-8">
-//                     {expClinicoItems.map((item) => (
-//                     <button
-//                         key={item.name}
-//                         onClick={() => setItem(()=>item.component)}
-//                         className={`w-full p-5 bg-blue-950 rounded-2xl font-light 
-//                             text-sm hover:text-white hover:font-bold
-//                             `}
-//                     >
-//                         <span className="">{item.name}</span>
-//                     </button>
-//                     ))}
-//                 </div>
-//             </div>
-//         </div>
-//         </nav>

@@ -5,6 +5,7 @@ import { PersonIcon } from "@/assets/images";
 import { Appointment } from "@/lib/models/Appointment";
 import Image from "next/image";
 import { useState } from "react";
+import Draggable from "react-draggable";
 
 interface AppointmentsPanelProps {
   appointments: Appointment[];

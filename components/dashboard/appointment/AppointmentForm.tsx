@@ -12,6 +12,8 @@ import { createAppointment } from '@/lib/supabase/appointments';
 import { AppointmentToSupabase } from '@/lib/models/Appointment';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
+import './AppointmentForm.css'
+
 interface AppointmentFormProps {
   onSuccess?: () => void;
   onCancel?: () => void;
@@ -29,6 +31,7 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
 
   const [selAsPacient, setPacient] = useState<Participant | undefined >(undefined);
   const [selAsDoctor, setDoctor] = useState<Participant | undefined >(undefined);
+
 
   useEffect(() => {
     (async () => {
@@ -108,38 +111,118 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
   }
 
   return (
-    <div className='flex flex-col text-gray-500 w-full
-    '>
-      { error ? ( 
-        <ErrorMessage message={error} />
-    ) : ( <></> ) }
-
-      {/* Space to see all users */}
-        <div className='flex flex-col gap-8 mt-10'>
-          <h1>Llena el formulario para crear una consulta</h1>
-          { patientList ? (
-            <DisplayUsers userList={patientList} setUser={setPacient} selectedUserId={selAsPacient?.usuario.uuid} label='Selecciona un paciente'/>
-          ) : (<></>)
-            }
-          { telemedicList ? (
-            <DisplayUsers userList={telemedicList} setUser={setDoctor} selectedUserId={selAsDoctor?.usuario.uuid} label='Selecciona un telemedico'/>
-          ) : (<></>)
-            }
-          
-          { userState.role == 'supervisor' &&
-          <div className="flex flex-col">
-            <h2 className='p-3 text-sm font-mono opacity-40 text-blue-950 text-justify'>Seras designado como el supervisor de esta consulta.</h2>
-            <span className="font-medium text-sm">
-              Supervisor : {userState.user?.nombre} {userState.user?.apellido_p} {userState.user?.apellido_m}
-            </span>
-          </div>
-          }
-        </div>
-
-      <div className='pt-7'>
-        <Form onSuccess={handleSubmit}/>
-      </div>
-
+    //   { error ? ( 
+    //     <ErrorMessage message={error} />
+    // ) : ( <></> ) }
+    <div className="card">
+      <ul className="list">
+        <li className="element">
+          <svg
+            className="lucide lucide-user-round-plus"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2"
+            stroke="#7e8590"
+            fill="none"
+            viewBox="0 0 24 24"
+            height="24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M2 21a8 8 0 0 1 13.292-6"></path>
+            <circle r="5" cy="8" cx="10"></circle>
+            <path d="M19 16v6"></path>
+            <path d="M22 19h-6"></path>
+          </svg>
+          <p className="label">Anadir paciente</p>
+        </li>
+        <li className="element">
+          <svg
+            className="lucide lucide-user-round-plus"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2"
+            stroke="#7e8590"
+            fill="none"
+            viewBox="0 0 24 24"
+            height="24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M2 21a8 8 0 0 1 13.292-6"></path>
+            <circle r="5" cy="8" cx="10"></circle>
+            <path d="M19 16v6"></path>
+            <path d="M22 19h-6"></path>
+          </svg>
+          <p className="label">Anadir telemedico</p>
+        </li>
+      </ul>
+      <div className="separator"></div>
+      <ul className="list">
+        <li className="element">
+          <svg
+            className="lucide lucide-settings"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2"
+            stroke="#7e8590"
+            fill="none"
+            viewBox="0 0 24 24"
+            height="24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+            ></path>
+            <circle r="3" cy="12" cx="12"></circle>
+          </svg>
+          <p className="label">Settings</p>
+        </li>
+        <li className="element delete">
+          <svg
+            className="lucide lucide-trash-2"
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="2"
+            stroke="#7e8590"
+            fill="none"
+            viewBox="0 0 24 24"
+            height="24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M3 6h18"></path>
+            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+            <line y2="17" y1="11" x2="10" x1="10"></line>
+            <line y2="17" y1="11" x2="14" x1="14"></line>
+          </svg>
+          <p className="label">Limpiar</p>
+        </li>
+      </ul>
+      <div className="separator"></div>
+      <ul className="list">
+        <li className="element">
+          <svg
+            className="lucide lucide-users-round"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2"
+            stroke="#7e8590"
+            fill="none"
+            viewBox="0 0 24 24"
+            height="24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M18 21a8 8 0 0 0-16 0"></path>
+            <circle r="5" cy="8" cx="10"></circle>
+            <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"></path>
+          </svg>
+          <p className="label">Construir pareja</p>
+        </li>
+      </ul>
     </div>
   );
 };

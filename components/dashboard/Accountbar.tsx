@@ -1,22 +1,20 @@
 // components/layout/Navbar.tsx
 'use client';
-import AccountSVG from '@/assets/account.svg';
 import SettingsSVG from '@/assets/setting.svg';
 import ListSVG from '@/assets/list.svg';
 
 import Image from 'next/image';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
 
 const Accountbar = () => {
-  const pathname = usePathname();
   const userInfo = useBoundStore((state)=>state);
   const router = useRouter();
 
   return (
-    <header className="bg-red-500 w-full">
+    <header className="bg-blue-400 w-full">
       <nav>
         <ul className='flex flex-row justify-around text-base p-2'>
           <li className='w-full'>    <button 

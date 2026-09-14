@@ -4,6 +4,7 @@ import Accountbar from '@/components/dashboard/Accountbar';
 import { Footer } from '@/components/dashboard/Footer';
 import Navbar from '@/components/dashboard/Navbar';
 import Sidebar from '@/components/dashboard/Sidebar';
+import { DragTest } from '@/components/ui/PseudoWindow';
 import { ReactNode } from 'react';
 
 
@@ -16,7 +17,7 @@ const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
       <Accountbar/>
       
       <div className="w-full flex flex-row justify-start">
-        <div className='w-75'>
+        <div className='w-75 z-20'>
           <Sidebar/>
         </div>
         <section className='w-full z-0'>

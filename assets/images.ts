@@ -8,3 +8,4 @@ export { default as listSVG } from './edit-list-icon.svg';
 export { default as hamburgerMenuSVG } from './three-horizontal-lines-icon.svg';
 export { default as TeletriageImage } from './Teletriage.png'
 export { default as PersonIcon } from './account.svg'
+export { default as NotesIcon } from './notepad-color-icon.svg'

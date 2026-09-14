@@ -1,4 +1,4 @@
-import { chatpgtSVG, listSVG } from "@/assets/images"
+import { chatpgtSVG, listSVG, NotesIcon } from "@/assets/images"
 import Image from "next/image"
 
 
@@ -21,7 +21,7 @@ export const AppBar = ()=>{
             <div
                 style={{clipPath: "#squircleClip"}}
                 className="w-14 h-14 bg-gradient-to-br 
-                rounded-xl flex items-center justify-center shadow-lg border border-blue-500/50 cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl
+                rounded-xl flex items-center justify-center shadow-lg cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl
                 ">
                 <button onClick={()=>{
                     
@@ -35,12 +35,12 @@ export const AppBar = ()=>{
             <div
                 style={{clipPath: "#squircleClip"}}
                 className="w-14 h-14 bg-gradient-to-br 
-                rounded-xl flex items-center justify-center shadow-lg border border-blue-500/50 cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl
+                rounded-xl flex items-center justify-center shadow-lg cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl
                 ">
                 <button onClick={()=>{
 
                 }}>
-                    <Image src={chatpgtSVG} width={80} height={80} alt="note svg to apc list" />
+                    <Image src={NotesIcon} width={80} height={80} alt="note svg to apc list" />
                 </button>
             </div>
             </div>
