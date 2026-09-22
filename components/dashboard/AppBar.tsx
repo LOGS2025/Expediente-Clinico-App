@@ -3,8 +3,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { chatpgtSVG, NotesIcon } from "@/assets/images";
+import { chatpgtSVG, NotesIcon, TeletriageIcon } from "@/assets/images";
 import DraggableAPCs from '../ui/PseudoAPCData';
+import Link from 'next/link';
 
 export const AppBar = () => {
   const [showAPCs, setShowAPCs] = useState(false);
@@ -16,26 +17,28 @@ export const AppBar = () => {
         <div className="relative flex flex-row items-end gap-x-2 p-2">
           {/* ChatGPT Button */}
           <div className="relative">
-            <div className="w-14 h-14 bg-gradient-to-br rounded-xl flex items-center justify-center shadow-lg cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl">
-              <button onClick={() => console.log('Chat')}>
+            <div className="bg-white  
+              w-15 pl-2 h-15 bg-gradient-to-br rounded-xl flex items-center justify-center shadow-lg cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl">
+              <Link href={'https://chatgpt.com/g/g-6z0DZIGeS-teletriage-facmed-v2-1'}>
                 <Image 
-                  src={chatpgtSVG} 
-                  width={100} 
-                  height={100} 
+                  src={TeletriageIcon} 
+                  width={80} 
+                  height={80} 
                   alt="Chat" 
                 />
-              </button>
+              </Link>
             </div>
           </div>
 
           {/* APC Button */}
           <div className="relative">
-            <div className="w-14 h-14 bg-gradient-to-br rounded-xl flex items-center justify-center shadow-lg cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl">
+            <div className="
+              w-15 h-15 bg-gradient-to-br rounded-xl flex items-center justify-center shadow-lg cursor-pointer transform transition-all duration-300 ease-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl">
               <button onClick={() => setShowAPCs(true)}>
                 <Image 
                   src={NotesIcon} 
-                  width={80} 
-                  height={80} 
+                  width={60} 
+                  height={60} 
                   alt="APC Guide" 
                 />
               </button>
@@ -44,7 +47,7 @@ export const AppBar = () => {
         </div>
       </div>
 
-      {/* ✅ Show APC Guide when clicked */}
+      {/* Show APC Guide when clicked */}
       {showAPCs && (
         <DraggableAPCs onClose={() => setShowAPCs(false)} />
       )}
