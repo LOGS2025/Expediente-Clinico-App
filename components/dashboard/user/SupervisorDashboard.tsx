@@ -1,14 +1,17 @@
+'use client'
+
 import { useLayout } from "@/providers/LayoutContext";
-import { useExpedienteClinicoItems, useSideBarItems } from "@/lib/utils/index";
+import { useMainItems } from "@/lib/utils";
 import { useState } from "react";
 import Image from "next/image";
-import { TeletriageImage } from "@/assets/images";
+import { useRouter } from "next/navigation";
 
 const SupervisorDashboardLayout = ()=> {
-    const sidebarItems = useSideBarItems();
-    const expClinicoItems = useExpedienteClinicoItems();
+    const sidebarItems = useMainItems();
     const [display, setDisplay ] = useState<boolean>(false);
     const { ActiveItem, setItem } = useLayout();
+
+    const router = useRouter();
 
     return (
         <div className="flex flex-col justify-center bg-[#DCE0E8] rounded-t-3xl m-5 mb-0 p-2">
@@ -24,7 +27,7 @@ const SupervisorDashboardLayout = ()=> {
                 <div
                 key={item.name}
                 onClick={() => {
-                    setItem(()=>item.component)
+                    router.push(item.url);                    
                 }}
             className="flex flex-col bg-white rounded-2xl
                 border border-gray-200 overflow-hidden

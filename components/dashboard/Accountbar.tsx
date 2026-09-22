@@ -25,7 +25,7 @@ const Accountbar = () => {
       w-full flex flex-row items-center gap-2 
       px-4 py-2 hover:rounded-lg
       transition-all duration-300 ease-in-out
-      hover:scale-130 hover:font-bold 
+      hover:scale-110 hover:font-bold 
       hover:shadow-lg hover:shadow-xl/30
       hover:bg-[#DCE0E8]
       focus:outline-none focus:ring-2 focus:ring-blue-400
@@ -34,19 +34,19 @@ const Accountbar = () => {
             </button></li>
           <li className='w-full'>    <button 
           onClick={()=>{
-            router.push('/account')
+            router.push('/')
           }}
           className='
       border-l border-black 
       w-full flex flex-row items-center gap-2 
       px-4 py-2 hover:rounded-lg
       transition-all duration-300 ease-in-out
-      hover:scale-130 hover:font-bold 
+      hover:scale-110 hover:font-bold 
       hover:shadow-lg hover:shadow-xl/30
       hover:bg-[#DCE0E8]
       focus:outline-none focus:ring-2 focus:ring-blue-400
     '> 
-            <Image width={24} height={24} alt='Gray gear as settings icon' src={SettingsSVG.src}/>Ajustes
+            <Image width={24} height={24} alt='Gray gear as settings icon' src={SettingsSVG.src}/>Incio
             </button></li>
           <li className='w-full'>    <button 
           onClick={()=>{
@@ -57,7 +57,7 @@ const Accountbar = () => {
       w-full flex flex-row items-center gap-2 
       px-4 py-2 hover:rounded-lg
       transition-all duration-300 ease-in-out
-      hover:scale-130 hover:font-bold 
+      hover:scale-110 hover:font-bold 
       hover:shadow-lg hover:shadow-xl/30
       hover:bg-[#DCE0E8]
       focus:outline-none focus:ring-2 focus:ring-blue-400

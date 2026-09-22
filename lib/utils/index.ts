@@ -8,7 +8,7 @@ import { TeletriageImage } from "@/assets/images";
 
 export type SIDEBAR_ITEM = {
   name: Side;
-  component: ComponentType | null;
+  url: string;
   icon: any;
 };
 
@@ -47,53 +47,35 @@ export const useTopBarItems = () => {
   return sidebarItems;
 };
 
-export const useSideBarItems = () => {
+export const useMainItems = () => {
 
   const sidebarItems: SIDEBAR_ITEM[] = [
     {
       name: "Paraclínicos",
-      component: Paraclinicos,
+      url: '',
       icon: "",
     }, {
       name: "Agenda",
-      component: Agenda,
+      url: '',
       icon: "",
     }, {
       name: "TeleTriage", // Before consult
-      component: TeleTriage,
+      url: '',
       icon: TeletriageImage,
     }, {
       name: "Lista de Cotejo APCs", // Check as pdf's
-      component: null,
+      url: '',
       icon: "",
     }, {
       name: "Historia Clinica",
-      component: HistoriaClinica,
-      icon: "",
+      url: 'historiaClinica',
+      icon: '',
     }, {
       name: 'Nota SOAP',
-      component: null,
+      url: '',
       icon: ""
     }
   ];
 
   return sidebarItems;
 };
-
-
-export const useExpedienteClinicoItems = () => {
-
-  const sidebarItems: SIDEBAR_ITEM[] = [
-    {
-      name: "Historia Clinica",
-      component: HistoriaClinica,
-      icon: "",
-    }, {
-      name: 'Nota SOAP',
-      component: null,
-      icon: ""
-    }
-  ]
-
-  return sidebarItems;
-}

@@ -2,13 +2,13 @@
 'use client';
 
 import { useState } from 'react';
-import { IdentificacionSection } from './sections/Identificacion';
-import { AntecedentesSection } from './sections/Antecedentes';
-import { PadecimientoSection } from './sections/Padecimientos';
-import { DiagnosticosSection } from './sections/Diagnosticos';
-import { ExploracionSection } from './sections/Exploracion';
-import { InterrogatorioSection } from './sections/Interrogatorios';
-import { PlanSection } from './sections/Plan';
+import { IdentificacionSection } from '@/components/medical/historia/sections/Identificacion';
+import { AntecedentesSection } from '@/components/medical/historia/sections/Antecedentes';
+import { PadecimientoSection } from '@/components/medical/historia/sections/Padecimientos';
+import { DiagnosticosSection } from '@/components/medical/historia/sections/Diagnosticos';
+import { ExploracionSection } from '@/components/medical/historia/sections/Exploracion';
+import { InterrogatorioSection } from '@/components/medical/historia/sections/Interrogatorios';
+import { PlanSection } from '@/components/medical/historia/sections/Plan';
 
 export interface HistoriaClinicaData {
   // Tipo de interrogatorio
@@ -157,8 +157,11 @@ const HistoriaClinica = () => {
   ];
 
   return (
-    <div className="max-w-[450px] text-white p-6 overflow-y-auto h-dvh bg-blue-950">
-      <h1 className="text-2xl font-bold text-white mb-6">Historia Clínica</h1>
+    <div className="w-full
+     p-6 overflow-y-auto h-dvh text-blue-950
+     bg-[#DCE0E8] rounded-t-3xl m-5 mb-0
+     ">
+      <h1 className="text-2xl font-bold mb-6">Historia Clínica</h1>
 
       {/* Navigation Tabs */}
       <div className="grid grid-cols-2 gap-2 mb-6 border-b border-gray-200 pb-4">
