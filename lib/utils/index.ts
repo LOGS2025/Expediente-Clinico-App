@@ -4,11 +4,12 @@ import Agenda from "@/components/dashboard/Agenda";
 import { ComponentType } from "react";
 import HistoriaClinica from "@/components/medical/historia/HistoriaClinica";
 import { TeleTriage } from "@/components/dashboard/TeleTriage";
+import { TeletriageImage } from "@/assets/images";
 
 export type SIDEBAR_ITEM = {
   name: Side;
   component: ComponentType | null;
-  icon: string;
+  icon: any;
 };
 
 type NAVBAR_ITEM = {
@@ -60,11 +61,19 @@ export const useSideBarItems = () => {
     }, {
       name: "TeleTriage", // Before consult
       component: TeleTriage,
-      icon: "",
+      icon: TeletriageImage,
     }, {
       name: "Lista de Cotejo APCs", // Check as pdf's
       component: null,
       icon: "",
+    }, {
+      name: "Historia Clinica",
+      component: HistoriaClinica,
+      icon: "",
+    }, {
+      name: 'Nota SOAP',
+      component: null,
+      icon: ""
     }
   ];
 

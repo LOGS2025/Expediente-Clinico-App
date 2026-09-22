@@ -10,6 +10,7 @@ import Button from "@/components/ui/ButtonUniv";
 import ErrorMessage from "@/components/ui/Error";
 import { useLayout } from "@/providers/LayoutContext";
 import { DraggableAppointmentForm } from "../ui/PseudoWindow";
+import Link from "next/link";
 
 const Sidebar = ()=> {
     const router = useRouter();
@@ -70,9 +71,7 @@ const Sidebar = ()=> {
     function optionDisplay() {
         switch (option) {
             case 'create': return (
-            
             <DraggableAppointmentForm/>
-            
         );
 
             case 'consults': 
@@ -112,15 +111,23 @@ const Sidebar = ()=> {
                 }} text="Iniciar consulta"/>
         </div>
 
+        {/* Switch for appointments */}
         <div className="flex flex-col w-full items-center justify-center pl-4">
             {optionDisplay()}
         </div>
 
         <div className="mt-auto p-4">
-            <button className="w-full py-3 bg-primary text-white rounded-xl border border-blue-400 bg-blue-950
-            font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-2" >
+            {/* 
+                Link to ...
+            */}
+            <Link className="
+                w-full py-3 bg-primary text-white rounded-xl border border-blue-400 bg-blue-950
+                font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-2
+                hover:scale-90 hover:text-blue-300
+            "
+            href={'www.google.com'}>
             SOLICITAR APOYO
-            </button>
+            </Link>
         </div>
         { error && <ErrorMessage message={error}/> }
     </aside>
