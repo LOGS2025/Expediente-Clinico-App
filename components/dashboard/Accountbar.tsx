@@ -8,12 +8,13 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
+//bg-[#27363F]
 
 const Accountbar = () => {
   const userInfo = useBoundStore((state)=>state);
   const router = useRouter();
   return (
-    <header className="bg-[#27363F] w-full">
+    <header className="bg-[#BEB3AC] w-full">
       <nav>
         <ul className='flex flex-row justify-around text-base p-2'>
           <li className='w-full'>    <button 

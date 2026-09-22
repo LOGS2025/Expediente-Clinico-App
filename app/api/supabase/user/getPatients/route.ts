@@ -15,7 +15,8 @@ export async function GET(){
         apellido_p,
         apellido_m,
         uuid,
-        creacion
+        creacion,
+        photourl
       )
     `);
     if (data) {

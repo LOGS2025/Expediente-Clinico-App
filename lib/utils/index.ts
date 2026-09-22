@@ -1,9 +1,4 @@
 import { Side, Top } from "@/lib/utils/barItems";
-import Paraclinicos from "@/components/medical/Paraclinicos";
-import Agenda from "@/components/dashboard/Agenda";
-import { ComponentType } from "react";
-import HistoriaClinica from "@/components/medical/historia/HistoriaClinica";
-import { TeleTriage } from "@/components/dashboard/TeleTriage";
 import { TeletriageImage } from "@/assets/images";
 
 export type SIDEBAR_ITEM = {
@@ -52,10 +47,6 @@ export const useMainItems = () => {
   const sidebarItems: SIDEBAR_ITEM[] = [
     {
       name: "Paraclínicos",
-      url: '',
-      icon: "",
-    }, {
-      name: "Agenda",
       url: '',
       icon: "",
     }, {

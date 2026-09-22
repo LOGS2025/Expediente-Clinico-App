@@ -6,56 +6,9 @@ import { APCS } from '@/lib/utils/apcData';
 
 export const APCSwiper = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState(0);
-  const [dragOffset, setDragOffset] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const currentAPC = APCS[currentIndex];
-
-  const goTo = (index: number) => {
-    if (index < 0) index = 0;
-    if (index >= APCS.length) index = APCS.length - 1;
-    setCurrentIndex(index);
-    setDragOffset(0);
-  };
-
-  const goNext = () => goTo(currentIndex + 1);
-  const goPrev = () => goTo(currentIndex - 1);
-
-  const handleDragStart = (clientX: number) => {
-    setIsDragging(true);
-    setDragStart(clientX);
-  };
-
-  const handleDragMove = (clientX: number) => {
-    if (!isDragging) return;
-    const offset = clientX - dragStart;
-    setDragOffset(offset);
-  };
-
-  const handleDragEnd = () => {
-    if (!isDragging) return;
-    
-    const threshold = 50;
-    if (dragOffset > threshold) {
-      goPrev();
-    } else if (dragOffset < -threshold) {
-      goNext();
-    }
-    
-    setIsDragging(false);
-    setDragOffset(0);
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') goPrev();
-      if (e.key === 'ArrowRight') goNext();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentIndex]);
 
   return (
     <div className="w-full max-w-2xl mx-auto p-6">
@@ -75,22 +28,11 @@ export const APCSwiper = () => {
         className="relative overflow-hidden rounded-2xl shadow-xl"
         style={{
           backgroundColor: '#DCE0E8',
-          cursor: isDragging ? 'grabbing' : 'grab',
           touchAction: 'pan-y',
         }}
-        onMouseDown={(e) => handleDragStart(e.clientX)}
-        onMouseMove={(e) => handleDragMove(e.clientX)}
-        onMouseUp={handleDragEnd}
-        onMouseLeave={handleDragEnd}
-        onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
-        onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
-        onTouchEnd={handleDragEnd}
       >
         <div
           className="transition-transform duration-300 ease-out"
-          style={{
-            transform: `translateX(${dragOffset}px)`,
-          }}
         >
           {/* APC Content */}
           <div className="p-8">
@@ -145,7 +87,8 @@ export const APCSwiper = () => {
         {APCS.map((apc, index) => (
           <button
             key={apc.id}
-            onClick={() => goTo(index)}
+            onClick={() => {
+            }}
             className="transition-all duration-300 rounded-full"
             style={{
               width: index === currentIndex ? '32px' : '10px',
@@ -161,7 +104,9 @@ export const APCSwiper = () => {
       {/* Arrow Buttons */}
       <div className="flex justify-between mt-4">
         <button
-          onClick={goPrev}
+          onClick={()=>{
+            setCurrentIndex(currentIndex - 1)
+          }}
           disabled={currentIndex === 0}
           className="px-6 py-2 rounded-lg font-medium transition-all disabled:opacity-30"
           style={{
@@ -172,7 +117,9 @@ export const APCSwiper = () => {
           ← Anterior
         </button>
         <button
-          onClick={goNext}
+          onClick={()=>{
+            setCurrentIndex(currentIndex + 1)
+          }}
           disabled={currentIndex === APCS.length - 1}
           className="px-6 py-2 rounded-lg font-medium transition-all disabled:opacity-30"
           style={{

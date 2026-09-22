@@ -20,8 +20,8 @@ export const DraggableAPCs = ({ onClose }: DraggableAPCsProps) => {
       return { x: 0, y: 0 };
     }
     return {
-      x: (window.innerWidth - 300) / 2,
-      y: (window.innerHeight - 400) / 2,
+      x: (window.innerWidth - 2000) / 2,
+      y: (window.innerHeight - 1000) / 2,
     };
   };
 
