@@ -73,7 +73,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                 const name = displayName?.split(' ');
                 if ( !name ) throw new Error("No name was given by firebase, possible error");
                 console.log(name);
-                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid, photoURL: photoURL })
+                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid, photourl: photoURL })
                 if ( !res ) throw new Error("User wasn't able to be created!");
                 
                 user_build = {
@@ -81,7 +81,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                     apellido_p: name[1],
                     apellido_m: name[2],
                     uuid: uid,
-                    photoURL: photoURL
+                    photourl: photoURL
                 }
                 
             }
@@ -95,7 +95,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                     apellido_p: data.apellido_p,
                     apellido_m: data.apellido_m,
                     uuid: data.uuid,
-                    photoURL: photoURL
+                    photourl: photoURL
                 }
             }
             if ( !user_build ) throw new Error("User object couldn't be built");
