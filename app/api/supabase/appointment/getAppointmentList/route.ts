@@ -19,7 +19,8 @@ export async function GET(){
             nombre,
             apellido_p,
             apellido_m,
-            uuid
+            uuid,
+            photourl
           )
         ),
         paciente:pacientes!fk_consulta_paciente (
@@ -31,7 +32,8 @@ export async function GET(){
             nombre,
             apellido_p,
             apellido_m,
-            uuid
+            uuid,
+            photourl
           )
         ),
         supervisor:supervisores!fk_consulta_supervisor (
@@ -43,7 +45,8 @@ export async function GET(){
             nombre,
             apellido_p,
             apellido_m,
-            uuid
+            uuid,
+            photourl
           )
         )
       `);

@@ -4,8 +4,7 @@
 import { PersonIcon } from "@/assets/images";
 import { Appointment } from "@/lib/models/Appointment";
 import Image from "next/image";
-import { useState } from "react";
-import Draggable from "react-draggable";
+import { useEffect, useState } from "react";
 
 interface AppointmentsPanelProps {
   appointments: Appointment[];
@@ -28,6 +27,10 @@ const AppointmentsPanel = ({
       onSelectAppointment(appointment);
     }
   };
+
+  useEffect(()=>{
+    console.log(appointments);
+  })
 
   return (
     <div className="text-gray-500 text-sm h-full w-full
@@ -53,16 +56,16 @@ const AppointmentsPanel = ({
 
           <div className="flex flex-row items-center mt-1">
             {[appointment.paciente, appointment.telemedico, appointment.supervisor].map((p, i) => {
-              const url = p?.usuario?.photoURL;
+              const url = p?.usuario?.photourl;
               return (
                 <div
                   key={i}
                   className="relative w-8 h-8 rounded-full overflow-hidden bg-gray-200 -ml-2 first:ml-0"
                 >
-                  <Image
+                  <img
                     src={url || PersonIcon}
                     alt=""
-                    fill
+                    //fill
                     sizes="32px"
                     className="object-cover"
                   />

@@ -107,7 +107,9 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
   };
 
   if ( !patientList || !telemedicList ) {
-    return (<>No users loaded</>)
+    return (
+    <ErrorMessage message={"Cargando usuarios"} />
+  )
   }
 
   return (
@@ -119,9 +121,9 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
         <li className="element">
           <svg
             className="lucide lucide-user-round-plus"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="2"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2"
             stroke="#7e8590"
             fill="none"
             viewBox="0 0 24 24"
@@ -139,9 +141,9 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
         <li className="element">
           <svg
             className="lucide lucide-user-round-plus"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="2"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2"
             stroke="#7e8590"
             fill="none"
             viewBox="0 0 24 24"
@@ -162,9 +164,9 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
         <li className="element">
           <svg
             className="lucide lucide-settings"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="2"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2"
             stroke="#7e8590"
             fill="none"
             viewBox="0 0 24 24"
@@ -177,14 +179,14 @@ export const AppointmentForm = ({onSuccess,onCancel}: AppointmentFormProps) => {
             ></path>
             <circle r="3" cy="12" cx="12"></circle>
           </svg>
-          <p className="label">Settings</p>
+          <p className="label">Supervisor</p>
         </li>
         <li className="element delete">
           <svg
             className="lucide lucide-trash-2"
-            stroke-linejoin="round"
-            stroke-linecap="round"
-            stroke-width="2"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2"
             stroke="#7e8590"
             fill="none"
             viewBox="0 0 24 24"

@@ -5,7 +5,7 @@ export interface User {
     nombre: string;
     apellido_p : string;
     apellido_m : string;
-    photoURL : string;
+    photourl : string;
 }
 
 export interface Participant {

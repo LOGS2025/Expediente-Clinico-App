@@ -4,13 +4,12 @@ import Accountbar from '@/components/dashboard/Accountbar';
 import { Footer } from '@/components/dashboard/Footer';
 import Navbar from '@/components/dashboard/Navbar';
 import Sidebar from '@/components/dashboard/Sidebar';
-import { DragTest } from '@/components/ui/PseudoWindow';
 import { ReactNode } from 'react';
 
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   return (
-    <main className='flex flex-col bg-blue-100'>
+    <main className='flex flex-col bg-[#8EA1AE]'>
       <div className='sticky top-0 z-50'>
         <Navbar/>
       </div>

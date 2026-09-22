@@ -11,7 +11,7 @@ const SupervisorDashboardLayout = ()=> {
     const { ActiveItem, setItem } = useLayout();
 
     return (
-        <div className="flex flex-col justify-center bg-gray-50 rounded-t-3xl m-5 mb-0 p-2">
+        <div className="flex flex-col justify-center bg-[#DCE0E8] rounded-t-3xl m-5 mb-0 p-2">
         <div className="flex flex-col p-2 text-4xl text-center w-full">
             <h2 className="font-['Manrope'] font-bold text-blue-900" >
                 Biblioteca</h2>
@@ -27,7 +27,7 @@ const SupervisorDashboardLayout = ()=> {
                 onClick={() => {}}
             className="flex flex-col bg-white rounded-2xl
                 border border-gray-200 overflow-hidden
-                min-h-25 w-[25%] z-0
+                min-h-25 max-w-75 min-w-67.5 z-0
                 shadow-xl/30
                 cursor-pointer
                 transition-all duration-300 ease-out

@@ -12,9 +12,8 @@ import { useBoundStore } from '@/lib/hooks/useBoundStore';
 const Accountbar = () => {
   const userInfo = useBoundStore((state)=>state);
   const router = useRouter();
-
   return (
-    <header className="bg-blue-400 w-full">
+    <header className="bg-[#27363F] w-full">
       <nav>
         <ul className='flex flex-row justify-around text-base p-2'>
           <li className='w-full'>    <button 
@@ -28,7 +27,7 @@ const Accountbar = () => {
       transition-all duration-300 ease-in-out
       hover:scale-130 hover:font-bold 
       hover:shadow-lg hover:shadow-xl/30
-      hover:bg-red-400
+      hover:bg-[#DCE0E8]
       focus:outline-none focus:ring-2 focus:ring-blue-400
     '> 
             <img width={24} height={24} alt='Person silouette' src={userInfo.photoURL}/>Cuenta
@@ -44,7 +43,7 @@ const Accountbar = () => {
       transition-all duration-300 ease-in-out
       hover:scale-130 hover:font-bold 
       hover:shadow-lg hover:shadow-xl/30
-      hover:bg-red-400
+      hover:bg-[#DCE0E8]
       focus:outline-none focus:ring-2 focus:ring-blue-400
     '> 
             <Image width={24} height={24} alt='Gray gear as settings icon' src={SettingsSVG.src}/>Ajustes
@@ -60,7 +59,7 @@ const Accountbar = () => {
       transition-all duration-300 ease-in-out
       hover:scale-130 hover:font-bold 
       hover:shadow-lg hover:shadow-xl/30
-      hover:bg-red-400
+      hover:bg-[#DCE0E8]
       focus:outline-none focus:ring-2 focus:ring-blue-400
     '> 
             <Image width={24} height={24} alt='Bullet point list icon' src={ListSVG.src}/>Comentarios

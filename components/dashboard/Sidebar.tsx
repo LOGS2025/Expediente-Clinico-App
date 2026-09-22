@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AppointmentsPanel from "./appointment/AppointmentPanel";
 import { Appointment } from "@/lib/models/Appointment";
 import { getAppointmentList } from "@/lib/supabase/appointments";
@@ -14,6 +14,8 @@ import { DraggableAppointmentForm } from "../ui/PseudoWindow";
 const Sidebar = ()=> {
     const router = useRouter();
     const { ActiveItem } = useLayout();
+    const nodeRefAppointmentForm = useRef(null);
+    const nodeRefSelectedAppointment = useRef(null);
 
     const [appointments, setAppointment] = useState<[Appointment] | null>(null);
     const [option, setOption] = useState<string>('');
@@ -68,8 +70,10 @@ const Sidebar = ()=> {
     function optionDisplay() {
         switch (option) {
             case 'create': return (
+            
             <DraggableAppointmentForm/>
-            );
+            
+        );
 
             case 'consults': 
             /* On the same flex, place our db 

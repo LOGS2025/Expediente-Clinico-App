@@ -1,22 +1,16 @@
 /* From Uiverse.io by nazar-gavrylyk */ 
 .card {
   width: 200px;
-  /* background-color: rgba(36, 40, 50, 1);
-background-image: linear-gradient(135deg, rgba(36, 40, 50, 1) 0%, rgba(36, 40, 50, 1) 40%, rgba(37, 28, 40, 1) 100%); */
-
-  background-color: rgba(36, 40, 50, 1);
-  background-image: linear-gradient(
-    139deg,
-    rgba(36, 40, 50, 1) 0%,
-    rgba(36, 40, 50, 1) 0%,
-    rgba(37, 28, 40, 1) 100%
-  );
-
+  background-color: #bbd0ff;
   border-radius: 10px;
   padding: 15px 0px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  /* ... your existing styles ... */
+  /* ... your existing styles ... */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .card .separator {
