@@ -1,7 +1,7 @@
 // components/medical/historia/sections/AntecedentesSection.tsx
 'use client';
 
-import { HistoriaClinicaData } from "../HistoriaClinica";
+import { HistoriaClinicaData } from "@/app/(root)/historiaClinica/page";
 import { FormInput } from "../shared/FormInput";
 import { FormSection } from "../shared/FormSection";
 import { FormTextarea } from "../shared/FormTextarea";
