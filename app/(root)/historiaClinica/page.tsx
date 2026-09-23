@@ -157,8 +157,8 @@ const HistoriaClinica = () => {
   ];
 
   return (
-    <div className="w-full
-     p-6 overflow-y-auto h-dvh text-blue-950
+    <div className="w-[50%]
+     p-6 h-full text-blue-950
      bg-[#DCE0E8] rounded-t-3xl m-5 mb-0
      ">
       <h1 className="text-2xl font-bold mb-6">Historia Clínica</h1>
