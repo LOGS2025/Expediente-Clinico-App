@@ -50,7 +50,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
               <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wide">
                 Facultad de Medicina · UNAM
               </p>
-              <span>Logged in as {userInfo.getRole()}</span>
+              {/* <span>Logged in as {userInfo.getRole()}</span> */}
             </div>
           
           </div>
@@ -85,7 +85,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
           </nav>
         </div>
       </div>
-      <span className='fixed top-0'>Logged in as {userInfo.getRole()}</span>
+      {/* <span className='fixed top-0'>Logged in as {userInfo.getRole()}</span> */}
     </header>
   );
 };

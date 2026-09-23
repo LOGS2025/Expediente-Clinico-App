@@ -14,7 +14,7 @@ const SupervisorDashboardLayout = ()=> {
     const router = useRouter();
 
     return (
-        <div className="flex flex-col justify-center bg-[#DCE0E8] rounded-t-3xl m-5 mb-0 p-2">
+        <div className="flex flex-col justify-center bg-[#8EA1AE] rounded-t-3xl m-5 mb-0 p-2">
         <div className="flex flex-col p-2 text-4xl text-center w-full">
             <h2 className="font-['Manrope'] font-bold text-blue-900" >
                 Biblioteca</h2>

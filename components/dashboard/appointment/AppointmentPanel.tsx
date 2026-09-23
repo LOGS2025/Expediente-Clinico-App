@@ -12,6 +12,7 @@ interface AppointmentsPanelProps {
   title?: string;
 }
 
+
 const AppointmentsPanel = ({
   appointments,
   onSelectAppointment,
@@ -55,7 +56,7 @@ const AppointmentsPanel = ({
                 key={appointment.id}
                 onClick={() => handleSelect(appointment)}
                 className={`
-                  pl-4 text-white rounded-3xl
+                  pl-4 rounded-3xl
                   shadow-[inset_0_5px_4px_rgba(0,0,0,0.08),inset_0_-1px_0_rgba(140,140,140.8)]
                   w-full text-left py-2 transition-all duration-150
                   hover:bg-blue-200 hover:px-2.5

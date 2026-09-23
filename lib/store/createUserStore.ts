@@ -13,11 +13,17 @@ import { User } from "../models/User";
  *  The website should recognize the role by fetching it from the db? 
  *  Since you cant create accounts on the website?
  */
+// const layoutMap = {
+//     'doctor' : DoctorDashboardLayout,
+//     'supervisor' : SupervisorDashboardLayout,
+//     'patient' : PatientDashboardLayout,
+//     'indefinido' : null
+// } as const;
 const layoutMap = {
-    'doctor' : DoctorDashboardLayout,
+    'doctor' : SupervisorDashboardLayout,
     'supervisor' : SupervisorDashboardLayout,
-    'patient' : PatientDashboardLayout,
-    'indefinido' : null
+    'patient' : SupervisorDashboardLayout,
+    'indefinido' : SupervisorDashboardLayout,
 } as const;
 
 interface UserFromSupabase {

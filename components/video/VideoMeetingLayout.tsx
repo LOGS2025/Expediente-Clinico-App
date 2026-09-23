@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { CenteredOneView } from "./participant/ActiveMembers";
 import { CenteredDualView } from "./participant/CenteredDuaLView";
 import { getUserWithID } from "@/lib/supabase/users";
+import { DraggableFloating } from "../ui/PseudoFloating";
 
 export const UIVideoLayout = () => {
 
@@ -111,7 +112,7 @@ export const UIVideoLayout = () => {
 
         {/* Rendering order matters */}
         { localParticipant && (localParticipant as any).custom?.fields.role.kind.stringValue == 'supervisor' &&
-          <FloatingParticipant participant={localParticipant}/> }
+          <DraggableFloating participant={localParticipant}/> }
 
       {/* Participant listing */}
       <CallParticipantsDisplay/>
