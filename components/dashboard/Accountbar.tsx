@@ -14,7 +14,7 @@ const Accountbar = () => {
   const userInfo = useBoundStore((state)=>state);
   const router = useRouter();
   return (
-    <header className="bg-[#BEB3AC] w-full">
+    <header className="bg-[#8EA1AE] w-full">
       <nav>
         <ul className='flex flex-row justify-around text-base p-2'>
           <li className='w-full'>    <button 

@@ -11,6 +11,8 @@ import ErrorMessage from "@/components/ui/Error";
 import { useLayout } from "@/providers/LayoutContext";
 import { DraggableAppointmentForm } from "../ui/PseudoWindow";
 import Link from "next/link";
+import AppointmentForm from "./appointment/AppointmentForm";
+import { AddPersonSVG } from "@/assets/svg-store";
 
 
 
@@ -73,7 +75,7 @@ const Sidebar = ()=> {
     function optionDisplay() {
         switch (option) {
             case 'create': return (
-            <DraggableAppointmentForm/>
+            <AppointmentForm/>
         );
 
             case 'consults': 
@@ -92,18 +94,23 @@ const Sidebar = ()=> {
     }
 
     return (
-    <aside className="text-blue-950 flex flex-col h-full left-0 
-    gap-1 p-4 pl-0
-    ">
+    <aside className={`text-blue-950 font-semibold flex flex-col h-full left-0 
+    gap-1 p-4 pl-0 ${ option != '' ? 'w-200' : 'w-50' } transition-transform
+    `}>
         {/* Display for appointments */}
         <div className="flex flex-col md:items-center md:justify-end w-fit gap-3 mb-10">
             <Button 
             active={option == 'create'}
-            onClick={()=>setOption('create')} text="Crear consulta"/>
+            onClick={()=>{
+                option == 'create' ? setOption('') : setOption('create');
+                }} text="Crear consulta"
+            />
 
             <Button 
             active={option == 'consults'}
-            onClick={()=>setOption('consults')} text="Ver Consultas"/>
+            onClick={()=>{
+                option == 'consults' ? setOption('') : setOption('consults');
+                }} text="Ver Consultas"/>
 
             <Button onClick={()=>{
                 if ( appointmentChosen )
