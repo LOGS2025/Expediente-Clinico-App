@@ -2,9 +2,7 @@
 
 import { useCall } from "@stream-io/video-react-sdk";
 import { useState } from "react";
-import Button from "../ui/ButtonSidebar";
 import { useRouter } from "next/navigation";
-import { NextRouter } from "next/router";
 
 const BottomBar = () => {
     const [audio, setAudio] = useState(true);
@@ -44,10 +42,12 @@ export default BottomBar;
 const EndCall = ()=>{
     const call = useCall();    
     return (
-        <Button text="Terminar llamada" 
+        <button
             onClick={()=> {
                 call?.endCall().catch(() => console.error("Failed to leave the call"));
-            }}/>
+            }}>
+            Terminar llamada
+        </button>
         )
 }
 const ToggleAudio = 
@@ -55,7 +55,7 @@ const ToggleAudio =
     {
     const call = useCall();    
     return (
-        <Button onClick={()=> {
+        <button onClick={()=> {
             if ( audio ) {
                 call?.microphone.disable();
                 setAudio(!audio);
@@ -63,13 +63,13 @@ const ToggleAudio =
                 call?.microphone.enable();
                 setAudio(!audio);
             }
-            }} text="Audio"/>
+            }}>Audio</button>
     )
 }
 const ToggleVideo = ({camera, setCamera}:{camera : boolean, setCamera: React.Dispatch<React.SetStateAction<boolean>>})=>{
     const call = useCall();    
     return (
-        <Button onClick={()=> {
+        <button onClick={()=> {
             if ( camera ) {
                 call?.camera.disable();
                 setCamera(!camera);
@@ -77,12 +77,12 @@ const ToggleVideo = ({camera, setCamera}:{camera : boolean, setCamera: React.Dis
                 call?.camera.enable();
                 setCamera(!camera);
             }
-            }} text="Video" />
+            }}>Video</button>
     )
 }
 const LeaveCall = ()=>{
     const call = useCall();    
     return (
-        <Button onClick={()=> {call?.leave().catch(() => console.error("Failed to leave the call"));}} text="Dejar la llamada" />
+        <button onClick={()=> {call?.leave().catch(() => console.error("Failed to leave the call"));}}>Dejar la llamada</button>
     )
 }

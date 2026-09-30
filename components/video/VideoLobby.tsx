@@ -5,7 +5,6 @@ import {
   StreamVideoParticipant,
   useStreamVideoClient,
 } from '@stream-io/video-react-sdk';
-import { GoldenShineSvg, GoldenTreasureSvg } from "../ui/Svgs";
 import { useVideoCall } from '@/lib/hooks/useVideoCall';
 import { useBoundStore } from '@/lib/hooks/useBoundStore';
 
@@ -55,13 +54,11 @@ export const DisabledVideoPreview = () => {
 
 const NoCameraPreview = () => (
   <div>
-    <GoldenTreasureSvg />
   </div>
 );
 
 const StartingCameraPreview = () => (
   <div>
-    <GoldenShineSvg />
   </div>
 );
 

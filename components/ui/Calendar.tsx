@@ -1,5 +1,4 @@
 import dayjs from "dayjs";
-import { ChevronLeftSvg, ChevronRightSvg } from "@/components/ui/Svgs";
 import { range } from "@/lib/utils/array-utils";
 
 const getCalendarDays = (now: dayjs.Dayjs): (number | null)[][] => {
@@ -45,7 +44,7 @@ export const Calendar = ({
           className="text-gray-400"
           onClick={() => setNow((now) => now.add(-1, "month"))}
         >
-          <ChevronLeftSvg />
+          {/* <ChevronLeftSvg /> */}
           <span className="sr-only">Go to previous month</span>
         </button>
         <h3 className="text-lg font-bold uppercase text-gray-500">
@@ -55,7 +54,7 @@ export const Calendar = ({
           className="text-gray-400"
           onClick={() => setNow((now) => now.add(1, "month"))}
         >
-          <ChevronRightSvg />
+          {/* <ChevronRightSvg /> */}
           <span className="sr-only">Go to next month</span>
         </button>
       </header>

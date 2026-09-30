@@ -80,16 +80,15 @@ const PatientDashboardLayout = ()=> {
 
             <div className="flex-2 h-dvh">
                 <div className="flex flex-row items-center justify-end gap-6">
-                    <Button onClick={()=>{
+                    <button onClick={()=>{
                         if ( appointmentChosen )
                             handleJoin()
                         else 
                             setError("Choose an appointment before joining");
-                        }} text="Entrar a la consulta"/>
+                        }}>"Entrar a la consulta"</button>
                 </div>
                 { appointments &&
-                <AppointmentsPanel appointments={appointments} 
-                onSelectAppointment={setAppointmentStore}/> }
+                <AppointmentsPanel/>}
             </div>
 
             <div className="flex-2">

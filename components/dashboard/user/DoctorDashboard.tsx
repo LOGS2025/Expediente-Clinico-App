@@ -82,8 +82,7 @@ const DoctorDashboardLayout = ()=> {
             /* On the same flex, place our db 
             information panel for appointments */
             if ( appointments) { 
-                return <AppointmentsPanel appointments={appointments} 
-                    onSelectAppointment={setAppointmentStore}/>
+                return <AppointmentsPanel/>
             };
         }
     }
@@ -99,14 +98,16 @@ const DoctorDashboardLayout = ()=> {
 
             <div className="flex-2 bg-amber-400 h-dvh">
                 <div className="flex flex-row items-center justify-end gap-6">
-                    <Button onClick={()=>setOption('create')} text="Crear consulta"/>
-                    <Button onClick={()=>setOption('consults')} text="Ver Consultas"/>
-                    <Button onClick={()=>{
+
+                    <button onClick={()=>setOption('create')}>Crear consulta</button>
+                    <button onClick={()=>setOption('consults')}>Ver Consultas</button>
+                    <button onClick={()=>{
                         if ( appointmentChosen )
                             handleJoin()
                         else 
                             setError("Choose an appointment before joining");
-                        }} text="Iniciar consulta"/>
+                        }}>Iniciar consulta</button>
+
                 </div>
                 
                 {optionDisplay()}
