@@ -1,7 +1,7 @@
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 
-const Button = ({
+const ButtonSideBar = ({
   color, text, Icon, count, onClick, active = false,
 }: { text: string; color: any; Icon?: any; count?: number; onClick?: () => void; active?: boolean;
 }) => {
@@ -12,7 +12,7 @@ const Button = ({
         `group w-fit pr-5 flex items-center p-2 rounded-full text-sm
         transition-colors duration-150
         ${active
-          ? `text-black`
+          ? `text-black ml-2` 
           : 'hover:bg-gray-100'
         }`}
         style={active ? { backgroundColor: color.primary} : undefined}
@@ -25,7 +25,7 @@ const Button = ({
           <Icon/>            
         </span>
       )}
-      <span className="flex-1 text-left truncate">{text}</span>
+      <span className="flex-1 text-left flex flex-wrap">{text}</span>
       {typeof count === 'number' && (
         <span
           className={`text-xs font-medium ${active ? 'text-blue-800' : 'text-gray-500'}`}
@@ -37,4 +37,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default ButtonSideBar;

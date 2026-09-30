@@ -2,7 +2,7 @@
 
 import { useCall } from "@stream-io/video-react-sdk";
 import { useState } from "react";
-import Button from "../ui/ButtonUniv";
+import Button from "../ui/ButtonSidebar";
 import { useRouter } from "next/navigation";
 import { NextRouter } from "next/router";
 

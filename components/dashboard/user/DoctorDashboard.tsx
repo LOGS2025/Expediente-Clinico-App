@@ -14,7 +14,7 @@ import { Appointment } from "@/lib/models/Appointment";
 import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
-import Button from "@/components/ui/ButtonUniv";
+import Button from "@/components/ui/ButtonSidebar";
 import ErrorMessage from "@/components/ui/Error";
 
 const DoctorDashboardLayout = ()=> {

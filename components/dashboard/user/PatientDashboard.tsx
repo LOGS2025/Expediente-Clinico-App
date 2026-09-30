@@ -11,7 +11,7 @@ import AppointmentsPanel from "../appointment/AppointmentPanel";
 import { Appointment } from "@/lib/models/Appointment";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
-import Button from "@/components/ui/ButtonUniv";
+import Button from "@/components/ui/ButtonSidebar";
 import ErrorMessage from "@/components/ui/Error";
 import { getUserAppointments } from "@/lib/supabase/users";
 import { useBoundStore } from "@/lib/hooks/useBoundStore";

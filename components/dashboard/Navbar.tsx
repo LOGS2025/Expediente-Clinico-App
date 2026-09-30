@@ -18,21 +18,12 @@ interface NavbarProps {
 const Navbar = ({ selectedTab = null }: NavbarProps) => {
   const topbarItems = useTopBarItems();
   const pathname = usePathname();
-  const userInfo = useBoundStore((state)=>state);
 
   return (
     <header className="top-0 left-0 right-0 bg-[#002E6D] backdrop-blur-xl border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm w-full">
       <div className="flex flex-row w-full">
         <div className="flex h-[120px] w-full">
           <div className="flex items-center gap-3 flex-shrink-0">
-
-            <button
-              onClick={()=>{
-
-              }} 
-              className='sm:hidden w-[12%] left-0 hover:scale-110 ml-5'>
-              <HamburgerMenu/>
-            </button>
 
             <img src={logo_without_bg.src} 
               className="pl-5 w-auto h-[30%] object-contain left-0" 
@@ -50,42 +41,11 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
               <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium tracking-wide">
                 Facultad de Medicina · UNAM
               </p>
-              {/* <span>Logged in as {userInfo.getRole()}</span> */}
             </div>
           
           </div>
-
-          <nav className="flex-1 hidden lg:block">
-            <div className='flex gap-1 text-xs font-medium h-full justify-around items-stretch'>
-              {topbarItems.map((item) => {
-                const isActive = pathname === item.href || item.name === selectedTab;
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`
-                      group relative px-4 py-2.5 rounded-lg transition-all duration-200
-                      flex items-center gap-2
-                      ${isActive 
-                        ? 'text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30' 
-                        : 'text-slate-600 dark:text-slate-300 hover:text-blue-700 dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
-                      }
-                    `}
-                  >
-                    <span className="text-lg">{item.icon}</span>
-                    <span>{item.name}</span>
-                    
-                    {isActive && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
-                    )}
-                  </Link>
-                );
-              })}
-            </div>
-          </nav>
         </div>
       </div>
-      {/* <span className='fixed top-0'>Logged in as {userInfo.getRole()}</span> */}
     </header>
   );
 };
@@ -93,7 +53,7 @@ const Navbar = ({ selectedTab = null }: NavbarProps) => {
 export default Navbar;
 
 
-const HamburgerMenu = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => {
+const HamburgerMenu = () => {
   return (
     <svg
       version="1.1"
@@ -103,7 +63,6 @@ const HamburgerMenu = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>)
       y="0px"
       viewBox="0 0 122.88 95.95"
       xmlSpace="preserve"
-      {...props}
     >
       <g>
         <path
