@@ -1,19 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
-import AppointmentsPanel from "./appointment/AppointmentPanel";
-import { Appointment } from "@/lib/models/Appointment";
-import { getAppointmentList } from "@/lib/supabase/appointments";
-import { useVideoCall } from "@/lib/hooks/useVideoCall";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ButtonSideBar from "../ui/ButtonSidebar";
 import ErrorMessage from "@/components/ui/Error";
 import { useLayout } from "@/providers/LayoutContext";
-import Link from "next/link";
-import AppointmentForm from "./appointment/AppointmentForm";
 import { AddPersonSVG, Bild, Calendar, CheckList, Grid, Hat, Home, PeopleSVG, TrashcanSVG } from "@/assets/svg-store";
-import { Biblioteca } from "./Biblioteca";
+import { Biblioteca } from "../sidebarItems/Biblioteca";
 import { Inicio } from "./PapimeMsg";
+import AppointmentForm from "../sidebarItems/appointment/AppointmentForm";
+import AppointmentsPanel from "../sidebarItems/appointment/AppointmentPanel";
 
 type colorTupple = {
     pale : string;
@@ -36,55 +32,8 @@ const Sidebar = ()=> {
     const router = useRouter();
     const { setItem } = useLayout();
 
-    const [appointments, setAppointment] = useState<[Appointment] | null>(null);
-    const [option, setOption] = useState<string>('inicio');
-    const videoCallHandler = useVideoCall((state)=>state);
     const [error, setError] = useState<string | null>(null);
-    const [appointmentChosen, setAppointmentChosen] = useState<boolean>(false);
-
-    // Get the appointments from supabase
-    useEffect(()=>{
-        (async () => {
-        const appointmentlist = await getAppointmentList();
-        if ( appointmentlist ) {
-            setAppointment(appointmentlist);
-        }
-        })();
-    },[])
-
-    function setAppointmentStore(appointment: Appointment) {
-        const telemedic_uuid = appointment.telemedico.usuario.uuid;
-        const patient_uuid = appointment.paciente.usuario.uuid;
-        const supervisor_uuid = appointment.supervisor.usuario.uuid;
-        const callId = appointment.callid;
-
-        if ( !telemedic_uuid || !patient_uuid || !supervisor_uuid ) {
-            setError("Missing a participant data");
-            return;
-        }
-
-        videoCallHandler.setParticipants(
-            telemedic_uuid, 
-            patient_uuid, 
-            supervisor_uuid);
-
-        if ( !callId ) {
-            setError("Missing call id!!!");
-        }
-
-        setAppointmentChosen(true);
-        videoCallHandler.setCallID(callId);
-    }
-   
-    const handleJoin = () => {
-        try {
-            const callId = videoCallHandler.getCallId()
-            router.push(`/meeting/${callId}`);
-
-        } catch (error) {
-        console.log(error);
-        }
-    }
+    const [option, setOption] = useState<string>('inicio');
 
     return (
     <aside className={`
@@ -106,7 +55,7 @@ const Sidebar = ()=> {
             color={colors['Blue']} 
             active={option == 'create'}
             onClick={()=>{
-                setItem(()=>Inicio)
+                setItem(()=>AppointmentForm)
                 option == 'create' ? setOption('') : setOption('create');
             }} 
             text="Crear consulta"
@@ -116,7 +65,7 @@ const Sidebar = ()=> {
             color={colors['Green']}
             active={option == 'consults'}
             onClick={()=>{
-                setItem(()=>Inicio)
+                setItem(()=>AppointmentsPanel)
                 option == 'consults' ? setOption('') : setOption('consults');
             }} 
             text="Ver Consultas"

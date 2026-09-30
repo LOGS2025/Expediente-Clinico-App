@@ -1,18 +1,22 @@
 'use client'
 
 import { useLayout } from "@/providers/LayoutContext";
-import { useState } from "react";
 import { Inicio } from "../PapimeMsg";
 import Link from "next/link";
 
 const SupervisorDashboardLayout = ()=> {
-    const [display, setDisplay ] = useState<boolean>(false);
-    const { ActiveItem, setItem } = useLayout();
+    const { ActiveItem } = useLayout();
 
     return (
-        <div className="flex flex-col justify-center bg-white rounded-t-3xl m-5 mb-0 p-2
+        <div className="
+        flex flex-col justify-center 
+        bg-white 
+        rounded-t-3xl 
+        m-5 mb-0 
+        p-2
         shadow-[inset_0_5px_4px_rgba(0,0,0,0.08),inset_0_-1px_0_rgba(140,140,140.8)]
-        text-black">
+        text-black
+        ">
             {ActiveItem ? <ActiveItem/> : <Inicio/> }
 
 

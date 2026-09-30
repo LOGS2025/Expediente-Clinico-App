@@ -3,34 +3,68 @@
 
 import { PersonIcon } from "@/assets/images";
 import { Appointment } from "@/lib/models/Appointment";
+import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useEffect, useState } from "react";
-
-interface AppointmentsPanelProps {
-  appointments: Appointment[];
-  onSelectAppointment?: (appointment: Appointment) => void;
-  onCancelAppointment?: (appointmentId: number) => void;
-  title?: string;
-}
+import { useVideoCall } from "@/lib/hooks/useVideoCall";
+import { useRouter } from "next/navigation";
+import LoadingScreen from "@/components/ui/LoadingScreen";
 
 
-const AppointmentsPanel = ({
-  appointments,
-  onSelectAppointment,
-  onCancelAppointment,
-  title = 'Consultas',
-}: AppointmentsPanelProps) => {
+const AppointmentsPanel = () => {
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const handleSelect = (appointment: Appointment) => {
-    setSelectedId(selectedId === appointment.id ? null : appointment.id);
-    if (onSelectAppointment && selectedId !== appointment.id) {
-      onSelectAppointment(appointment);
-    }
-  };
+    const videoCallHandler = useVideoCall((state)=>state);
+  // Fetches all appointments from supabase
+    const [appointments, setAppointmentList] = useState<[Appointment] | null>(null);
+  // Sets true so videocall meeting can be read.
+    const [appointmentChosen, setAppointmentChosen] = useState<boolean>(false);
+  // Chooses a given apppointment
+    const router = useRouter();
+    const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    console.log(appointments);
-  }, [appointments]);
+    // Get the appointments from supabase
+    useEffect(()=>{
+        (async () => {
+          const appointmentlist = await getAppointmentList();
+          if ( appointmentlist ) {
+              setAppointmentList(appointmentlist);
+          }
+        })();
+    },[])
+
+    function setAppointmentStore(appointment: Appointment) {
+        const telemedic_uuid = appointment.telemedico.usuario.uuid;
+        const patient_uuid = appointment.paciente.usuario.uuid;
+        const supervisor_uuid = appointment.supervisor.usuario.uuid;
+        const callId = appointment.callid;
+
+        if ( !telemedic_uuid || !patient_uuid || !supervisor_uuid ) {
+            setError("Missing a participant data");
+            return;
+        }
+
+        videoCallHandler.setParticipants(
+            telemedic_uuid, 
+            patient_uuid, 
+            supervisor_uuid);
+
+        if ( !callId ) {
+            setError("Missing call id!!!");
+        }
+
+        setAppointmentChosen(true);
+        videoCallHandler.setCallID(callId);
+    }
+   
+    const handleJoin = () => {
+        try {
+            const callId = videoCallHandler.getCallId()
+            router.push(`/meeting/${callId}`);
+
+        } catch (error) {
+        console.log(error);
+        }
+    }
 
   // Helper to render full name
   const getFullName = (p: any) => {
@@ -38,6 +72,11 @@ const AppointmentsPanel = ({
     return `${p.usuario.nombre} ${p.usuario.apellido_p} ${p.usuario.apellido_m}`;
   };
 
+  if ( !appointments ) {
+    return (
+      <LoadingScreen/>
+    )
+  } 
   return (
     <div className="text-gray-500 text-sm h-full w-full overflow-y-auto">
 
@@ -54,7 +93,7 @@ const AppointmentsPanel = ({
             return (
               <button
                 key={appointment.id}
-                onClick={() => handleSelect(appointment)}
+                onClick={() =>{setSelectedId(appointment.id)}}
                 className={`
                   pl-4 rounded-3xl
                   shadow-[inset_0_5px_4px_rgba(0,0,0,0.08),inset_0_-1px_0_rgba(140,140,140.8)]

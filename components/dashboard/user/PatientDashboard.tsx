@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useState } from "react";
-import AppointmentsPanel from "../appointment/AppointmentPanel";
+import AppointmentsPanel from "../../sidebarItems/appointment/AppointmentPanel";
 import { Appointment } from "@/lib/models/Appointment";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";

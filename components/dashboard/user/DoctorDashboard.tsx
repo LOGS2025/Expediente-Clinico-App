@@ -8,8 +8,8 @@
 
 import Sidebar from "@/components/dashboard/Sidebar";
 import { ComponentType, useEffect, useState } from "react";
-import AppointmentsPanel from "../appointment/AppointmentPanel";
-import AppointmentForm from "../appointment/AppointmentForm";
+import AppointmentsPanel from "../../sidebarItems/appointment/AppointmentPanel";
+import AppointmentForm from "../../sidebarItems/appointment/AppointmentForm";
 import { Appointment } from "@/lib/models/Appointment";
 import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
