@@ -9,12 +9,24 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/ui/ButtonUniv";
 import ErrorMessage from "@/components/ui/Error";
 import { useLayout } from "@/providers/LayoutContext";
-import { DraggableAppointmentForm } from "../ui/PseudoWindow";
 import Link from "next/link";
 import AppointmentForm from "./appointment/AppointmentForm";
-import { AddPersonSVG } from "@/assets/svg-store";
+import { AddPersonSVG, PeopleSVG, TrashcanSVG } from "@/assets/svg-store";
 
+type colorTupple = {
+    pale : string;
+    primary : string;
+}
 
+interface Colors {
+    [color :string] : colorTupple 
+}
+
+const colors : Colors = {
+  'Blue': {pale:"#E9F7FF",primary:"#4285FA"},
+  'Green': {pale:"#E3FAE3",primary:"#3BD897"},
+  'Purple': {pale:"#F3E3FA",primary:"#DE9AF8"}
+};
 
 const Sidebar = ()=> {
     const router = useRouter();
@@ -94,35 +106,95 @@ const Sidebar = ()=> {
     }
 
     return (
-    <aside className={`text-blue-950 font-semibold flex flex-col h-full left-0 
-    gap-1 p-4 pl-0 ${ option != '' ? 'w-200' : 'w-50' } transition-transform
+    <aside className={`text-blue-950 font-semibold flex flex-col h-full 
+    p-4 pl-0 w-fit transition-transform
     `}>
         {/* Display for appointments */}
-        <div className="flex flex-col md:items-center md:justify-end w-fit gap-3 mb-10">
-            <Button 
+        <div className="flex flex-col w-fit gap-1 p-4 ">
+            <Button
+            color={colors['Blue']} 
             active={option == 'create'}
             onClick={()=>{
                 option == 'create' ? setOption('') : setOption('create');
                 }} text="Crear consulta"
+            Icon={AddPersonSVG}
             />
-
-            <Button 
+            <Button
+            color={colors['Green']}
             active={option == 'consults'}
             onClick={()=>{
                 option == 'consults' ? setOption('') : setOption('consults');
-                }} text="Ver Consultas"/>
-
-            <Button onClick={()=>{
-                if ( appointmentChosen )
-                    handleJoin()
-                else 
-                    setError("Choose an appointment before joining");
-                }} text="Iniciar consulta"/>
+                }} text="Ver Consultas"
+            Icon={AddPersonSVG}
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={PeopleSVG}
+            text="Cuenta"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'biblioteca'}
+            onClick={()=>{}}
+            Icon={TrashcanSVG}
+            text="Biblioteca de Recursos"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={PeopleSVG}
+            text="Inicio"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={AddPersonSVG}
+            text="Comentarios"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={AddPersonSVG}
+            text="Guia de Teleconsulta"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={AddPersonSVG}
+            text="PRONAM y guias clinicas"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={AddPersonSVG}
+            text="Guia de prescripcion"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={AddPersonSVG}
+            text="Guia de actividades profesionales a confiar"
+            />
+            <Button
+            color={colors['Blue']}
+            active={option == 'cuenta'}
+            onClick={()=>{}}
+            Icon={AddPersonSVG}
+            text="Mas recursos"
+            />
         </div>
 
         {/* Switch for appointments */}
         <div className="flex flex-col w-full items-center justify-center pl-4">
-            {optionDisplay()}
+            {/* {optionDisplay()} */}
         </div>
 
         <div className="mt-auto p-4">
@@ -145,3 +217,10 @@ const Sidebar = ()=> {
 
 export default Sidebar;
 
+
+            {/* <Button onClick={()=>{
+                if ( appointmentChosen )
+                    handleJoin()
+                else 
+                    setError("Choose an appointment before joining");
+                }} text="Iniciar consulta"/> */}

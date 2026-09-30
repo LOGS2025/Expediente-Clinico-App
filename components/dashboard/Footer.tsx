@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export const Footer = () => {
     return(
-        <div className="bg-slate-800 flex flex-col items-center justify-center p-4 pt-5 pb-5 text-base">
+        <div className="bg-[#002E6D] flex flex-col items-center justify-center p-4 pt-5 pb-5 text-base">
             <section className="w-full flex flex-col md:flex-row">
                 <div className="flex-1 flex-col p-5">
                     <h3 className="font-bold">CENTRAL DE ATENCION DE EMERGENCIAS [CAE]</h3>

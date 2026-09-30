@@ -9,11 +9,10 @@ import { ReactNode } from 'react';
 
 const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
   return (
-    <main className='flex flex-col bg-[#DCE0E8]'>
+    <main className='flex flex-col bg-white'>
       <div className='sticky top-0 z-50'>
         <Navbar/>
       </div>
-      <Accountbar/>
       
       <div className="w-full flex flex-row justify-start">
         <div className='z-20'>
