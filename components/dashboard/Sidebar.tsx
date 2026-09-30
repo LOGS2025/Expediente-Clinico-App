@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from "react";
-import useMouse from "@react-hook/mouse-position";
 import AppointmentsPanel from "./appointment/AppointmentPanel";
 import { Appointment } from "@/lib/models/Appointment";
 import { getAppointmentList } from "@/lib/supabase/appointments";
@@ -13,6 +12,8 @@ import { useLayout } from "@/providers/LayoutContext";
 import Link from "next/link";
 import AppointmentForm from "./appointment/AppointmentForm";
 import { AddPersonSVG, Bild, Calendar, CheckList, Grid, Hat, Home, PeopleSVG, TrashcanSVG } from "@/assets/svg-store";
+import { Biblioteca } from "./Biblioteca";
+import { Inicio } from "./PapimeMsg";
 
 type colorTupple = {
     pale : string;
@@ -32,17 +33,14 @@ const colors : Colors = {
 const widthSidebar = 300;
 
 const Sidebar = ()=> {
-    const [inFocus, setInFocus] = useState<Boolean>(false);
     const router = useRouter();
-    const { ActiveItem } = useLayout();
-
+    const { setItem } = useLayout();
 
     const [appointments, setAppointment] = useState<[Appointment] | null>(null);
-    const [option, setOption] = useState<string>('');
+    const [option, setOption] = useState<string>('inicio');
     const videoCallHandler = useVideoCall((state)=>state);
     const [error, setError] = useState<string | null>(null);
     const [appointmentChosen, setAppointmentChosen] = useState<boolean>(false);
-
 
     // Get the appointments from supabase
     useEffect(()=>{
@@ -88,32 +86,12 @@ const Sidebar = ()=> {
         }
     }
 
-    function optionDisplay() {
-        switch (option) {
-            case 'create': return (
-            <AppointmentForm/>
-        );
-
-            case 'consults': 
-            /* On the same flex, place our db 
-            information panel for appointments */
-            if ( appointments) { 
-                return (
-                    <AppointmentsPanel appointments={appointments} 
-                        onSelectAppointment={setAppointmentStore}/>
-                )
-            };
-
-            default:
-                return(<></>)
-        }
-    }
-
     return (
     <aside className={`
             group
-            fixed right-0 top-0 z-40
+            fixed right-0 top-0
             bg-white
+            shadow-2xl
             text-blue-950 font-semibold flex flex-col h-screen
             pt-4 pb-4 pr-0
             transition-all duration-500 ease-in-out
@@ -128,6 +106,7 @@ const Sidebar = ()=> {
             color={colors['Blue']} 
             active={option == 'create'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'create' ? setOption('') : setOption('create');
             }} 
             text="Crear consulta"
@@ -137,6 +116,7 @@ const Sidebar = ()=> {
             color={colors['Green']}
             active={option == 'consults'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'consults' ? setOption('') : setOption('consults');
             }} 
             text="Ver Consultas"
@@ -146,6 +126,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'cuenta'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'cuenta' ? setOption('') : setOption('cuenta');
             }}
             Icon={Bild}
@@ -155,6 +136,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'biblioteca'}
             onClick={()=>{
+                setItem(()=>Biblioteca);
                 option == 'biblioteca' ? setOption('') : setOption('biblioteca');
             }}
             Icon={Grid}
@@ -164,6 +146,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'inicio'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'inicio' ? setOption('') : setOption('inicio');
             }}
             Icon={Home}
@@ -173,6 +156,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'comentarios'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'comentarios' ? setOption('') : setOption('comentarios');
             }}
             Icon={CheckList}
@@ -182,6 +166,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'guiateleconsulta'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'guiateleconsulta' ? setOption('') : setOption('guiateleconsulta');
             }}
             Icon={Hat}
@@ -191,6 +176,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'PRONAM'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'PRONAM' ? setOption('') : setOption('PRONAM');
             }}
             Icon={Hat}
@@ -200,6 +186,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'guiaprescripcion'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'guiaprescripcion' ? setOption('') : setOption('guiaprescripcion');
             }}
             Icon={Hat}
@@ -209,6 +196,7 @@ const Sidebar = ()=> {
             color={colors['Purple']}
             active={option == 'guiaactProfesionales'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'guiaactProfesionales' ? setOption('') : setOption('guiaactProfesionales');
             }}
             Icon={Hat}
@@ -218,6 +206,7 @@ const Sidebar = ()=> {
             color={colors['Blue']}
             active={option == 'masrecursos'}
             onClick={()=>{
+                setItem(()=>Inicio)
                 option == 'masrecursos' ? setOption('') : setOption('masrecursos');
             }}
             Icon={Hat}
@@ -228,20 +217,6 @@ const Sidebar = ()=> {
         {/* Switch for appointments */}
         <div className="flex flex-col w-full items-center justify-center pl-4">
             {/* {optionDisplay()} */}
-        </div>
-
-        <div className="mt-auto p-4">
-            {/* 
-                Link to ...
-            */}
-            <Link className="
-                w-full py-3 bg-primary text-white rounded-xl border border-blue-400 bg-blue-950
-                font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 flex items-center justify-center gap-2
-                hover:scale-90 hover:text-blue-300
-            "
-            href={'www.google.com'}>
-            SOLICITAR APOYO
-            </Link>
         </div>
         { error && <ErrorMessage message={error}/> }
     </aside>

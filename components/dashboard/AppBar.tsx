@@ -13,7 +13,7 @@ export const AppBar = () => {
   return (
     <>
       {/* Fixed AppBar */}
-      <div className="fixed bottom-10 right-10 z-40">
+      <div className="fixed bottom-10 left-10 z-40">
         <div className="relative flex flex-row items-end gap-x-2 p-2">
           {/* ChatGPT Button */}
           <div className="relative">
