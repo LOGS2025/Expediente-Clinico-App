@@ -75,12 +75,12 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
              */
             if ( data.code == 'PGRST116') 
             {
-                console.log("User doesnt exist");
                 const name = displayName?.split(' ');
                 if ( !name ) throw new Error("No name was given by firebase, possible error");
-                console.log(name);
                 const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid, photourl: photoURL })
-                if ( !res ) throw new Error("User wasn't able to be created!");
+                if ( !res ) {
+                    throw new Error("User wasn't able to be created!");
+                };
                 
                 user_build = {
                     nombre: name[0],
@@ -109,7 +109,6 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
              * Now that the user does exist, look for him on other tables.
              */
             const roleJoinsData : any = await getUserRole(uid);
-            console.log(roleJoinsData);
 
             if ( roleJoinsData.supervisor )
                 set({ role: 'supervisor' });
@@ -120,7 +119,6 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             else 
                 set({ role: 'indefinido' });
 
-            console.log(`Logged user in as ${get().role}`)
             set({   loggedIn: true,
                     user: user_build
                 });
@@ -132,7 +130,6 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
 
     logout: () => {
         set({loggedIn: false})
-        console.log("Set logged in as false");
     },
 
     setCookie: ( cookie: string ) => {

@@ -127,16 +127,19 @@ export async function getUserRole(user_id: string) {
 }
 
 export async function createUser( {nombre, apellido_p, apellido_m, uuid, photourl} : User ) {
+    if ( !nombre || !apellido_m || !apellido_p || !uuid || !photourl ){
+        return null;
+    }
     try {
     const response = await fetch(`/api/supabase/user/createUser`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json',
         },
-            body: JSON.stringify({nombre, apellido_p, apellido_m, uuid, photourl})
+        body: JSON.stringify({nombre, apellido_p, apellido_m, uuid, photourl})
     });
     if (!response.ok) {
-        console.error("Response not OK:", response.status);
+        console.error("Response not OK:", response.status, response);
         return null;
     }
     const res = await response.json();

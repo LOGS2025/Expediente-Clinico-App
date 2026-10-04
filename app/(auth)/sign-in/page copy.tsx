@@ -62,40 +62,92 @@ const SignIn = ()=> {
     }
   }
 
+  /**
+   * Copiado del inicio de sesion del departamento de salud digital.
+   * Se abandono el inicio de sesion con google para poder crear
+   * pruebas con facilidad y monitorearlas por el momento.
+   */
   return (
     <div
-    className="w-auto h-dvh flex flex-col bg-[url('@/assets/FacMedVista1.png')]
-    bg-cover bg-no-repeat
+    className="w-auto h-dvh flex flex-col justify-center bg-[url('@/assets/FacMedVista1.png')]
+    bg-cover bg-no-repeat text-[rgba(15,108,191,1)]
         ">
-        <article className="fixed inset-0 flex flex-col p-7 transition duration-300">
-        <div className="flex grow items-center justify-center">
-            <div className="flex w-full flex-col gap-5 sm:w-96">
-              <header className='w-full flex justify-center'>
-                <Image 
-                  src={SaludLogo}
-                  alt='Logo de salud digital'
-                  width={300}
-                />
-              </header>
-              <h2 className="text-center text-2xl font-bold">
-                  Inicia sesion<br/> o <br/> registrate
-              </h2>
-              <div className="flex flex-col gap-5">
-                  { !loading && btn_log_in() }
-                  { loggedIn && !loading &&
-                    <button
-                        className="z-30 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-900 transition 
-                        hover:bg-gray-50 hover:brightness-90"
-                        onClick={()=>logout()}>
-                        <Image width={20} height={20} src={logoutSVG.src} alt="logout icon as door with exit arrow" className="h-5 w-5" /> Cerrar sesion
-                    </button>
-                  }
-                  <div className='flex justify-center'>
-                  { loading && <Loader/>}
-                  </div>
-              </div>
-            </div>
-        </div>
+        <article className="
+        flex flex-col p-7 transition duration-300 
+        bg-white
+        rounded-3xl
+        self-center
+        justify-center
+        text-center
+        max-w-[30%]
+        w-fit
+        shadow-xl/90
+        ">
+          <header className='w-full flex justify-center'>
+            <Image 
+              src={SaludLogo}
+              alt='Logo de salud digital'
+              width={300}
+            />
+          </header>
+
+          <div className='self-start w-full text-black'>
+            <input 
+            className='border rounded-[0.6rem] w-[90%] mt-10 p-1 h-13 
+            text-[1.17rem] text-[1D2125]
+            '
+            type="text"
+            placeholder='Usuario' 
+            />
+          </div>
+
+          <div className='self-start w-full text-black'>
+            <input 
+            className='border rounded-[0.6rem] w-[90%] mt-10 p-1 h-13 
+            text-[1.17rem] text-[1D2125]
+            '
+            type="text"
+            placeholder='Contrasena' 
+            />
+            <input 
+            type="password" />
+          </div>
+
+          <button 
+          onClick={()=>{
+            router.push('/');
+          }}
+          className='
+          bg-[#0F6CBF] text-white text-xl 
+          rounded-2xl 
+          w-fit h-fit 
+          p-3 m-3
+          hover:bg-[#2d8bde]
+          '>
+            Iniciar sesion
+          </button>
+          <span className='
+          hover:underline
+          '>
+            Olvidaste la contrasena?
+          </span>
+
+
+        <div className='border border-[#DEE2E6] mt-6 mb-6'></div>
+
+
+          <div className='flex flex-col'>
+          </div>
+          <div className='flex flex-row flex-wrap gap-7'>
+            <button className='
+            bg-[#CED4DA] text-black hover:bg-[#D5DAE0]
+              p-4 rounded-2xl
+            '>
+              Aviso de cookies
+            </button>
+          </div>
+
+
         </article>
     </div>
   )

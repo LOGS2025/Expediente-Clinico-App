@@ -15,7 +15,7 @@ const RootLayout = ({ children }: Readonly<{children: ReactNode}>) => {
       </div>
       
       <div className="w-full flex flex-row justify-start">
-        <section className='w-full z-0'>
+        <section className='w-full z-0 mr-15'>
           <div className="w-full">{children}</div>
         </section>
       </div>

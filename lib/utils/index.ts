@@ -1,5 +1,5 @@
 import { Side, Top } from "@/lib/utils/barItems";
-import { TeletriageImage } from "@/assets/images";
+import { TeletriageIcon, TeletriageImage } from "@/assets/images";
 
 export type SIDEBAR_ITEM = {
   name: Side;
@@ -52,7 +52,7 @@ export const useMainItems = () => {
     }, {
       name: "TeleTriage", // Before consult
       url: '',
-      icon: TeletriageImage,
+      icon: TeletriageIcon,
     }, {
       name: "Lista de Cotejo APCs", // Check as pdf's
       url: '',
