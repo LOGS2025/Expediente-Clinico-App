@@ -59,7 +59,7 @@ const Sidebar = ()=> {
                 option == 'create' ? setOption('') : setOption('create');
             }} 
             text="Crear consulta"
-            Icon={Calendar}
+            Icon={AddPersonSVG}
             />
             <ButtonSideBar
             color={colors['Green']}
@@ -69,7 +69,7 @@ const Sidebar = ()=> {
                 option == 'consults' ? setOption('') : setOption('consults');
             }} 
             text="Ver Consultas"
-            Icon={AddPersonSVG}
+            Icon={Calendar}
             />
             <ButtonSideBar
             color={colors['Blue']}

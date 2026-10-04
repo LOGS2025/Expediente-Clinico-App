@@ -1,4 +1,4 @@
-import { logo_without_bg, FacmedLogo, SaludDigitalLogo } from "@/assets/images"
+import { logo_without_bg, FacmedLogo, UNAM_SaludLogo } from "@/assets/images"
 import Link from "next/link"
 
 export const Footer = () => {
@@ -47,7 +47,7 @@ export const Footer = () => {
             </section>
 
             <section className="flex flex-row w-full justify-center p-9 gap-5">
-                <img src={SaludDigitalLogo.src} 
+                <img src={UNAM_SaludLogo.src} 
                 className=" w-auto h-full object-contain left-0" 
                 alt="Logo Facultad de Medicina" 
                 />

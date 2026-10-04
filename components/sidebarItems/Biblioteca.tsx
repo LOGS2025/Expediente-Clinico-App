@@ -9,16 +9,41 @@ export const Biblioteca = ()=>{
 
 
     return (
-                <div className="
-        
-        ">
-        <div className="flex flex-col p-2 text-4xl text-center w-full">
-            <h2 className="font-['Manrope'] font-bold text-blue-900" >
-                Biblioteca</h2>
-            <p className="text-2xl text-slate-500" >
-                Recursos de teleaprendizaje</p>
+        <div className="p-10">
+        <div className="flex flex-col items-center text-center w-full mb-8">
+            <div
+            className="w-20 h-1 rounded-full mb-4"
+            style={{ backgroundColor: '#C49A2E' }}
+            />
+
+            <h2
+            className="font-['Manrope'] font-bold text-4xl"
+            style={{ color: '#002D72' }}
+            >
+            Biblioteca
+            </h2>
+
+            <p
+            className="text-xl mt-2 font-medium tracking-wide"
+            style={{ color: '#685652' }}
+            >
+            Recursos de teleaprendizaje
+            </p>
+
+            <div
+            className="w-20 h-1 rounded-full mt-4"
+            style={{ backgroundColor: '#C49A2E' }}
+            />
         </div>
-        <section className="flex flex-row flex-wrap gap-16 w-full p-5 text-blue-950">
+
+        <section
+            className="
+            grid grid-cols-3 gap-6
+            max-w-4xl mx-auto
+            place-items-center
+            text-blue-950
+            "
+        >
             {sidebarItems.map((item)=>{
                 return (
                 <div
