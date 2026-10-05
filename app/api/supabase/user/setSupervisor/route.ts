@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
   try {
     const body = await request.json();
     
-    if (!body.nombre || (!body.apellido_p && !body.apellido_m) || !body.uuid) {
+    if (!body.uuid) {
       return NextResponse.json({
         success: false,
         error: 'Missing required fields'
@@ -19,13 +19,9 @@ import { NextRequest, NextResponse } from "next/server";
 
     // Insert into Supabase
     const { data, error } = await supabase
-      .from("usuarios")
+      .from("supervisores")
       .insert({
-        nombre : body.nombre,
-        apellido_p : body.apellido_p ? body.apellido_p : "___",
-        apellido_m : body.apellido_m ? body.apellido_m : "___",
-        photourl : body.photourl || null,
-        uuid : body.uuid
+        fk_supervisor_user_id : body.uuid
       })
       .select()
     if (error) {
