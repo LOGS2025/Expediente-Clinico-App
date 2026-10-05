@@ -12,7 +12,7 @@ export async function getAppointmentList() {
         const response = await fetch('/api/supabase/appointment/getAppointmentList');
         
         if (!response.ok) {
-            console.error("Response not OK:", response.status);
+            console.error("Response not OK:", response.status, response);
             return null;
         }
         const res = await response.json();
@@ -32,19 +32,19 @@ export async function modifyAppointmentWithId() {}
 
 export async function createAppointment( appointmentData : AppointmentToSupabase) {
     try {
-    const response = await fetch(`/api/supabase/appointment/createAppointment`, {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-            body: JSON.stringify(appointmentData)
-    });
-    if (!response.ok) {
-        console.error("Response not OK:", response.status);
-        return null;
-    }
-    const res = await response.json();
-    console.log(res);
+        const response = await fetch(`/api/supabase/appointment/createAppointment`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+                body: JSON.stringify(appointmentData)
+        });
+        if (!response.ok) {
+            console.error("Response not OK:", response.status, response);
+            return null;
+        }
+        const res = await response.json();
+        console.log(res);
         if (res.success) {
             return res.data;
         } else {

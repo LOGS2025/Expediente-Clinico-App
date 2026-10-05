@@ -148,7 +148,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
 
     getName: ()=> {
         const user = get().user;
-        if ( user?.uuid ) return user.uuid;
+        if ( user?.nombre ) return `${user.nombre} ${user.apellido_p} ${user.apellido_m}`;
         else return '';
     },
 

@@ -7,7 +7,7 @@ import { getAppointmentList } from "@/lib/supabase/appointments";
 import { useEffect, useState } from "react";
 import { useVideoCall } from "@/lib/hooks/useVideoCall";
 import { useRouter } from "next/navigation";
-import LoadingScreen from "@/components/ui/LoadingScreen";
+import { LoaderCloud } from "@/components/ui/LoaderCloud";
 
 
 const AppointmentsPanel = () => {
@@ -74,11 +74,13 @@ const AppointmentsPanel = () => {
 
   if ( !appointments ) {
     return (
-      <LoadingScreen/>
+      <div className="">
+        <LoaderCloud/>
+      </div>
     )
   } 
   return (
-    <div className="text-gray-500 text-sm h-full w-full overflow-y-auto">
+    <div className="text-gray-500 text-sm min-h-[500px] w-full overflow-y-auto">
 
       {appointments.length < 1 ? (
         <div className="text-center py-8 text-gray-500">

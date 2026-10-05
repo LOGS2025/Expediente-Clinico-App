@@ -10,6 +10,7 @@ import { Biblioteca } from "../sidebarItems/Biblioteca";
 import { Inicio } from "./PapimeMsg";
 import AppointmentForm from "../sidebarItems/appointment/AppointmentForm";
 import AppointmentsPanel from "../sidebarItems/appointment/AppointmentPanel";
+import { Management } from "../sidebarItems/Management";
 
 type colorTupple = {
     pale : string;
@@ -49,7 +50,6 @@ const Sidebar = ()=> {
       `}
         style={{ width: `${widthSidebar}px` }}
     >
-        {/* Display for appointments */}
         <div className="flex flex-col w-fit gap-1 ">
             <ButtonSideBar
             color={colors['Blue']} 
@@ -70,6 +70,16 @@ const Sidebar = ()=> {
             }} 
             text="Ver Consultas"
             Icon={Calendar}
+            />
+            <ButtonSideBar
+            color={colors['Purple']}
+            active={option == 'permisos'}
+            onClick={()=>{
+                setItem(()=>Management)
+                option == 'permisos' ? setOption('') : setOption('permisos');
+            }} 
+            text="Permisos"
+            Icon={PeopleSVG}
             />
             <ButtonSideBar
             color={colors['Blue']}
