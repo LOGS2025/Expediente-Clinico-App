@@ -112,8 +112,6 @@ export async function getUserRole(user_id: string) {
             return null;
         }
         const res = await response.json();
-        console.log(res);
-
         if (res.ok) {
             return res.data;
         } else {
@@ -125,6 +123,35 @@ export async function getUserRole(user_id: string) {
         return null;
     }
 }
+
+export async function resetUserRoles(uuid : string) {
+    if ( !uuid ) return null;
+    try {
+    const response = await fetch(`/api/supabase/user/setResetRoles`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({uuid})
+    });
+    if (!response.ok) {
+        console.error("Response not OK:", response.status, response);
+        return null;
+    }
+    const res = await response.json();
+    console.log(res);
+        if (res.success) {
+            return res.data;
+        } else {
+            console.error("API returned error:", res.mensaje);
+            return null;
+        }
+    } catch (error) {
+        console.error("Could not retrieve the information from Supabase: ", error);
+        return null;
+    }    
+}
+
 
 export async function setPatient(uuid : string) {
     if ( !uuid ) return null;
@@ -153,6 +180,7 @@ export async function setPatient(uuid : string) {
         return null;
     }    
 }
+
 export async function setTelemedic(uuid : string) {
     if ( !uuid ) return null;
     try {
@@ -180,6 +208,7 @@ export async function setTelemedic(uuid : string) {
         return null;
     }    
 }
+
 export async function setSupervisor(uuid : string) {
     if ( !uuid ) return null;
     try {

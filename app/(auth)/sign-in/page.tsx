@@ -12,6 +12,7 @@ import { ComponentProps, useEffect, useState } from 'react';
 
 import './page.css'
 import { LoaderCloud } from '@/components/ui/LoaderCloud';
+import ErrorMessage from '@/components/ui/Error';
 
 /*
  *  Should only expect an email and a password assuing the account creation 
@@ -26,21 +27,27 @@ const SignIn = ()=> {
 
     const router = useRouter();
     const login = useBoundStore((state) => state.login);
-    const error = useBoundStore((state) => state.error);
+    //const error = useBoundStore((state) => state.error);
     const userState = useBoundStore((state)=>state);
 
-    const [ loading, setLoading ] = useState<boolean>(false);
+    const [ signingIn, setSigningIn ] = useState<boolean>(false);
+    const [ error, setError ] = useState<string>('');
+
+    useEffect(()=>{
+      if ( loggedIn && signingIn ) {
+        setSigningIn(false)
+      }
+    },[loggedIn,signingIn])
 
     async function googleSignIn() {
-        setLoading(true);
-        const res = await handleGoogleSignIn({
-        auth: auth, 
-        googleProvider: googleProvider,
-        login
-        })
-        if ( !loggedIn ) {
-          setLoading(false);
-        }
+      setSigningIn(true);
+      setError('');
+      try {
+        const res = await handleGoogleSignIn({ auth: auth,  googleProvider: googleProvider, login, setLoading: setSigningIn, setError: setError });
+      } catch ( err ) {
+        setSigningIn(false);
+        setError(err instanceof Error ? err.message : 'Error al iniciar sesion');
+      }
     }
 
   function btn_log_in() {
@@ -56,7 +63,9 @@ const SignIn = ()=> {
       return (
       <button
           className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-600 transition hover:bg-gray-50 hover:brightness-90"
-          onClick={googleSignIn}>
+          onClick={async ()=>{
+            googleSignIn();
+            }}>
           <GoogleLogoSvg className="h-5 w-5" /> Google
         </button>
       )
@@ -68,6 +77,10 @@ const SignIn = ()=> {
     className="w-auto h-dvh flex flex-col bg-[url('@/assets/FacMedVista1.png')]
     bg-cover bg-no-repeat
         ">
+        { error && (
+          <ErrorMessage message={error} />
+        )}
+        
         <article className="fixed inset-0 flex flex-col p-7 transition duration-300">
         <div className="flex grow items-center justify-center">
             <div className="flex w-full flex-col gap-5 sm:w-96">
@@ -82,8 +95,9 @@ const SignIn = ()=> {
                   Inicia sesion<br/> o <br/> registrate
               </h2>
               <div className="flex flex-col gap-5">
-                  { !loading && btn_log_in() }
-                  { loggedIn && !loading &&
+
+                  { !signingIn && btn_log_in() }
+                  { loggedIn &&
                     <button
                         className="z-30 flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-b-4 bg-white border-gray-200 py-3 font-bold text-blue-900 transition 
                         hover:bg-gray-50 hover:brightness-90"
@@ -92,7 +106,8 @@ const SignIn = ()=> {
                     </button>
                   }
                   <div className='flex justify-center'>
-                  { loading && <LoaderCloud/>}
+
+                  { signingIn && <LoaderCloud/>}
                   </div>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { Auth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { FirebaseLogin } from '../models/FirebaseLogin';
+import { SetStateAction } from 'react';
 
 
 export const sendLogIntoFirebaseDB = async ({
@@ -29,9 +30,13 @@ export const handleGoogleSignIn = async ({
   auth,
   googleProvider,
   login,
+  setLoading,
+  setError,
 } : {
     auth : Auth;
     googleProvider : GoogleAuthProvider;
+    setLoading : React.Dispatch<SetStateAction<boolean>>;
+    setError : React.Dispatch<SetStateAction<string>>;
     login : ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => void;
   }) => {
   try {
@@ -49,10 +54,12 @@ export const handleGoogleSignIn = async ({
             token: idToken,
             uid: user.uid })
 
-    sendLogIntoFirebaseDB({auth, firestore})
-
+    sendLogIntoFirebaseDB({auth, firestore});
+    
   } catch (error) {
     console.error("Google sign-in error:", error);
+    setLoading(false);
+    setError(String(error));
   }
 } 
 
