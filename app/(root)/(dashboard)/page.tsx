@@ -6,11 +6,13 @@ import { ComponentType, useEffect, useState } from "react";
 const Home = ()=> {
     // Also use user to display the account
     const user = useBoundStore((state)=>state.user);
+    const resetCallStatus = useBoundStore((state)=>state.resetCall)
     const getDashboard = useBoundStore((state)=>state.getDashboard)
     const [Dashboard, setDashboard] = useState<ComponentType | null >(null);
 
     useEffect(()=>{
         if ( user ) {
+            resetCallStatus();
             const Component = getDashboard();
             setDashboard(() => Component);
         }

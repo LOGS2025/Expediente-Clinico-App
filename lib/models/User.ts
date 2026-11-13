@@ -6,6 +6,7 @@ export interface User {
     apellido_p : string;
     apellido_m : string;
     photourl : string;
+    active_u : boolean;
 }
 
 export interface Participant {

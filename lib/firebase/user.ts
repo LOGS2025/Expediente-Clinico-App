@@ -50,7 +50,7 @@ export const handleGoogleSignIn = async ({
 
     login({ email: user.email,
             displayName: user.displayName,
-            photoURL: user.photoURL ? user.photoURL : '',
+            photoURL: user.photoURL ? user.photoURL : 'https://imgs.search.brave.com/g0pAUjP-tfzsn-S4w-odkaCPkbJxLg349KSIRJ9HOXo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kaS5m/YWNtZWQudW5hbS5t/eC9pbWcvRmFjTWVk/X0JDTy5wbmc',
             token: idToken,
             uid: user.uid })
 

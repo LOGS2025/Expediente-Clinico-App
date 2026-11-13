@@ -103,6 +103,63 @@ export async function getUserWithID(user_id: string) {
         return null;
     }
 }
+
+export async function deactivateUser(uuid: string) {
+    if ( !uuid ) return null;
+    try {
+    const response = await fetch(`/api/supabase/user/deactivateUser`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({uuid})
+    });
+    if (!response.ok) {
+        console.error("Response not OK:", response.status, response);
+        return null;
+    }
+    const res = await response.json();
+    console.log(res);
+        if (res.success) {
+            return res.data;
+        } else {
+            console.error("API returned error:", res.mensaje);
+            return null;
+        }
+    } catch (error) {
+        console.error("Could not retrieve the information from Supabase: ", error);
+        return null;
+    }    
+}
+
+export async function reactivateUser(uuid: string) {
+    if ( !uuid ) return null;
+    try {
+    const response = await fetch(`/api/supabase/user/reactivateUser`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({uuid})
+    });
+    if (!response.ok) {
+        console.error("Response not OK:", response.status, response);
+        return null;
+    }
+    const res = await response.json();
+    console.log(res);
+        if (res.success) {
+            return res.data;
+        } else {
+            console.error("API returned error:", res.mensaje);
+            return null;
+        }
+    } catch (error) {
+        console.error("Could not retrieve the information from Supabase: ", error);
+        return null;
+    }    
+}
+
 export async function getUserRole(user_id: string) {
     try {
         const response = await fetch(`/api/supabase/user/getRole?user_id=${user_id}`);
@@ -237,7 +294,7 @@ export async function setSupervisor(uuid : string) {
     }    
 }
 
-export async function createUser( {nombre, apellido_p, apellido_m, uuid, photourl} : User ) {
+export async function createUser( {nombre, apellido_p, apellido_m, uuid, photourl, active_u} : User ) {
     if ( !nombre || !apellido_m || !apellido_p || !uuid || !photourl ){
         return null;
     }

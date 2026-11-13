@@ -1,7 +1,7 @@
 //import dayjs from "dayjs";
 import type { BoundStateCreator } from "@/lib/hooks/useBoundStore";
 //import Cookies from 'js-cookie'
-import { UserSlice } from "../slices/userSlice";
+import { UserSlice, CallStatus } from "../slices/userSlice";
 import DoctorDashboardLayout from "@/components/dashboard/user/DoctorDashboard";
 import SupervisorDashboardLayout from "@/components/dashboard/user/SupervisorDashboard";
 import PatientDashboardLayout from "@/components/dashboard/user/PatientDashboard";
@@ -48,12 +48,17 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     loggedIn: false,
     cookieToken: null,
     role: 'indefinido',
+    callStatus: 'idle',
+
 
     displayName: '',
     photoURL: '',
     uid: '',
     token: '',
     email: '',
+
+    has_call: false,
+    has_client: false,
 
 
     login: async ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => {
@@ -77,7 +82,7 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
             {
                 const name = displayName?.split(' ');
                 if ( !name ) throw new Error("No name was given by firebase, possible error");
-                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid, photourl: photoURL })
+                const res = await createUser({ nombre: name[0], apellido_p: name[1], apellido_m: name[2], uuid:uid, photourl: photoURL, active_u: true })
                 if ( !res ) {
                     throw new Error("User wasn't able to be created!");
                 };
@@ -87,7 +92,8 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                     apellido_p: name[1],
                     apellido_m: name[2],
                     uuid: uid,
-                    photourl: photoURL
+                    photourl: photoURL,
+                    active_u: true
                 }
                 
             }
@@ -101,7 +107,8 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
                     apellido_p: data.apellido_p,
                     apellido_m: data.apellido_m,
                     uuid: data.uuid,
-                    photourl: photoURL
+                    photourl: photoURL,
+                    active_u: true // check from data, do not trust TODO
                 }
             }
             if ( !user_build ) throw new Error("User object couldn't be built");
@@ -155,7 +162,52 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     getDashboard: ()=> {
         const role = get().role;
         return layoutMap[role];
+    },
+
+    setJoined : (status : boolean)=> {
+        set({has_call : status});
+    },
+    
+    setHasClient: (status : boolean)=> {
+        set({has_client : status});
+    },
+
+    setCallStatus: (status) => set({ callStatus: status }),
+
+    resetCall: () => set({ callStatus: 'idle', error: 'None' }),
+
+    markLoading: () => {
+    const s = get().callStatus;
+    if (s === 'idle' || s === 'left' || s === 'error') {
+    set({ callStatus: 'loading', error: 'None' });
     }
+    },
+
+    markReady: () => {
+    if (get().callStatus === 'loading') set({ callStatus: 'ready' });
+    },
+
+    markJoining: () => {
+    if (get().callStatus === 'ready') set({ callStatus: 'joining' });
+    },
+
+    markJoined: () => {
+    if (get().callStatus === 'joining') set({ callStatus: 'joined' });
+    },
+
+    markLeaving: () => {
+    const s = get().callStatus;
+    if (s === 'joined' || s === 'joining') set({ callStatus: 'leaving' });
+    },
+
+    markLeft: () => {
+    if (get().callStatus === 'leaving') set({ callStatus: 'left' });
+    },
+
+    markError: (message: string) => {
+    set({ callStatus: 'error', error: message });
+    },
+
 })
 
 

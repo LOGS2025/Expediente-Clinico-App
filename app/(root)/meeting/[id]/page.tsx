@@ -8,6 +8,7 @@ import { StreamCall, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { UIVideoLayout } from "@/components/video/VideoMeetingLayout";
 import Lobby from "@/components/video/VideoLobby";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
+import ErrorMessage from "@/components/ui/Error";
 
 export default function MeetingPage() {
   const router = useRouter();
@@ -27,6 +28,11 @@ export default function MeetingPage() {
 
   // const { setItem } = useLayout();
 
+  useEffect(()=>{
+        console.log("Joined state :", joined);
+    console.log("Error state :", error);
+    console.log("Joining state :", joining);
+  },[])
 
   useEffect(()=>{
     const callid = callStore.getCallId();
@@ -43,16 +49,16 @@ export default function MeetingPage() {
         const streamCall = client.call("default", callid);
         // Check if call exists, create if not with members
         await streamCall.getOrCreate({
-          data: {
-            members: [
-              { user_id: participants.supervisor_uuid, role: "admin" },
-              { user_id: participants.telemedic_uuid, role: "user" },
-              { user_id: participants.patient_uuid, role: "user" },
-            ],
-            custom: {
-              appointment_duration: 7200,
-            },
-          },
+          // data: {
+          //   members: [
+          //     { user_id: participants.supervisor_uuid, role: "admin" },
+          //     { user_id: participants.telemedic_uuid, role: "user" },
+          //     { user_id: participants.patient_uuid, role: "user" },
+          //   ],
+          //   custom: {
+          //     appointment_duration: 7200,
+          //   },
+          // },
         });
         setCall(streamCall);
       } catch (err) {
@@ -79,12 +85,13 @@ export default function MeetingPage() {
   };
 
   // If client not ready or call not initialized, show loading
-  if (!client || !call) {
+  if (!client) {
     return (
-      <div className="text-center text-black align-middle">
-        <span>{ !client ? "No Client" : "No Call"}</span><br />
-      </div>
-  );
+    <ErrorMessage message={"No client was found"}/>);
+  } else if (!call) {
+    return (
+      <ErrorMessage message={"Call wasn't able to be instantiated"}/>
+    )
   }
 
   return (
