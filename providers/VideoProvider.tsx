@@ -22,7 +22,6 @@ export default function VideoProvider({ children }: PropsWithChildren) {
           setLoading(false);
           return;
         }
-
         // Fetch token
         const res = await fetch("/api/calls/generate-token", {
           method: "POST",
@@ -44,14 +43,12 @@ export default function VideoProvider({ children }: PropsWithChildren) {
           image: userData.photoURL || undefined,
         };
 
-        const videoClient = new StreamVideoClient({
-          apiKey: apiKey,
-          user: user,
-          token: data.token,
-        });
-
         if (isMounted) {
-          setClient(videoClient);
+          /**
+           * getOrCreateInstance added 12/11/2026 as api requests. Before a new client was 
+           * tried to be created every time.
+           */
+          setClient(StreamVideoClient.getOrCreateInstance({apiKey: apiKey, user: user , token: data.token}))
           setLoading(false);
         }
       } catch (error) {
@@ -72,10 +69,12 @@ export default function VideoProvider({ children }: PropsWithChildren) {
   }, [userData]);
 
   if (loading) {
+    console.log("Loading video client from VideoProvider.tsx")
     return <div>Loading video client...</div>;
   }
-
+  
   if (!client) {
+    console.log("Video client failed to load from VideoProvider.tsx")
     return <div>Video client not available</div>;
   }
 
