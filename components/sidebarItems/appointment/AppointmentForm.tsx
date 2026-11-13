@@ -13,6 +13,7 @@ import { useBoundStore } from '@/lib/hooks/useBoundStore';
 import { AddPersonSVG, PeopleSVG, TrashcanSVG } from '@/assets/svg-store';
 import { LoaderCloud } from '@/components/ui/LoaderCloud';
 import Image from 'next/image';
+import OutcomeMessage from '@/components/ui/Success';
 
 interface AppointmentFormProps {
   onSuccess?: () => void;
@@ -51,6 +52,7 @@ export const AppointmentForm = ({ onSuccess, onCancel }: AppointmentFormProps) =
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [outcome, setOutcome] = useState<string>('');
   const userState = useBoundStore((state) => state);
 
   const [patientList, setPatientList] = useState<Participant[] | null>(null);
@@ -122,6 +124,7 @@ export const AppointmentForm = ({ onSuccess, onCancel }: AppointmentFormProps) =
       console.log(response);
 
       router.refresh();
+      setOutcome('Se formo la pareja correctamente');
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Error al crear la consulta');
     } finally {
@@ -191,6 +194,9 @@ export const AppointmentForm = ({ onSuccess, onCancel }: AppointmentFormProps) =
 
         <div className="flex flex-col gap-6">
           {activeList.map((person) => {
+            if ( !person.usuario.active_u ) {
+              return (<></>);
+            }
             const isSelected = showPatients
               ? selAsPacient?.usuario.uuid === person.usuario.uuid
               : selAsDoctor?.usuario.uuid === person.usuario.uuid;
@@ -255,6 +261,7 @@ export const AppointmentForm = ({ onSuccess, onCancel }: AppointmentFormProps) =
       </div>
 
       {error && <ErrorMessage message={error} />}
+      {outcome && <OutcomeMessage message={outcome}/>}
     </div>
   );
 };

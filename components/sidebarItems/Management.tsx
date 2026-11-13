@@ -2,12 +2,13 @@
 'use client';
 
 import { User } from '@/lib/models/User';
-import { getUserList, getUserRole, setPatient, setSupervisor, setTelemedic } from '@/lib/supabase/users';
+import { deactivateUser, getUserList, getUserRole, reactivateUser, resetUserRoles, setPatient, setSupervisor, setTelemedic } from '@/lib/supabase/users';
 import { useEffect, useMemo, useState } from 'react';
 import { LoaderCloud } from '../ui/LoaderCloud';
 import ErrorMessage from '@/components/ui/Error';
 
 import { AddPersonSVG, TrashcanSVG, CheckList } from '@/assets/svg-store';
+import OutcomeMessage from '../ui/Success';
 
 type Role = 'paciente' | 'telemedico' | 'supervisor';
 
@@ -49,6 +50,7 @@ export const Management = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [selUser, setSelUser] = useState<User | null>(null);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+  const [outcome, setOutcome] = useState<string>('');
 
   const [currentRole, setCurrentRole] = useState<string[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -80,7 +82,8 @@ export const Management = () => {
       setCurrentRole(rol);
     }
     getUserData();
-  }, [selUser]);
+    setOutcome('');
+  }, [selUser, outcome]);
 
   const filteredUsers = useMemo(() => {
     if (!users) return [];
@@ -120,6 +123,8 @@ export const Management = () => {
         }
       if (!result) throw new Error('No se pudo asignar el rol');
 
+      setOutcome('Se asigno el rol correctamente');
+
       setCurrentRole(null);
       setSelectedRole(null);
     } catch (err) {
@@ -134,6 +139,33 @@ export const Management = () => {
     setSelectedRole(null);
     setError(null);
   };
+
+  const handleRoleReset = async () => {
+    if ( selUser?.uuid ){
+      const res = await resetUserRoles(selUser.uuid);
+      if ( res.success ) {
+        setOutcome('Se reiniciaron los roles correctamente');
+      }
+    }
+  }
+
+  const handleDeactivateUser = async ()=>{
+    if ( selUser?.uuid ) {
+      const res = await deactivateUser(selUser.uuid);
+      if (!res[0].active_u) {
+        setOutcome('Se actualizo exitosamente la base de datos');
+      }
+    }
+  }
+
+  const handleReactivateUser = async ()=>{
+    if ( selUser?.uuid ) {
+      const res = await reactivateUser(selUser.uuid);
+      if (res[0].active_u) {
+        setOutcome('Se actualizo exitosamente la base de datos');
+      }
+    }
+  }
 
   if (loading) return <LoaderCloud />;
 
@@ -158,17 +190,31 @@ export const Management = () => {
         ))}
 
         <RoleButton
-          text="Confirmar"
-          colors="#002E6D"
-          SVG={CheckList}
-          onClick={handleAssign}
-        />
-
-        <RoleButton
           text="Eliminar selección"
           colors="#DE9AF8"
           SVG={TrashcanSVG}
           onClick={handleReset}
+        />
+
+        <RoleButton
+          text="Reiniciar roles"
+          colors="#DE9AF8"
+          SVG={TrashcanSVG}
+          onClick={handleRoleReset}
+        />
+
+        <RoleButton
+          text="Eliminar usuario"
+          colors="#DE9AF8"
+          SVG={TrashcanSVG}
+          onClick={handleDeactivateUser}
+        />
+
+        <RoleButton
+          text="Reactivar usuario"
+          colors="#DE9AF8"
+          SVG={AddPersonSVG}
+          onClick={handleReactivateUser}
         />
       </div>
 
@@ -241,11 +287,14 @@ export const Management = () => {
                 alt=""
                 className="w-10 h-10 object-cover shrink-0 bg-slate-200"
               />
-              <span>
-                {selUser
-                  ? `${selUser.nombre} ${selUser.apellido_p} ${selUser.apellido_m ?? ''}`
-                  : '—'}
-              </span>
+              <div className='flex flex-col'>
+                <span>
+                  {selUser
+                    ? `${selUser.nombre} ${selUser.apellido_p} ${selUser.apellido_m ?? ''}`
+                    : '—'}
+                </span>
+                <span>{selUser?.active_u ? 'Usuario registrado' : 'Usuario desactivado'}</span>
+              </div>
             </div>
           </div>
 
@@ -283,6 +332,7 @@ export const Management = () => {
       </div>
 
       {error && <ErrorMessage message={error} />}
+      {outcome && <OutcomeMessage message={outcome} />}
     </div>
   );
 };
