@@ -1,5 +1,6 @@
 import { PropsWithChildren, useEffect } from 'react';
 import {
+  CallingState,
   CancelCallButton,
   combineComparators,
   Comparator,
@@ -24,6 +25,7 @@ import {
   VisibilityState,
 } from '@stream-io/video-react-sdk';
 import { useRouter } from 'next/navigation';
+import { handleLeave } from '@/lib/utils/call-handlers';
 
 
 export const SpeakerView = () => {
@@ -78,8 +80,7 @@ export const SpeakerView = () => {
         {call && (
           <CancelCallButton
             onLeave={() => {
-              call.leave();
-              router.push('/');
+              handleLeave(call, router);
             }}
           />
         )}

@@ -1,4 +1,6 @@
+import { handleLeave } from '@/lib/utils/call-handlers';
 import {
+  CallingState,
   CancelCallButton,
   combineComparators,
   Comparator,
@@ -23,7 +25,7 @@ import {
   VisibilityState,
 } from '@stream-io/video-react-sdk';
 import { useRouter } from 'next/navigation';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 
 
 export const FloatingParticipant = (props: {
@@ -32,6 +34,7 @@ export const FloatingParticipant = (props: {
   const { participant } = props;
   const call = useCall();
   const router = useRouter();
+
   return (
     <div
     className=''
@@ -54,8 +57,7 @@ export const FloatingParticipant = (props: {
         {call && (
           <CancelCallButton
             onLeave={() => {
-              call.leave();
-              router.push('/');
+              handleLeave(call, router);
             }}
           />
         )}

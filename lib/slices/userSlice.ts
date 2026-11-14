@@ -30,9 +30,6 @@ export type UserSlice = {
   token: string;
   email: string;
 
-  has_call : boolean;
-  has_client : boolean;
-
   cookieToken?: string | null;
   
   login: ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => Promise<void>;
@@ -46,9 +43,6 @@ export type UserSlice = {
   getID: ()=> string,
 
   getDashboard: ()=> ComponentType | null;
-
-  setJoined:    (status : boolean)=> void;
-  setHasClient: (status : boolean)=> void;
 
   setCallStatus: (status: CallStatus) => void;
   // optional helpers

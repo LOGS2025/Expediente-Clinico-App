@@ -57,10 +57,6 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
     token: '',
     email: '',
 
-    has_call: false,
-    has_client: false,
-
-
     login: async ({ email, displayName, photoURL, token, uid }:FirebaseLogin) => {
         let user_build : User;
         try {// Save out firebase info
@@ -164,50 +160,24 @@ export const createUserSlice: BoundStateCreator<UserSlice> = (set, get) => ({
         return layoutMap[role];
     },
 
-    setJoined : (status : boolean)=> {
-        set({has_call : status});
-    },
-    
-    setHasClient: (status : boolean)=> {
-        set({has_client : status});
-    },
-
     setCallStatus: (status) => set({ callStatus: status }),
 
     resetCall: () => set({ callStatus: 'idle', error: 'None' }),
 
-    markLoading: () => {
-    const s = get().callStatus;
-    if (s === 'idle' || s === 'left' || s === 'error') {
-    set({ callStatus: 'loading', error: 'None' });
-    }
-    },
+    // if idle, left or error -> loading
+    markLoading: () => { set({ callStatus: 'loading', error: 'None' });},
 
-    markReady: () => {
-    if (get().callStatus === 'loading') set({ callStatus: 'ready' });
-    },
+    markReady: () => { set({ callStatus: 'ready' });},
 
-    markJoining: () => {
-    if (get().callStatus === 'ready') set({ callStatus: 'joining' });
-    },
+    markJoining: () => { set({ callStatus: 'joining' }); },
 
-    markJoined: () => {
-    if (get().callStatus === 'joining') set({ callStatus: 'joined' });
-    },
+    markJoined: () => { set({ callStatus: 'joined' });},
 
-    markLeaving: () => {
-    const s = get().callStatus;
-    if (s === 'joined' || s === 'joining') set({ callStatus: 'leaving' });
-    },
+    markLeaving: () => { set({ callStatus: 'leaving' });},
 
-    markLeft: () => {
-    if (get().callStatus === 'leaving') set({ callStatus: 'left' });
-    },
+    markLeft: () => { set({ callStatus: 'left' });},
 
-    markError: (message: string) => {
-    set({ callStatus: 'error', error: message });
-    },
-
+    markError: (message: string) => { set({ callStatus: 'error', error: message });},
 })
 
 
